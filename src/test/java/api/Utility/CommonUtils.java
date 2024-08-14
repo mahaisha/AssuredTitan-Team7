@@ -2,7 +2,7 @@ package api.Utility;
 
 import java.util.ResourceBundle;
 
-public class commonUtils {
+public class CommonUtils {
 
 
 	public static ResourceBundle endpoints = ResourceBundle.getBundle("endpoint");
