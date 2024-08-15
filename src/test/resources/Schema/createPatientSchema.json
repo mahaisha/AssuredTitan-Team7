@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "patientId": {
+      "type": "integer"
+    },
+    "FirstName": {
+      "type": "string"
+    },
+    "LastName": {
+      "type": "string"
+    },
+    "ContactNumber": {
+      "type": "string",
+      "pattern": "^[0-9]{10}$"
+    },
+    "Email": {
+      "type": "string",
+      "format": "email"
+    },
+    "Allergy": {
+      "type": "string"
+    },
+    "FoodCategory": {
+      "type": "string"
+    },
+    "FileMorbidity": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "T4": {
+            "type": "string"
+          },
+          "TSH": {
+            "type": "string"
+          }
+        },
+        "required": ["T4", "TSH"]
+      }
+    },
+    "FileMorbidityCondition": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "DateOfBirth": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "DieticianId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "patientId",
+    "FirstName",
+    "LastName",
+    "ContactNumber",
+    "Email",
+    "Allergy",
+    "FoodCategory",
+    "FileMorbidity",
+    "FileMorbidityCondition",
+    "DateOfBirth",
+    "DieticianId"
+  ]
+}
