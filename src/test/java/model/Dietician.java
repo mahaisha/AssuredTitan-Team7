@@ -1,10 +1,9 @@
 package model;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Dietician {
+
 	@JsonProperty("Firstname")
 	private String firstName;
 
@@ -135,5 +134,21 @@ public class Dietician {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "Dietician [firstName=" + firstName 
+				+ ", lastName=" + lastName 
+				+ ", email=" + email 
+				+ ", contactNumber=" + contactNumber 
+				+ ", education=" + education 
+				+ ", dateOfBirth=" + dateOfBirth 
+				+ ", hospitalName=" + hospitalName 
+				+ ", hospitalStreet=" + hospitalStreet 
+				+ ", hospitalPincode=" + hospitalPincode
+				+ ", hospitalCity=" + hospitalCity 
+				+ ", id=" + id 
+				+ ", password=" + password + "]";
 	}
 }
