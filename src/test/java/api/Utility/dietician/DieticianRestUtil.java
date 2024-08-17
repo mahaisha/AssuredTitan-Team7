@@ -63,5 +63,4 @@ public class DieticianRestUtil {
 			throw new RuntimeException("Failed to parse DateOfBirth of created Dietician.", e);
 		}
 	}
-
 }

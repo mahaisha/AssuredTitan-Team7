@@ -1,118 +1,160 @@
 package api.StepDefinitions;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
-import api.Utility.ExcelReader;
+import api.Utility.dietician.DieticianExcelReader;
+import api.Utility.dietician.DieticianExcelReader.TestCase;
+import api.Utility.dietician.DieticianRestUtil;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
-import io.restassured.RestAssured;
-import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
+import io.restassured.http.Method;
+import io.restassured.response.ValidatableResponse;
 import model.Dietician;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasKey;
 
 public class DieticianSteps {
 	private static final Logger LOGGER = LogManager.getLogger(DieticianSteps.class);
+	
+	private static final String DIETICIAN_ENDPOINT = "/dietician";
+	private static final String INVALID_ENDPOINT = "/invalid";
+	
+	private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjM4MjgzNzYsImV4cCI6MTcyMzg1NzE3Nn0.7Jc-5uf16_dMw_LgwP2h0D2P5Elgf271JNd2vfz7PGQoyoErEC39TMCnG2QUfxXfR7tFXO9uzEWJ6Ybi2SnOeA";
+	private static final String DIETICIAN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzIzODI4OTA3LCJleHAiOjE3MjM4NTc3MDd9.a6guHIspgbRXmpMV-ILrcvWikMDWR5Nn5Jk9WVDlmbtyelk81cb33u2Fq1oTlT2ra81X6idWu694suvOWT92Sw";
+	private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjM4MjkzOTcsImV4cCI6MTcyMzg1ODE5N30.vJnfsV0FIpJvMGmtMArtOCG8n3JY9zwjcbXbq5pXwfK7uNPsyxSq5615GNL31txOPrPS0igJijEM98zdkrw7JA";
 
-	private static final String BASE_URI = "https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician";
-	private static final String DIETICIAN_BASE_PATH = "/dietician";
-	private static final String API_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjM3Mzg5NDAsImV4cCI6MTcyMzc2Nzc0MH0.k49fIWXYD7O9Ymm-AGZGIgwwI6CMoWdzgcXlXMTG-K-X8TMNER0lhFDrLbmoRac10WFVamRF4bUqtmV4Rdz4fg";
 
-	private static final String EXCEL_FILE_PATH = "src/test/resources/testdata/dietician.xlsx";
-	private static final String EXCEL_SHEET_NAME = "Dietician";
-	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-	private static final SimpleDateFormat DATE_FORMAT_2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+00:00'");
-
-	private ExcelReader excelReader;
-	private String excelFilePath;
-	private String sheetName;
-
+	private DieticianExcelReader excelReader;
+	private DieticianRestUtil restUtil;
+	
 	private Dietician dietician;
+	private ValidatableResponse response;
 
 	public DieticianSteps() {
-		excelReader = new ExcelReader();
-		excelFilePath = EXCEL_FILE_PATH;
-		sheetName = EXCEL_SHEET_NAME;
-
-		RestAssured.baseURI = BASE_URI;
+		excelReader = new DieticianExcelReader();
+		restUtil = new DieticianRestUtil();
 	}
+	
+	
 
-	@Given("App has Admin token")
-	public void app_has_admin_token() {
+	@Given("App has Admin Auth token")
+	public void app_has_admin_auth_token() {
 		// TODO: Integrate with Admin module
 		return;
 	}
 
-	@Given("Excel file has Dietician details")
-	public void excel_file_has_dietician_details() {
-		try {
-			List<Map<String, String>> excelData = excelReader.getData(excelFilePath, sheetName);
-			Map<String, String> row1 = excelData.get(0);
-
-			DATE_FORMAT.parse(row1.get("DateOfBirth"));
-
-			Dietician dietician = new Dietician();
-			dietician.setFirstName(row1.get("Firstname"));
-			dietician.setLastName(row1.get("Lastname"));
-			dietician.setEmail(row1.get("Email"));
-			dietician.setContactNumber(row1.get("ContactNumber"));
-			dietician.setEducation(row1.get("Education"));
-			dietician.setDateOfBirth(row1.get("DateOfBirth"));
-
-			dietician.setHospitalName(row1.get("HospitalName"));
-			dietician.setHospitalStreet(row1.get("HospitalStreet"));
-			dietician.setHospitalCity(row1.get("HospitalCity"));
-			dietician.setHospitalPincode(row1.get("HospitalPincode"));
-
-			this.dietician = dietician;
-		} catch (InvalidFormatException | IOException | ParseException e) {
-			LOGGER.error("Failed to read Excel file.", e);
-			throw new RuntimeException("Failed to read Excel file.", e);
-		}
+	@Given("App has Dietician Auth token")
+	public void app_has_dietician_auth_token() {
+		// TODO: Integrate with Admin module
+		return;
 	}
 
-	@When("Dietician is created")
-	public void dietician_is_created() {
-		try {
-			Dietician response = given().log().all()
-					.with().body(this.dietician)
-					.headers("Authorization", "Bearer " + API_TOKEN)
-					.contentType(ContentType.JSON)
-					.accept(ContentType.JSON)
-					.when().request("POST", DIETICIAN_BASE_PATH)
-					.then().log().ifValidationFails(LogDetail.BODY)
-					.statusCode(201)
-					.assertThat()
-					.body("Firstname", equalTo(dietician.getFirstName()))
-					.body("Lastname", equalTo(dietician.getLastName()))
-					.body("Email", equalTo(dietician.getEmail()))
-					.body("DateOfBirth", equalTo(DATE_FORMAT_2.format(DATE_FORMAT.parse(dietician.getDateOfBirth()))))
-					.body("ContactNumber", equalTo(dietician.getContactNumber()))
-					.body("Education", equalTo(dietician.getEducation()))
-					.body("HospitalName", equalTo(dietician.getHospitalName()))
-					.body("HospitalStreet", equalTo(dietician.getHospitalStreet()))
-					.body("HospitalCity", equalTo(dietician.getHospitalCity()))
-					.body("HospitalPincode", equalTo(dietician.getHospitalPincode()))
-					.body("$", hasKey("id"))
-					.body("$", hasKey("loginPassword"))
-					.extract().as(Dietician.class);
+	@Given("App has Patient Auth token")
+	public void app_has_patient_auth_token() {
+		// TODO: Integrate with Admin module
+		return;
+	}
+	
+	
 
-			this.dietician = response;
+	@Given("Excel file has full Dietician details")
+	public void excel_file_has_full_dietician_details() {
+		this.dietician = excelReader.readRow(TestCase.FULL);
+	}
 
-		} catch (ParseException e) {
-			LOGGER.error("Failed to parse DateOfBirth of created Dietician.", e);
-			throw new RuntimeException("Failed to parse DateOfBirth of created Dietician.", e);
-		}
+	@Given("Excel file has mandatory Dietician details")
+	public void excel_file_has_mandatory_dietician_details() {
+		this.dietician = excelReader.readRow(TestCase.MANDATORY);
+	}
+
+	@Given("Excel file has additional Dietician details")
+	public void excel_file_has_additional_dietician_details() {
+		this.dietician = excelReader.readRow(TestCase.ADDITIONAL);
+	}
+
+	@Given("Excel file has invalid Dietician details")
+	public void excel_file_has_invalid_dietician_details() {
+		this.dietician = excelReader.readRow(TestCase.INVALID);
+	}
+	
+	
+
+	@When("Create Dietician without Auth token")
+	public void create_dietician_without_auth_token() {
+		this.response = restUtil.postRequest(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, null, this.dietician);
+	}
+	
+	@When("Create Dietician with Dietician Auth token")
+	public void create_dietician_with_dietician_auth_token() {
+		this.response = restUtil.postRequest(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, DIETICIAN_AUTH_TOKEN, this.dietician);
+	}
+	
+	@When("Create Dietician with Patient Auth token")
+	public void create_dietician_with_patient_auth_token() {
+		this.response = restUtil.postRequest(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, PATIENT_AUTH_TOKEN, this.dietician);
+	}
+	
+	@When("Create Dietician with Admin Auth token")
+	public void create_dietician_with_admin_auth_token() {
+		this.response = restUtil.postRequest(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician);
+	}
+	
+	@When("Create Dietician with Admin Auth token and invalid HTTP method")
+	public void create_dietician_with_admin_auth_token_and_invalid_http_method() {
+		this.response = restUtil.postRequest(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician);
+	}
+	
+	@When("Create Dietician with Admin Auth token and invalid endpoint")
+	public void create_dietician_with_admin_auth_token_and_invalid_endpoint() {
+		this.response = restUtil.postRequest(INVALID_ENDPOINT, Method.POST, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician);
+	}
+	
+	@When("Create Dietician with Admin Auth token and invalid content type")
+	public void create_dietician_with_admin_auth_token_and_invalid_content_type() {
+		this.response = restUtil.postRequest(DIETICIAN_ENDPOINT, Method.POST, ContentType.TEXT, ADMIN_AUTH_TOKEN, this.dietician);
+	}
+	
+	
+	
+	
+	
+	@When("Dietician creation fails with http status BAD_REQUEST")
+	public void dietician_creation_fails_with_http_400() {
+		this.response.statusCode(400);
+	}
+	
+	@When("Dietician creation fails with http status UNAUTHORIZED")
+	public void dietician_creation_fails_with_http_401() {
+		this.response.statusCode(401);
+	}
+	
+	@When("Dietician creation fails with http status FORBIDDEN")
+	public void dietician_creation_fails_with_http_403() {
+		this.response.statusCode(403);
+	}
+	
+	@When("Dietician creation fails with http status NOT_FOUND")
+	public void dietician_creation_fails_with_http_404() {
+		this.response.statusCode(404);
+	}
+	
+	@When("Dietician creation fails with http status METHOD_NOT_ALLOWED")
+	public void dietician_creation_fails_with_http_405() {
+		this.response.statusCode(405);
+	}
+	
+	@When("Dietician creation fails with http status UNSUPPORTED_MEDIA_TYPE")
+	public void dietician_creation_fails_with_http_415() {
+		this.response.statusCode(415);
+	}
+
+	@When("Dietician creation succeeds with http status CREATED")
+	public void dietician_creation_succeeds_with_http_201() {
+		Dietician response = this.response.statusCode(201)
+		.extract().as(Dietician.class);
+		
+		LOGGER.info("Dietician creation succeeded.");
+
+		restUtil.validateResponse(dietician, response);
 	}
 }
