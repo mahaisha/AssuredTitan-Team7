@@ -44,6 +44,18 @@ public class DieticianRestUtil {
 		.then().log().all();
 	}
 	
+	public ValidatableResponse getAllDieticians(String endpoint, Method httpMethod, ContentType contentType, String authToken) {
+		RequestSpecification request = given().log().all();
+		
+		if(StringUtil.isNotBlank(authToken)) {
+			request.headers("Authorization", "Bearer " + authToken);
+		}
+		
+		return request.accept(contentType)
+		.when().request(httpMethod, endpoint)
+		.then().log().all();
+	}
+	
 	public void validateCreation(Dietician dietician, Dietician response) {
 		try {
 			assertEquals(response.getFirstName(), dietician.getFirstName());
