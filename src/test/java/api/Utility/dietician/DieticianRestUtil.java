@@ -30,7 +30,7 @@ public class DieticianRestUtil {
 		RestAssured.baseURI = BASE_URI;
 	}
 	
-	public ValidatableResponse postRequest(String endpoint, Method httpMethod, ContentType contentType, String authToken, Dietician dietician) {
+	public ValidatableResponse createDietician(String endpoint, Method httpMethod, ContentType contentType, String authToken, Dietician dietician) {
 		RequestSpecification request = given().log().all()
 		.with().body(dietician);
 		
@@ -44,7 +44,7 @@ public class DieticianRestUtil {
 		.then().log().all();
 	}
 	
-	public void validateResponse(Dietician dietician, Dietician response) {
+	public void validateCreation(Dietician dietician, Dietician response) {
 		try {
 			assertEquals(response.getFirstName(), dietician.getFirstName());
 			assertEquals(response.getLastName(), dietician.getLastName());
