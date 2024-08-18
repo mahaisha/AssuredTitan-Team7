@@ -40,44 +40,37 @@ public class DieticianPayload {
 	}
 	
 	public DieticianPojo readRow(TestCase testCase) {
-		int rowNumber = getRowNumber(testCase);
-		
 		try {
 			List<Map<String, String>> excelData = excelReader.getData(excelFilePath, sheetName);
-			Map<String, String> rowWithFullDetails = excelData.get(rowNumber);
-
-			DATE_FORMAT.parse(rowWithFullDetails.get("DateOfBirth"));
-
-			DieticianPojo dietician = new DieticianPojo();
-			dietician.setFirstName(rowWithFullDetails.get("Firstname"));
-			dietician.setLastName(rowWithFullDetails.get("Lastname"));
-			dietician.setEmail(rowWithFullDetails.get("Email"));
-			dietician.setContactNumber(rowWithFullDetails.get("ContactNumber"));
-			dietician.setEducation(rowWithFullDetails.get("Education"));
-			dietician.setDateOfBirth(rowWithFullDetails.get("DateOfBirth"));
-
-			dietician.setHospitalName(rowWithFullDetails.get("HospitalName"));
-			dietician.setHospitalStreet(rowWithFullDetails.get("HospitalStreet"));
-			dietician.setHospitalCity(rowWithFullDetails.get("HospitalCity"));
-			dietician.setHospitalPincode(rowWithFullDetails.get("HospitalPincode"));
-
-			LOGGER.info("Read dietician from Excel file." + dietician);
-			return dietician;
+			
+			LOGGER.info("Looking for test case in Excel file: " + testCase);
+			
+			for(Map<String, String> row : excelData) {
+				if(testCase.toString().equals(row.get("TestCase"))) {
+					DATE_FORMAT.parse(row.get("DateOfBirth"));
+	
+					DieticianPojo dietician = new DieticianPojo();
+					dietician.setFirstName(row.get("Firstname"));
+					dietician.setLastName(row.get("Lastname"));
+					dietician.setEmail(row.get("Email"));
+					dietician.setContactNumber(row.get("ContactNumber"));
+					dietician.setEducation(row.get("Education"));
+					dietician.setDateOfBirth(row.get("DateOfBirth"));
+	
+					dietician.setHospitalName(row.get("HospitalName"));
+					dietician.setHospitalStreet(row.get("HospitalStreet"));
+					dietician.setHospitalCity(row.get("HospitalCity"));
+					dietician.setHospitalPincode(row.get("HospitalPincode"));
+	
+					LOGGER.info("Read dietician from Excel file: " + dietician);
+					return dietician;
+				}
+			}
+			
+			throw new RuntimeException("Failed to find row for test case in Excel file: " + testCase);
 		} catch (InvalidFormatException | IOException | ParseException e) {
 			LOGGER.error("Failed to read Excel file.", e);
 			throw new RuntimeException("Failed to read Excel file.", e);
 		}
-	}
-	
-	private int getRowNumber(TestCase testCase) {
-		switch(testCase) {
-			case FULL: return 0;
-			case MANDATORY: return 1;
-			case ADDITIONAL: return 2;
-			case INVALID: return 3;
-		}
-		
-		throw new RuntimeException("Unknown test case." + testCase);
-		
 	}
 }
