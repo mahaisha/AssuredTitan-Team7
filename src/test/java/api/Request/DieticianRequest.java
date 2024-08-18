@@ -1,5 +1,6 @@
-package api.Utility.dietician;
+package api.Request;
 
+import static api.Payload.DieticianPayload.DATE_FORMAT;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -11,26 +12,24 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.util.StringUtil;
 
+import api.Pojo.DieticianPojo;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import model.Dietician;
 
-import static api.Utility.dietician.DieticianExcelReader.DATE_FORMAT;
-
-public class DieticianRestUtil {
-	private static final Logger LOGGER = LogManager.getLogger(DieticianRestUtil.class);
+public class DieticianRequest {
+	private static final Logger LOGGER = LogManager.getLogger(DieticianRequest.class);
 
 	private static final String BASE_URI = "https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician";
 	private static final SimpleDateFormat DATE_FORMAT_2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+00:00'");
 
-	public DieticianRestUtil() {
+	public DieticianRequest() {
 		RestAssured.baseURI = BASE_URI;
 	}
 	
-	public ValidatableResponse createDietician(String endpoint, Method httpMethod, ContentType contentType, String authToken, Dietician dietician) {
+	public ValidatableResponse createDietician(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician) {
 		RequestSpecification request = given().log().all()
 		.with().body(dietician);
 		
@@ -56,7 +55,7 @@ public class DieticianRestUtil {
 		.then().log().all();
 	}
 	
-	public void validateCreation(Dietician dietician, Dietician response) {
+	public void validateCreation(DieticianPojo dietician, DieticianPojo response) {
 		try {
 			assertEquals(response.getFirstName(), dietician.getFirstName());
 			assertEquals(response.getLastName(), dietician.getLastName());

@@ -1,8 +1,8 @@
-package model;
+package api.Pojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Dietician {
+public class DieticianPojo {
 
 	@JsonProperty("Firstname")
 	private String firstName;

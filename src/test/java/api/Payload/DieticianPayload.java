@@ -1,4 +1,4 @@
-package api.Utility.dietician;
+package api.Payload;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -10,13 +10,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
+import api.Pojo.DieticianPojo;
 import api.Utility.ExcelReader;
-import model.Dietician;
 
-public class DieticianExcelReader {
-	private static final Logger LOGGER = LogManager.getLogger(DieticianExcelReader.class);
+public class DieticianPayload {
+	private static final Logger LOGGER = LogManager.getLogger(DieticianPayload.class);
 	
-	private static final String EXCEL_FILE_PATH = "src/test/resources/testdata/dietician.xlsx";
+	private static final String EXCEL_FILE_PATH = "src/test/resources/ExcelData/dietician.xlsx";
 	private static final String EXCEL_SHEET_NAME = "Dietician";
 
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -25,7 +25,7 @@ public class DieticianExcelReader {
 	private String excelFilePath;
 	private String sheetName;
 
-	public DieticianExcelReader() {
+	public DieticianPayload() {
 		excelReader = new ExcelReader();
 		
 		excelFilePath = EXCEL_FILE_PATH;
@@ -39,7 +39,7 @@ public class DieticianExcelReader {
 		INVALID
 	}
 	
-	public Dietician readRow(TestCase testCase) {
+	public DieticianPojo readRow(TestCase testCase) {
 		int rowNumber = getRowNumber(testCase);
 		
 		try {
@@ -48,7 +48,7 @@ public class DieticianExcelReader {
 
 			DATE_FORMAT.parse(rowWithFullDetails.get("DateOfBirth"));
 
-			Dietician dietician = new Dietician();
+			DieticianPojo dietician = new DieticianPojo();
 			dietician.setFirstName(rowWithFullDetails.get("Firstname"));
 			dietician.setLastName(rowWithFullDetails.get("Lastname"));
 			dietician.setEmail(rowWithFullDetails.get("Email"));

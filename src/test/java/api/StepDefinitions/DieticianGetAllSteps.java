@@ -3,15 +3,15 @@ package api.StepDefinitions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import api.Utility.dietician.DieticianExcelReader;
-import api.Utility.dietician.DieticianExcelReader.TestCase;
-import api.Utility.dietician.DieticianRestUtil;
+import api.Payload.DieticianPayload;
+import api.Payload.DieticianPayload.TestCase;
+import api.Pojo.DieticianPojo;
+import api.Request.DieticianRequest;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.ValidatableResponse;
-import model.Dietician;
 
 public class DieticianGetAllSteps {
 	private static final Logger LOGGER = LogManager.getLogger(DieticianGetAllSteps.class);
@@ -19,18 +19,18 @@ public class DieticianGetAllSteps {
 	private static final String DIETICIAN_ENDPOINT = "/dietician";
 	private static final String INVALID_ENDPOINT = "/invalid";
 	
-	private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjM5MTA0OTgsImV4cCI6MTcyMzkzOTI5OH0.ImECkl3UWwd6VwUtuOxnavrW4gHnWob3NHq9Y5wBvZfRR9sEA1DT2kqIMEySsjasrWJflvyOHoiGemYqxY_dvQ";
-	private static final String DIETICIAN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzIzOTEwNTI4LCJleHAiOjE3MjM5MzkzMjh9.FXazbgP02e8g_9gw8_jqQMsfy8xZdalT0lRqvxQ7VGO5T9kaa5fwwe0g2j6q7hSu6Id9II75TMWQDFErZSxCSg";
-	private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjM5MTA1NDAsImV4cCI6MTcyMzkzOTM0MH0.3EDLhKlNZoCSX3tI0YZcn07Gxrek-4McEn119R4WMMgsfOmo_qVkt45WQoF8ycNAw2FEzCRf2NtigQZl-ILkXw";
+	private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA1OTMsImV4cCI6MTcyNDAxOTM5M30.OPtdczAakW0MedYn73x8YYms-yI5VYOAoqdabzc2lMgm2jbN90_gnVyc24yshvngeXxgHNfETNRTKNRmZy-tvg";
+	private static final String DIETICIAN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzIzOTkwNjE1LCJleHAiOjE3MjQwMTk0MTV9.uMrF8SzL8OY36FfVCN6rDnN2TqmgDsfGR_068I_97J7pNleR4HlvVoAT6l2lt2qQNw-REybsL9ePdP6ltKfUAw";
+	private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA2MzAsImV4cCI6MTcyNDAxOTQzMH0.8lkOI2xnSMqYoCwnXl55KVfz_hpcVk2D6eRVb6Tg-fTHqII0pr6XHO0JM0jayMYlwveS1QooW_RK86ubISs6FA";
 
 
-	private DieticianRestUtil restUtil;
+	private DieticianRequest restUtil;
 	
-	private Dietician dietician;
+	private DieticianPojo dietician;
 	private ValidatableResponse response;
 
 	public DieticianGetAllSteps() {
-		restUtil = new DieticianRestUtil();
+		restUtil = new DieticianRequest();
 	}
 	
 	
