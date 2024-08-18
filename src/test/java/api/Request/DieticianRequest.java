@@ -54,6 +54,18 @@ public class DieticianRequest {
 		.when().request(httpMethod, endpoint)
 		.then().log().all();
 	}
+
+	public ValidatableResponse getDieticianById(String endpoint, Method httpMethod, ContentType contentType, String authToken, int dieticianId) {
+		RequestSpecification request = given().log().all();
+		
+		if(StringUtil.isNotBlank(authToken)) {
+			request.headers("Authorization", "Bearer " + authToken);
+		}
+		
+		return request.accept(contentType)
+		.when().request(httpMethod, endpoint + dieticianId)
+		.then().log().all();
+	}
 	
 	public void validateCreation(DieticianPojo dietician, DieticianPojo response) {
 		try {
