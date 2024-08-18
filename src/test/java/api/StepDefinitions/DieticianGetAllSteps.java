@@ -8,6 +8,7 @@ import api.Payload.DieticianPayload.TestCase;
 import api.Pojo.DieticianPojo;
 import api.Request.DieticianRequest;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
@@ -94,32 +95,32 @@ public class DieticianGetAllSteps {
 	
 	
 	
-	@When("Get All Dieticians fails with http status BAD_REQUEST")
+	@Then("Get All Dieticians fails with http status BAD_REQUEST")
 	public void dietician_get_all_fails_with_http_400() {
 		this.response.statusCode(400);
 	}
 	
-	@When("Get All Dieticians fails with http status UNAUTHORIZED")
+	@Then("Get All Dieticians fails with http status UNAUTHORIZED")
 	public void dietician_get_all_fails_with_http_401() {
 		this.response.statusCode(401);
 	}
 	
-	@When("Get All Dieticians fails with http status NOT_FOUND")
+	@Then("Get All Dieticians fails with http status NOT_FOUND")
 	public void dietician_get_all_fails_with_http_404() {
 		this.response.statusCode(404);
 	}
 	
-	@When("Get All Dieticians fails with http status METHOD_NOT_ALLOWED")
+	@Then("Get All Dieticians fails with http status METHOD_NOT_ALLOWED")
 	public void dietician_get_all_fails_with_http_405() {
 		this.response.statusCode(405);
 	}
 	
-	@When("Get All Dieticians fails with http status NOT_ACCEPTABLE")
+	@Then("Get All Dieticians fails with http status NOT_ACCEPTABLE")
 	public void dietician_get_all_fails_with_http_406() {
 		this.response.statusCode(406);
 	}
 
-	@When("Get All Dieticians succeeds with http status OK")
+	@Then("Get All Dieticians succeeds with http status OK")
 	public void dietician_get_all_succeeds_with_http_200() {
 		this.response.statusCode(200);
 	}

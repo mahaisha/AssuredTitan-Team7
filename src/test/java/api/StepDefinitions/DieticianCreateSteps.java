@@ -8,6 +8,7 @@ import api.Payload.DieticianPayload.TestCase;
 import api.Pojo.DieticianPojo;
 import api.Request.DieticianRequest;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
@@ -118,37 +119,37 @@ public class DieticianCreateSteps {
 	
 	
 	
-	@When("Create Dietician fails with http status BAD_REQUEST")
+	@Then("Create Dietician fails with http status BAD_REQUEST")
 	public void dietician_creation_fails_with_http_400() {
 		this.response.statusCode(400);
 	}
 	
-	@When("Create Dietician fails with http status UNAUTHORIZED")
+	@Then("Create Dietician fails with http status UNAUTHORIZED")
 	public void dietician_creation_fails_with_http_401() {
 		this.response.statusCode(401);
 	}
 	
-	@When("Create Dietician fails with http status FORBIDDEN")
+	@Then("Create Dietician fails with http status FORBIDDEN")
 	public void dietician_creation_fails_with_http_403() {
 		this.response.statusCode(403);
 	}
 	
-	@When("Create Dietician fails with http status NOT_FOUND")
+	@Then("Create Dietician fails with http status NOT_FOUND")
 	public void dietician_creation_fails_with_http_404() {
 		this.response.statusCode(404);
 	}
 	
-	@When("Create Dietician fails with http status METHOD_NOT_ALLOWED")
+	@Then("Create Dietician fails with http status METHOD_NOT_ALLOWED")
 	public void dietician_creation_fails_with_http_405() {
 		this.response.statusCode(405);
 	}
 	
-	@When("Create Dietician fails with http status UNSUPPORTED_MEDIA_TYPE")
+	@Then("Create Dietician fails with http status UNSUPPORTED_MEDIA_TYPE")
 	public void dietician_creation_fails_with_http_415() {
 		this.response.statusCode(415);
 	}
 
-	@When("Create Dietician succeeds with http status CREATED")
+	@Then("Create Dietician succeeds with http status CREATED")
 	public void dietician_creation_succeeds_with_http_201() {
 		DieticianPojo response = this.response.statusCode(201)
 		.extract().as(DieticianPojo.class);
