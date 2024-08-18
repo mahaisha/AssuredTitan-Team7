@@ -12,7 +12,7 @@ import api.Pojo.PatientPojo;
 import api.Utility.CommonUtils;
 import api.Utility.ExcelReader;
 
-public class createPatientPayload extends CommonUtils {
+public class CreatePatientPayload extends CommonUtils {
 	
 	public static List<PatientPojo> createPatient() throws InvalidFormatException, IOException {
 		
