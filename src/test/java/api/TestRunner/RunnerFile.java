@@ -12,7 +12,7 @@ import io.cucumber.testng.CucumberOptions;
 				},
 		monochrome=false,  //console output color
 		features = "src/test/resources/feature", //location of feature files
-		glue= {"api.Stepdefinitions"} )
+		glue= {"api.StepDefinitions"} )
 
 public class RunnerFile extends AbstractTestNGCucumberTests{
 	@Override
