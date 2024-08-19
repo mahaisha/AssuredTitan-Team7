@@ -2,10 +2,13 @@ package api.Utility;
 
 import java.util.ResourceBundle;
 
+import api.Pojo.PatientPojo;
+
 public class CommonUtils {
 
 
 	public static ResourceBundle endpoints = ResourceBundle.getBundle("endpoint");
+	public static ResourceBundle paths = ResourceBundle.getBundle("path");
 	
 	private static String dieticianToken;
     private static String patientToken;
@@ -35,24 +38,8 @@ public class CommonUtils {
         patientToken = token;
     }
 	
-    public static String getBaseUrl() {
-        return endpoints.getString("baseUrl");
-	
-    }
-    public static String getAllPatientsEndpoint() {
-        return endpoints.getString("getAllPatients");
-	
-    }
-    public static String getPatientMorbidityEndpoint() {
-        return endpoints.getString("getPatientMorbidity");
-	
-    }
-    public static String getPatientByFileIdEndpoint() {
-        return endpoints.getString("getPatientByFileId");
-	
-    }
-//	public static LoginPojo loginPojo = new LoginPojo();
-//	public static PatientPojo patientPojo= new PatientPojo();
+	//public static LoginPojo loginPojo = new LoginPojo();
+	public static PatientPojo patientPojo= new PatientPojo();
 //	public static Response response;
 //	
 }

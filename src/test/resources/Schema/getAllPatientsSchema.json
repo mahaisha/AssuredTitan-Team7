@@ -28,8 +28,7 @@
         "type": "object",
         "properties": {
           "fieldId": { "type": "string" }
-        },
-        "required": ["fieldId"]
+        }
       },
       "DateOfBirth": { "type": "string", "format": "date" },
       "DieticianId": { "type": "integer" },
@@ -51,6 +50,6 @@
       },
       "LastVisitdate": { "type": "string", "format": "date" }
     },
-    "required": ["patientId", "FirstName", "LastName", "ContactNumber", "Email", "Allergy", "FoodPreference", "CuisineCategory", "DateOfBirth", "DieticianId", "LastVisitdate"]
+    "required": ["patientId", "FirstName", "LastName", "ContactNumber", "Email", "Allergy", "FoodPreference", "CuisineCategory", "DateOfBirth", "DieticianId"]
   }
 }
