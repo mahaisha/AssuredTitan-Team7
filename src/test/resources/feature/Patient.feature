@@ -1,3 +1,4 @@
+
 #Divya
 @getPatientPositive
 Feature: Get Operation [Get all Patients]
@@ -191,3 +192,31 @@ Scenario Outline: Check dietician able to delete patient with invalid Id
      | endpointType |
      | DeleteEndpoint|
      
+
+
+Background:
+Given base URI is set to the patient API endpoint
+#Given Dietician is loggedin with valid credentials
+#Then dietician recieves valid dietician token
+
+#Scenario: Creat Patient
+#Given Dietician creates Post request to create new patient
+#When Dietician send the Post request to valid endpoints
+#Then Dietician recievs 201 status code with Patient Details in response body#And validate JSON Schema for the patient created with "createPatientSchema"
+
+ 
+  Scenario Outline: Create patient with different tokens, endpoints, and content types
+    Given Dietician have a "<tokenType>" token
+    When Dietician send a request to create a patient with "<endpointType>" endpoint and "<contentType>"
+    Then the response status code should be "<expectedStatusCode>"
+    And the response body should contain "<expectedMessage>"
+
+    Examples:
+      
+      | tokenType       | endpointType    | contentType           | expectedStatusCode | expectedMessage               |
+      | noToken         |validEndpoint    |multipart/form-data   | 401                | unauthorized                  |
+      | adminToken      | validEndpoint   |multipart/form-data   | 403                | forbidden                     |
+      | dieticianToken  |invalidEndpoint  |multipart/form-data   | 404                | 404 not found                 |
+      | dieticianToken  |validEndpoint    |multipart/form-data    | 415                | 415 unsupported media type    |
+      | dieticianToken  | validEndpoint   |multipart/form-data   | 201                | Patient created successfully  |
+

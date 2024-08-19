@@ -9,7 +9,7 @@ public class CommonUtils {
 
 	public static ResourceBundle endpoints = ResourceBundle.getBundle("endpoint");
 	public static ResourceBundle paths = ResourceBundle.getBundle("path");
-	
+
 	public static String baseURI = endpoints.getString("baseUrl");
 	private static String dieticianToken;
     private static String patientToken;
@@ -41,6 +41,7 @@ public class CommonUtils {
 	
 	//public static LoginPojo loginPojo = new LoginPojo();
 	public static PatientPojo patientPojo= new PatientPojo();
-//	public static Response response;
-//	
+
+
+	
 }
