@@ -10,13 +10,16 @@ import io.restassured.response.Response;
 
 public class UserLoginRequest extends CommonUtils {
 
-	public String token;
+	public static String adminToken;
+	public static String dieticianToken;
+	public static String patientToken;
 	public Response response;
+	int statusCode; 
 	LoginRequestPojo loginRequestPojo = new LoginRequestPojo();
 	
 	//Admin Valid login request
 	public Response adminLoginRequest() {
-		int statusCode; 
+		
 		loginRequestPojo=LoginPayload.adminLogin();
 		
 		 response = RestAssured.given()				 
@@ -28,9 +31,54 @@ public class UserLoginRequest extends CommonUtils {
 		 System.out.println(response.contentType());
 		 System.out.println("Response: " + response.asString());
 		
-		 token = response.jsonPath().getString("token");		
-		
+		 adminToken = response.jsonPath().getString("token");		
+		setAdminToken(adminToken);
 		statusCode=response.getStatusCode();
+		return response;
+	}
+	
+	public Response dieticianLoginRequest() {
+
+		loginRequestPojo = LoginPayload.dieticianLogin();
+		response = RestAssured.given()
+
+				.baseUri(baseURI)
+				.contentType(ContentType.JSON)
+				.body(loginRequestPojo)
+				.log().all()
+				.post(endpoints.getString("login"));
+
+		dieticianToken = response.jsonPath().getString("token");		
+		setDieticianToken(dieticianToken);
+		System.out.println("Dietician Token :" + dieticianToken);
+		if (dieticianToken == null)
+			throw new RuntimeException("Dietician Token not generated!!");
+		statusCode = response.getStatusCode();
+		System.out.println("Status Code :" + statusCode);
+
+		return response;
+
+	}
+	
+	public Response patientLoginRequest() {
+
+		loginRequestPojo = LoginPayload.patientLogin();
+		response = RestAssured.given()
+
+				.baseUri(baseURI)
+				.contentType(ContentType.JSON)
+				.body(loginRequestPojo)
+				.log().all()
+				.post(endpoints.getString("login"));
+
+		patientToken = response.jsonPath().getString("token");		
+		setPatientToken(patientToken);
+		System.out.println("Token :" + patientToken);
+		if (patientToken == null)
+			throw new RuntimeException("Patient Token not generated!!");
+		statusCode = response.getStatusCode();
+		System.out.println("Status Code :" + statusCode);
+
 		return response;
 	}
 	//admin logout
@@ -79,5 +127,4 @@ public class UserLoginRequest extends CommonUtils {
 					.post(endpoints.getString("login"));
 			return response;
 		}
-		//Valid dietican login
 }
