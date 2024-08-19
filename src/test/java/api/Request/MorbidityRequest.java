@@ -5,6 +5,7 @@ import api.Pojo.LoginRequestPojo;
 import api.Utility.CommonUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -47,6 +48,23 @@ public class MorbidityRequest extends CommonUtils {
 
 		return response;
 	}
+	
+	public void validateJsonResponseSchema(String endpointType) {
+		String schemaPath = getSchemaPath(endpointType);
+		response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath(schemaPath));
+	}
+	private String getSchemaPath(String endpointType) {
+		switch (endpointType) {
+		case "AllMorbidities":
+			return paths.getString("schema.allMorbidities");
+		case "TestName":
+			return paths.getString("schema.morbidityTestName");
+		
+		default:
+			throw new IllegalArgumentException("Unsupported endpoint type for schema validation: " + endpointType);
+		}
+	}
+
 
 	public Response postMorbidityInvalidMethod() {
 

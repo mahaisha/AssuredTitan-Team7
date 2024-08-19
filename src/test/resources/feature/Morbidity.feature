@@ -1,11 +1,22 @@
 @ValidateMorbidityModule
 Feature: Morbidity Module
 
+  #@TC01
+  #Scenario: Validate Dietician can retrieve all morbidity details
+  #Given User is logged in as Dietician with Token
+  #And Dietician sends GET request to get morbidities
+  #Then Dietician receives all morbidity details
+  
   @TC01
-  Scenario: Validate Dietician can retrieve all morbidity details
+  Scenario Outline: Validate Dietician can retrieve all morbidity details
     Given User is logged in as Dietician with Token
     And Dietician sends GET request to get morbidities
-    Then Dietician receives all morbidity details
+    Then Dietician receives all morbidity details for "<endpointType>"
+
+    Examples: 
+      | endpointType   |
+      | AllMorbidities |
+      | TestName       |
 
   @TC02
   Scenario: Validate Dietician gets 405 status code for invalid method
@@ -76,14 +87,14 @@ Feature: Morbidity Module
     Given User is logged in as Admin with valid Token
     And Admin creates POST request for morbidity
     Then Admin gets 405 method not allowed
-    
+
   @TC14
   Scenario: Validate Admin gets 404 status code for invalid endpoint
     Given User is logged in as Admin with valid Token
     And Admin creates GET request for morbidity with invalid endpoint
     Then Admin should get 404 not found
 
-   @TC15
+  @TC15
   Scenario: Validate Admin can retrieve morbidity details with Test Name
     Given User is logged in as Admin with valid Token
     And Admin user sends GET request with endpoint having Test Name

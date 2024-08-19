@@ -33,12 +33,21 @@ public class MorbiditySteps extends CommonUtils {
 		
 		morbidityRequest.getAllMorbidities();
 	}
+//	@Then("Dietician receives all morbidity details")
+//	public void dietician_receives_all_morbidity_details() {
+//
+//		int responseStatusCode = morbidityRequest.response.getStatusCode();
+//		Assert.assertEquals(responseStatusCode, 200);
+//	}
 
-	@Then("Dietician receives all morbidity details")
-	public void dietician_receives_all_morbidity_details() {
-
-		int responseStatusCode = morbidityRequest.response.getStatusCode();
-		Assert.assertEquals(responseStatusCode, 200);
+	@Then("Dietician receives all morbidity details for {string}")
+	public void dietician_receives_all_morbidity_details(String endpointType) {
+		
+		
+			morbidityRequest.validateJsonResponseSchema(endpointType);
+			int responseStatusCode = morbidityRequest.response.getStatusCode();
+			Assert.assertEquals(responseStatusCode, 200);
+	
 	}
 
 	@Then("Dietician should receive status 404")
@@ -64,7 +73,6 @@ public class MorbiditySteps extends CommonUtils {
 	public void dietician_creates_post_request_for_morbidity() {
 		
 		morbidityRequest.postMorbidityInvalidMethod();
-
 	}
 
 	@Then("Dietician gets {int} method not allowed")
@@ -72,37 +80,17 @@ public class MorbiditySteps extends CommonUtils {
 
 		int responseStatusCode = morbidityRequest.response.getStatusCode();
 		Assert.assertEquals(responseStatusCode, int1);
-
 	}
 
 	@When("Dietician sends POST request with morbidity by Test Name endpoint")
 	public void dietician_sends_post_request_with_morbidity_by_test_name_endpoint() {
 		
 		morbidityRequest.postMorbidityByNameInvalidMethod();
-//		request = RestAssured.given();
-//
-//		request.header("Content-Type", "application/json");
-//		request.header("Authorization", "Bearer " + token);
-//		String morbidityByName = endpoints.getString("morbidityByTestName");
-//		String morbidityByNameEndpoint = morbidityByName.replace("{morbidityName}", "Fasting Glucose");
-//		response = request.body("userEmailLogin").post(morbidityByNameEndpoint);
-//		System.out.println("Status Code for POST Req :" + response.getStatusCode());
 	}
 
 	@Given("Dietician creates GET request for morbidity with invalid endpoint")
 	public void dietician_creates_get_request_for_morbidity() {
 
-//		request = RestAssured.given();
-//
-//		request.header("Content-Type", "application/json");
-//		request.header("Authorization", "Bearer " + token);
-//		String morbidity = endpoints.getString("morbidity");
-//		String morbidityInvalidEndpoint = morbidity.replace("morbidity", "Fasting Glucose");
-//		System.out.println("Invalid endpoint >>>" + morbidityInvalidEndpoint);
-//		response = request.get(morbidityInvalidEndpoint);
-//
-//		System.out.println("Status Code :" + response.getStatusCode());
-		
 		morbidityRequest.getMorbidityInvalidEndpoint();
 
 	}
