@@ -23,24 +23,27 @@ public class MorbidityRequest extends CommonUtils {
 		this.baseUrl = baseUrl;
 	}
 
-	public Response dieticianLoginRequest() {
-
-		loginRequestPojo = LoginPayload.dieticianLogin();
-		response = RestAssured.given()
-
-				.baseUri(baseURI).contentType(ContentType.JSON).body(loginRequestPojo).log().all()
-				.post(endpoints.getString("login"));
-
-		token = response.jsonPath().getString("token");
-		System.out.println("Token :" + token);
-		if (token == null)
-			throw new RuntimeException("Token not generated!!");
-		statusCode = response.getStatusCode();
-		System.out.println("Status Code :" + statusCode);
-
-		return response;
-
-	}
+//	public Response dieticianLoginRequest() {
+//
+//		loginRequestPojo = LoginPayload.dieticianLogin();
+//		response = RestAssured.given()
+//
+//				.baseUri(baseURI)
+//				.contentType(ContentType.JSON)
+//				.body(loginRequestPojo)
+//				.log().all()
+//				.post(endpoints.getString("login"));
+//
+//		token = response.jsonPath().getString("token");
+//		System.out.println("Token :" + token);
+//		if (token == null)
+//			throw new RuntimeException("Token not generated!!");
+//		statusCode = response.getStatusCode();
+//		System.out.println("Status Code :" + statusCode);
+//
+//		return response;
+//
+//	}
 
 	public Response getAllMorbidities() {
 
@@ -183,26 +186,26 @@ public class MorbidityRequest extends CommonUtils {
 		return response;
 	}
 	
-	public Response patientLoginRequest() {
-
-		loginRequestPojo = LoginPayload.patientLogin();
-		response = RestAssured.given()
-
-				.baseUri(baseURI)
-				.contentType(ContentType.JSON)
-				.body(loginRequestPojo)
-				.log().all()
-				.post(endpoints.getString("login"));
-
-		token = response.jsonPath().getString("token");
-		System.out.println("Token :" + token);
-		if (token == null)
-			throw new RuntimeException("Token not generated!!");
-		statusCode = response.getStatusCode();
-		System.out.println("Status Code :" + statusCode);
-
-		return response;
-	}
+//	public Response patientLoginRequest() {
+//
+//		loginRequestPojo = LoginPayload.patientLogin();
+//		response = RestAssured.given()
+//
+//				.baseUri(baseURI)
+//				.contentType(ContentType.JSON)
+//				.body(loginRequestPojo)
+//				.log().all()
+//				.post(endpoints.getString("login"));
+//
+//		token = response.jsonPath().getString("token");
+//		System.out.println("Token :" + token);
+//		if (token == null)
+//			throw new RuntimeException("Token not generated!!");
+//		statusCode = response.getStatusCode();
+//		System.out.println("Status Code :" + statusCode);
+//
+//		return response;
+//	}
 	
 	public Response adminLoginRequest() {
 

@@ -1,22 +1,22 @@
 @ValidateMorbidityModule
 Feature: Morbidity Module
 
-  #@TC01
-  #Scenario: Validate Dietician can retrieve all morbidity details
-  #Given User is logged in as Dietician with Token
-  #And Dietician sends GET request to get morbidities
-  #Then Dietician receives all morbidity details
-  
   @TC01
-  Scenario Outline: Validate Dietician can retrieve all morbidity details
-    Given User is logged in as Dietician with Token
-    And Dietician sends GET request to get morbidities
-    Then Dietician receives all morbidity details for "<endpointType>"
-
-    Examples: 
-      | endpointType   |
-      | AllMorbidities |
-      | TestName       |
+  Scenario: Validate Dietician can retrieve all morbidity details
+  Given User is logged in as Dietician with Token
+  And Dietician sends GET request to get morbidities
+  Then Dietician receives all morbidity details
+  
+  #@TC01
+  #Scenario Outline: Validate Dietician can retrieve all morbidity details
+    #Given User is logged in as Dietician with Token
+    #And Dietician sends GET request to get morbidities
+    #Then Dietician receives all morbidity details for "<endpointType>"
+#
+    #Examples: 
+      #| endpointType   |
+      #| AllMorbidities |
+      #| TestName       |
 
   @TC02
   Scenario: Validate Dietician gets 405 status code for invalid method

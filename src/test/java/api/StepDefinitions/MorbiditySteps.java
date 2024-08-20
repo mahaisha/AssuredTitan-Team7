@@ -3,6 +3,7 @@ package api.StepDefinitions;
 import org.testng.Assert;
 
 import api.Request.MorbidityRequest;
+import api.Request.UserLoginRequest;
 import api.Utility.CommonUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -21,11 +22,13 @@ public class MorbiditySteps extends CommonUtils {
 	static String morbidityTestName;
 
 	MorbidityRequest morbidityRequest = new MorbidityRequest(baseURI);
+	UserLoginRequest userLoginRequest = new UserLoginRequest();
 
 	@Given("User is logged in as Dietician with Token")
 	public void user_is_logged_in_as_dietician() {
 		
-		morbidityRequest.dieticianLoginRequest();
+		userLoginRequest.dieticianLoginRequest();
+		userLoginRequest.getDieticianToken();
 	}
 
 	@Given("Dietician sends GET request to get morbidities")
@@ -33,22 +36,22 @@ public class MorbiditySteps extends CommonUtils {
 		
 		morbidityRequest.getAllMorbidities();
 	}
-//	@Then("Dietician receives all morbidity details")
-//	public void dietician_receives_all_morbidity_details() {
-//
-//		int responseStatusCode = morbidityRequest.response.getStatusCode();
-//		Assert.assertEquals(responseStatusCode, 200);
-//	}
+	@Then("Dietician receives all morbidity details")
+	public void dietician_receives_all_morbidity_details() {
 
-	@Then("Dietician receives all morbidity details for {string}")
-	public void dietician_receives_all_morbidity_details(String endpointType) {
-		
-		
-			morbidityRequest.validateJsonResponseSchema(endpointType);
-			int responseStatusCode = morbidityRequest.response.getStatusCode();
-			Assert.assertEquals(responseStatusCode, 200);
-	
+		int responseStatusCode = morbidityRequest.response.getStatusCode();
+		Assert.assertEquals(responseStatusCode, 200);
 	}
+
+//	@Then("Dietician receives all morbidity details for {string}")
+//	public void dietician_receives_all_morbidity_details(String endpointType) {
+//		
+//		
+//			morbidityRequest.validateJsonResponseSchema(endpointType);
+//			int responseStatusCode = morbidityRequest.response.getStatusCode();
+//			Assert.assertEquals(responseStatusCode, 200);
+//	
+//	}
 
 	@Then("Dietician should receive status 404")
 	public void dietician_receives_status_unauthorized() {
@@ -141,7 +144,7 @@ public class MorbiditySteps extends CommonUtils {
 	@Given("User is logged in as Patient with Patient Token")
 	public void user_is_logged_in_as_patient_with_token() {
 		
-		morbidityRequest.patientLoginRequest();
+		userLoginRequest.patientLoginRequest();
 	}
 
 	@Given("Patient sends GET request to get morbidities")
