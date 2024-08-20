@@ -23,50 +23,31 @@ public class MorbidityRequest extends CommonUtils {
 		this.baseUrl = baseUrl;
 	}
 
-	public Response dieticianLoginRequest() {
-
-		loginRequestPojo = LoginPayload.dieticianLogin();
-		response = RestAssured.given()
-
-				.baseUri(baseURI).contentType(ContentType.JSON).body(loginRequestPojo).log().all()
-				.post(endpoints.getString("login"));
-
-		token = response.jsonPath().getString("token");
-		System.out.println("Token :" + token);
-		if (token == null)
-			throw new RuntimeException("Token not generated!!");
-		statusCode = response.getStatusCode();
-		System.out.println("Status Code :" + statusCode);
-
-		return response;
-
-	}
-
-	public Response getAllMorbidities() {
+	public Response getAllMorbidities(String token) {
 
 		response = getAPIUsingToken(token, endpoints.getString("morbidity"));
 
 		return response;
 	}
 	
-	public void validateJsonResponseSchema(String endpointType) {
-		String schemaPath = getSchemaPath(endpointType);
-		response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath(schemaPath));
-	}
-	private String getSchemaPath(String endpointType) {
-		switch (endpointType) {
-		case "AllMorbidities":
-			return paths.getString("schema.allMorbidities");
-		case "TestName":
-			return paths.getString("schema.morbidityTestName");
-		
-		default:
-			throw new IllegalArgumentException("Unsupported endpoint type for schema validation: " + endpointType);
-		}
-	}
+//	public void validateJsonResponseSchema(String endpointType) {
+//		String schemaPath = getSchemaPath(endpointType);
+//		response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath(schemaPath));
+//	}
+//	private String getSchemaPath(String endpointType) {
+//		switch (endpointType) {
+//		case "AllMorbidities":
+//			return paths.getString("schema.allMorbidities");
+//		case "TestName":
+//			return paths.getString("schema.morbidityTestName");
+//		
+//		default:
+//			throw new IllegalArgumentException("Unsupported endpoint type for schema validation: " + endpointType);
+//		}
+//	}
 
 
-	public Response postMorbidityInvalidMethod() {
+	public Response postMorbidityInvalidMethod(String token) {
 
 		response = RestAssured.given()
 
@@ -80,7 +61,7 @@ public class MorbidityRequest extends CommonUtils {
 		return response;
 	}
 
-	public Response postMorbidityByNameInvalidMethod() {
+	public Response postMorbidityByNameInvalidMethod(String token) {
 
 
 		String morbidityByName = endpoints.getString("morbidityByTestName");
@@ -97,7 +78,7 @@ public class MorbidityRequest extends CommonUtils {
 		return response;
 	}
 
-	public Response getMorbidityInvalidEndpoint() {
+	public Response getMorbidityInvalidEndpoint(String token) {
 
 		String morbidityInvalidEndpoint = endpoints.getString("invalidEndpoint");
 
@@ -107,7 +88,7 @@ public class MorbidityRequest extends CommonUtils {
 		return response;
 	}
 	
-	public Response getMorbidityByTestNameInvalidEndpoint() {
+	public Response getMorbidityByTestNameInvalidEndpoint(String token) {
 
 		String morbiditybyTestName = endpoints.getString("morbidityByTestName");
 		String morbidityInvalidEndpoint = endpoints.getString("invalidEndpoint");
@@ -119,7 +100,7 @@ public class MorbidityRequest extends CommonUtils {
 		return response;
 	}
 	
-	public Response getMorbidityInvalidTestName() {
+	public Response getMorbidityInvalidTestName(String token) {
 
 		String morbidityInvalidTestName = endpoints.getString("invalidTestName");
 
@@ -158,7 +139,7 @@ public class MorbidityRequest extends CommonUtils {
 		return response;
 	}
 
-	public Response getMorbidityByTestName() {
+	public Response getMorbidityByTestName(String token) {
 
 		String morbidityByName = endpoints.getString("morbidityByTestName");
 		String testName = endpoints.getString("testName");
@@ -173,7 +154,8 @@ public class MorbidityRequest extends CommonUtils {
 	public Response getAPIUsingToken(String token, String endPoint) {
 		response = RestAssured.given()
 
-				.baseUri(endpoints.getString("baseUrl")).contentType(ContentType.JSON)
+				.baseUri(endpoints.getString("baseUrl"))
+				.contentType(ContentType.JSON)
 				.header("Authorization", "Bearer " + token)
 				.log().all()
 				.get(endPoint);
@@ -181,49 +163,6 @@ public class MorbidityRequest extends CommonUtils {
 		statusCode = response.getStatusCode();
 		System.out.println("Status Code :" + statusCode);
 		return response;
-	}
-	
-	public Response patientLoginRequest() {
-
-		loginRequestPojo = LoginPayload.patientLogin();
-		response = RestAssured.given()
-
-				.baseUri(baseURI)
-				.contentType(ContentType.JSON)
-				.body(loginRequestPojo)
-				.log().all()
-				.post(endpoints.getString("login"));
-
-		token = response.jsonPath().getString("token");
-		System.out.println("Token :" + token);
-		if (token == null)
-			throw new RuntimeException("Token not generated!!");
-		statusCode = response.getStatusCode();
-		System.out.println("Status Code :" + statusCode);
-
-		return response;
-	}
-	
-	public Response adminLoginRequest() {
-
-		loginRequestPojo = LoginPayload.adminLogin();
-		response = RestAssured.given()
-
-				.baseUri(baseURI)
-				.contentType(ContentType.JSON)
-				.body(loginRequestPojo)
-				.log().all()
-				.post(endpoints.getString("login"));
-
-		token = response.jsonPath().getString("token");
-		System.out.println("Token :" + token);
-		if (token == null)
-			throw new RuntimeException("Token not generated!!");
-		statusCode = response.getStatusCode();
-		System.out.println("Status Code :" + statusCode);
-
-		return response;
-
 	}
 
 }
