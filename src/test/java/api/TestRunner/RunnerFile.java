@@ -1,3 +1,4 @@
+
 package api.TestRunner;
 
 import org.testng.annotations.DataProvider;
@@ -12,7 +13,9 @@ import io.cucumber.testng.CucumberOptions;
 				},
 		monochrome=false,  //console output color
 		features = "src/test/resources/feature", //location of feature files
-		glue= {"api.StepDefinitions"} )
+		glue= {"api.StepDefinitions"},
+		tags="@getPatientPositive"
+		)
 
 public class RunnerFile extends AbstractTestNGCucumberTests{
 	@Override

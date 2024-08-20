@@ -1,0 +1,647 @@
+2024-08-20 00:18:07.289 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:225)] - Patient Details: api.Pojo.PatientPojo@656c5818
+2024-08-20 00:18:07.309 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:226)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 00:18:07.309 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:227)] - Endpoint: /patient
+2024-08-20 00:18:09.338 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:267)] - Patient Details: api.Pojo.PatientPojo@5fa9247b
+2024-08-20 00:18:09.350 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:268)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjQxMzEwODcsImV4cCI6MTcyNDE1OTg4N30.4i8icWUgYjtSbB0kqExlhPsdJoLHLUnyY-dLgPdC0c7gm5Jo1X2xpyomGszX2j05md1--BeOifPWj4FMfk10ig
+2024-08-20 00:18:09.350 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:269)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 00:18:09.350 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:270)] - Endpoint: /patient
+2024-08-20 00:18:10.840 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:312)] - Patient Details: api.Pojo.PatientPojo@6da9541c
+2024-08-20 00:18:10.841 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:313)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW9yZ2VRQTJAdGVzdC5jb20iLCJpYXQiOjE3MjQxMzEwOTAsImV4cCI6MTcyNDE1OTg5MH0.XgRZtacOqNmAkws85bK3XkduYxBIIxicslCP2MGVoQjHoEeazRoMUwp7HSy5xd9mueJJtAQ0eCk8bC9Ff7NzYQ
+2024-08-20 00:18:10.841 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:314)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 00:18:10.841 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:315)] - Endpoint: /patient
+2024-08-20 00:18:12.261 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:170)] - Sending request to create patient with the following details:
+2024-08-20 00:18:12.261 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:171)] - Patient Details: api.Pojo.PatientPojo@349996a6
+2024-08-20 00:18:12.261 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:172)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDEzMTA5MSwiZXhwIjoxNzI0MTU5ODkxfQ.WWrmCw6_PFKJ2yOz7KN3beQRKhGwVcG07pvVRrf-cWse-zdY_ELZIq7mTq5ujlc9eRJGlfCQUB5OLoqsREMqBg
+2024-08-20 00:18:12.261 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:173)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 00:18:12.261 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:174)] - Endpoint: /patient
+2024-08-20 00:18:13.480 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:188)] - Response Status Code: 201
+2024-08-20 00:18:13.481 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:189)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724131092&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=%2BtAyfcglqxyw4JfDntc6dXyhcdT0kD3SlRQ14Ft4ZKg%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724131092&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=%2BtAyfcglqxyw4JfDntc6dXyhcdT0kD3SlRQ14Ft4ZKg%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 05:18:13 GMT
+Via=1.1 vegur
+2024-08-20 00:18:13.482 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:190)] - Response Body: {"patientId":443,"FirstName":"Team","LastName":"Seven","ContactNumber":"1992122100","Email":"helloji008@zoom.com","Allergy":"soy","FoodPreference":"jain","CuisineCategory":"Indian","FileMorbidity":{"66c427159a552e3960c057f3":{"T3":"6.3 ng/mL","T4":"15.7 µg/dL","TSH":"0.016 µIU/mL"}},"FileMorbidityCondition":{"66c427159a552e3960c057f3":"Thyroid: Hyperthyroidism \nBlood Pressure: Hypotension \n"},"DateOfBirth":"2017-02-02","DieticianId":345,"Vitals":{"66c427159a552e3960c057f3":{"Weight":0.0,"Height":0.0,"Temperature":0.0,"SP":0,"DP":0}},"LastVisitDate":"2024-08-20T05:18:13.462+00:00"}
+2024-08-20 00:30:42.549 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:226)] - Patient Details: api.Pojo.PatientPojo@21688427
+2024-08-20 00:30:42.551 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:227)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 00:30:42.551 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:228)] - Endpoint: /patient
+2024-08-20 00:30:44.016 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:268)] - Patient Details: api.Pojo.PatientPojo@6ca367aa
+2024-08-20 00:30:44.017 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:269)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjQxMzE4NDMsImV4cCI6MTcyNDE2MDY0M30.WQob_RHjTAB3GhxG7FytuZwFXFgHUXCk8x7_p2SKGk9GPUPFKCnTjZ12k2AP-Pqop7T8pbiSjdUcpCOhNY_Vjg
+2024-08-20 00:30:44.017 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:270)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 00:30:44.017 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:271)] - Endpoint: /patient
+2024-08-20 00:30:45.350 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:313)] - Patient Details: api.Pojo.PatientPojo@69cc49ec
+2024-08-20 00:30:45.350 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:314)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW9yZ2VRQTJAdGVzdC5jb20iLCJpYXQiOjE3MjQxMzE4NDUsImV4cCI6MTcyNDE2MDY0NX0.akhOG2YwAyLLOSr6PVzukG2Qn8iPVBUVqkHuiysG8nH85BcTKbyfKaNfYJr7BuAUn4UHA1KN98aq-BYRHkk-Nw
+2024-08-20 00:30:45.350 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:315)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 00:30:45.351 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:316)] - Endpoint: /patient
+2024-08-20 00:30:47.046 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:170)] - Sending request to create patient with the following details:
+2024-08-20 00:30:47.046 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:171)] - Patient Details: api.Pojo.PatientPojo@44948ac6
+2024-08-20 00:30:47.046 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:172)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDEzMTg0NiwiZXhwIjoxNzI0MTYwNjQ2fQ.HzPYn6CGdrHz7U9bk2s166Y67ELW3KpM5XdvMdYQ41wmH1f5N5BtFYgzZuvICPheMmH_arRq_-G86UFget5BrQ
+2024-08-20 00:30:47.047 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:173)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 00:30:47.047 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:174)] - Endpoint: /patient
+2024-08-20 00:30:48.511 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:188)] - Response Status Code: 201
+2024-08-20 00:30:48.511 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:189)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724131847&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=mruBk%2F7KAqX9wbCBXfh2c0suR%2BJJdM4GLSUL0m%2FO4a0%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724131847&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=mruBk%2F7KAqX9wbCBXfh2c0suR%2BJJdM4GLSUL0m%2FO4a0%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 05:30:48 GMT
+Via=1.1 vegur
+2024-08-20 00:30:48.512 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:190)] - Response Body: {"patientId":445,"FirstName":"Team","LastName":"Seven","ContactNumber":"1992122100","Email":"helloji008@zoom.com","Allergy":"soy","FoodPreference":"jain","CuisineCategory":"Indian","FileMorbidity":{"66c42a089a552e3960c057f9":{"T3":"6.3 ng/mL","T4":"15.7 µg/dL","TSH":"0.016 µIU/mL"}},"FileMorbidityCondition":{"66c42a089a552e3960c057f9":"Thyroid: Hyperthyroidism \nBlood Pressure: Hypotension \n"},"DateOfBirth":"2017-02-02","DieticianId":345,"Vitals":{"66c42a089a552e3960c057f9":{"Weight":0.0,"Height":0.0,"Temperature":0.0,"SP":0,"DP":0}},"LastVisitDate":"2024-08-20T05:30:48.510+00:00"}
+2024-08-20 00:36:23.213 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:226)] - Patient Details: api.Pojo.PatientPojo@21688427
+2024-08-20 00:36:23.216 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:227)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 00:36:23.216 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:228)] - Endpoint: /patient
+2024-08-20 00:36:24.294 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:242)] - Response Status Code: 401
+2024-08-20 00:36:24.294 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:243)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724132183&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=VhHI0yoVyDwWsWfNFkvtpn0r6bjXcqM4gylhmQ5dfXU%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724132183&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=VhHI0yoVyDwWsWfNFkvtpn0r6bjXcqM4gylhmQ5dfXU%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 05:36:24 GMT
+Via=1.1 vegur
+2024-08-20 00:36:24.295 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:244)] - Response Body: {"timestamp":"2024-08-20T05:36:24.354+00:00","status":401,"error":"Unauthorized","path":"/dietician/patient"}
+2024-08-20 00:36:25.954 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:268)] - Patient Details: api.Pojo.PatientPojo@582ca1e2
+2024-08-20 00:36:25.954 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:269)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjQxMzIxODQsImV4cCI6MTcyNDE2MDk4NH0.ZOlzDaNu8Tx5alD0AJDkV8zgZYpKOM0fy1MTrBgSMcaZB1RuMvyt4jw3DKrEBSC0ziunNa9-ZsfADvGeV6zt1w
+2024-08-20 00:36:25.954 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:270)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 00:36:25.955 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:271)] - Endpoint: /patient
+2024-08-20 00:36:26.901 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:285)] - Response Status Code: 403
+2024-08-20 00:36:26.901 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:286)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724132186&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=PGMghg0YapIV7MdapKNlqCwRJOreKpldBMQoEI1CCRE%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724132186&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=PGMghg0YapIV7MdapKNlqCwRJOreKpldBMQoEI1CCRE%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Length=53
+Date=Tue, 20 Aug 2024 05:36:27 GMT
+Via=1.1 vegur
+2024-08-20 00:36:26.901 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:287)] - Response Body: {"errorCode":"403","errorMessage":"Access is denied"}
+2024-08-20 00:36:28.978 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:313)] - Patient Details: api.Pojo.PatientPojo@3ec62141
+2024-08-20 00:36:28.980 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:314)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW9yZ2VRQTJAdGVzdC5jb20iLCJpYXQiOjE3MjQxMzIxODksImV4cCI6MTcyNDE2MDk4OX0.dMLTlP2RAV3KMKHXy96kjZMrL-hsybhP4qNK5_JEbdYed_y2WEbhPo3YTPGEqQjx9uQVPCzCsevdWcWAiGfU6A
+2024-08-20 00:36:28.980 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:315)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 00:36:28.980 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:316)] - Endpoint: /patient
+2024-08-20 00:36:30.150 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:330)] - Response Status Code: 403
+2024-08-20 00:36:30.152 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:331)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724132189&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=5HNvCOgajdRjvxQ9f%2Ft%2B5S61mLZLv8eJu2qYrjZwrqA%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724132189&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=5HNvCOgajdRjvxQ9f%2Ft%2B5S61mLZLv8eJu2qYrjZwrqA%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Length=53
+Date=Tue, 20 Aug 2024 05:36:30 GMT
+Via=1.1 vegur
+2024-08-20 00:36:30.152 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:332)] - Response Body: {"errorCode":"403","errorMessage":"Access is denied"}
+2024-08-20 01:17:58.596 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:357)] - Patient Details: api.Pojo.PatientPojo@aa23f11
+2024-08-20 01:17:58.598 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:358)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDEzNDY3NywiZXhwIjoxNzI0MTYzNDc3fQ.5DTf9PCj9lk0oC4r0o44VOuHyhETD0Ln4zURzIj_lm1WZkHdQb3gA7w7qwt4z5L-wR-OhjcPJ6598D2aRbbBaw
+2024-08-20 01:17:58.598 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:359)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 01:17:58.598 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:360)] - Endpoint: /patient
+2024-08-20 01:17:59.877 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:374)] - Response Status Code: 400
+2024-08-20 01:17:59.877 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:375)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724134679&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=6CWuLbvIZtSr0q6PcZwByD0LXXNFB87t7R0U2BBUEuc%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724134679&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=6CWuLbvIZtSr0q6PcZwByD0LXXNFB87t7R0U2BBUEuc%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 06:17:59 GMT
+Via=1.1 vegur
+2024-08-20 01:17:59.878 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:376)] - Response Body: {"timestamp":"2024-08-20T06:17:59.872+00:00","status":400,"error":"Bad Request","path":"/dietician/patient"}
+2024-08-20 01:27:13.063 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:357)] - Patient Details: api.Pojo.PatientPojo@43e7f104
+2024-08-20 01:27:13.066 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:358)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDEzNTIzMiwiZXhwIjoxNzI0MTY0MDMyfQ.HBuu0P0OU4nER3SrtI_3hqwrESonXDyeiPe38B7JqXj5_ETrFb7sZP7WKumk_FACysj5x3YTLlUKZcVIF4Rz5Q
+2024-08-20 01:27:13.066 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:359)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 01:27:13.066 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:360)] - Endpoint: /patient
+2024-08-20 01:27:14.655 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:374)] - Response Status Code: 400
+2024-08-20 01:27:14.656 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:375)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724135233&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=yqZtj%2BgdEWt4OOKUzfKesVwPnXT6lBdW0d2kYnDGryE%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724135233&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=yqZtj%2BgdEWt4OOKUzfKesVwPnXT6lBdW0d2kYnDGryE%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 06:27:14 GMT
+Via=1.1 vegur
+2024-08-20 01:27:14.656 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:376)] - Response Body: {"timestamp":"2024-08-20T06:27:14.832+00:00","status":400,"error":"Bad Request","path":"/dietician/patient"}
+2024-08-20 01:35:33.674 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:357)] - Patient Details: api.Pojo.PatientPojo@6651efa4
+2024-08-20 01:35:33.676 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:358)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDEzNTczMiwiZXhwIjoxNzI0MTY0NTMyfQ.F0IZLhWX0xLTZgLaT6tfRkk7K7XrmGPm-X1nURqB0TOonZ6dQLKd0Fx_Vx_ehKBVtK5tyP6krcOPakLkmGMCvA
+2024-08-20 01:35:33.676 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:359)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 01:35:33.676 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:360)] - Endpoint: /patient
+2024-08-20 01:35:34.778 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:374)] - Response Status Code: 400
+2024-08-20 01:35:34.779 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:375)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724135734&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=oINKAOw5XQNXCTlUKp7qWQbmQnYqTIwJtSGPxIrHtos%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724135734&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=oINKAOw5XQNXCTlUKp7qWQbmQnYqTIwJtSGPxIrHtos%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 06:35:34 GMT
+Via=1.1 vegur
+2024-08-20 01:35:34.779 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:376)] - Response Body: {"timestamp":"2024-08-20T06:35:34.960+00:00","status":400,"error":"Bad Request","path":"/dietician/patient"}
+2024-08-20 01:36:53.216 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:357)] - Patient Details: api.Pojo.PatientPojo@43e7f104
+2024-08-20 01:36:53.218 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:358)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDEzNTgxMiwiZXhwIjoxNzI0MTY0NjEyfQ.6aJM_eEJqMOW75welGGq75joM6E6DKwu0D2mIq0EE-vE4aYUL4xB_NwoS4EgTZwNw09Gfkji54KCS8voiVogpg
+2024-08-20 01:36:53.218 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:359)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 01:36:53.218 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:360)] - Endpoint: /patient
+2024-08-20 01:36:54.665 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:374)] - Response Status Code: 400
+2024-08-20 01:36:54.666 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:375)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724135813&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=HzAlDIiKeQQ4iSBD70puiW2gGSB3arpfE0Mzn%2BF3TQU%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724135813&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=HzAlDIiKeQQ4iSBD70puiW2gGSB3arpfE0Mzn%2BF3TQU%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 06:36:54 GMT
+Via=1.1 vegur
+2024-08-20 01:36:54.666 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:376)] - Response Body: {"timestamp":"2024-08-20T06:36:54.488+00:00","status":400,"error":"Bad Request","path":"/dietician/patient"}
+2024-08-20 01:36:56.332 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:171)] - Sending request to create patient with the following details:
+2024-08-20 01:36:56.332 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:172)] - Patient Details: api.Pojo.PatientPojo@dbca149
+2024-08-20 01:36:56.333 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:173)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDEzNTgxNSwiZXhwIjoxNzI0MTY0NjE1fQ.vH1dHnBpd56pFO4iX99vLetMKSDhCY9U69YsMwW258SDjtceqUhtExwL7lfqSMowLm7ERvHnetxckQJ7hc3SDA
+2024-08-20 01:36:56.333 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:174)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 01:36:56.333 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:175)] - Endpoint: /patient
+2024-08-20 01:36:57.461 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:189)] - Response Status Code: 201
+2024-08-20 01:36:57.462 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:190)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724135816&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=fWiVF7Z%2FZQYvb5Qw9CK8Aw3EzXd%2BN2tyhLcNW7HX2tk%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724135816&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=fWiVF7Z%2FZQYvb5Qw9CK8Aw3EzXd%2BN2tyhLcNW7HX2tk%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 06:36:57 GMT
+Via=1.1 vegur
+2024-08-20 01:36:57.462 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:191)] - Response Body: {"patientId":455,"FirstName":"Team","LastName":"Seven","ContactNumber":"9988998800","Email":"helloji009@zoom.com","Allergy":"soy","FoodPreference":"jain","CuisineCategory":"Indian","FileMorbidity":{"66c439899a552e3960c05839":{"T3":"6.3 ng/mL","T4":"15.7 µg/dL","TSH":"0.016 µIU/mL"}},"FileMorbidityCondition":{"66c439899a552e3960c05839":"Thyroid: Hyperthyroidism \nBlood Pressure: Hypotension \n"},"DateOfBirth":"2017-02-02","DieticianId":345,"Vitals":{"66c439899a552e3960c05839":{"Weight":0.0,"Height":0.0,"Temperature":0.0,"SP":0,"DP":0}},"LastVisitDate":"2024-08-20T06:36:57.515+00:00"}
+2024-08-20 01:42:44.378 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:357)] - Patient Details: api.Pojo.PatientPojo@7294a684
+2024-08-20 01:42:44.380 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:358)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDEzNjE2MywiZXhwIjoxNzI0MTY0OTYzfQ.8KPtzesDz0tCG_14Vv3Gn3cwR_VjgBesR_Yef_sNrC4J0GnitvAnIRKWX6Y0wSKUJto_ErVkSxX_Beef98yChQ
+2024-08-20 01:42:44.381 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:359)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 01:42:44.381 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:360)] - Endpoint: /patient
+2024-08-20 01:42:45.410 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:374)] - Response Status Code: 400
+2024-08-20 01:42:45.411 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:375)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724136165&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=t2gUt9Yk0DoMbrsAMTEcArMYszhcF6JbjHaX%2F3U6ZfU%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724136165&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=t2gUt9Yk0DoMbrsAMTEcArMYszhcF6JbjHaX%2F3U6ZfU%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 06:42:45 GMT
+Via=1.1 vegur
+2024-08-20 01:42:45.411 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:376)] - Response Body: {"timestamp":"2024-08-20T06:42:45.597+00:00","status":400,"error":"Bad Request","path":"/dietician/patient"}
+2024-08-20 01:42:51.749 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:171)] - Sending request to create patient with the following details:
+2024-08-20 01:42:51.749 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:172)] - Patient Details: api.Pojo.PatientPojo@71b7e9c8
+2024-08-20 01:42:51.750 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:173)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDEzNjE3MSwiZXhwIjoxNzI0MTY0OTcxfQ.RC0COCOxYwycg3TY0hKzDFLQ4F6HwVf1FS2bAohiO2syrLbTGw-UqxXsi46WLsgGRNcWI4ZWe64pe_mfZPIQWg
+2024-08-20 01:42:51.750 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:174)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 01:42:51.750 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:175)] - Endpoint: /patient
+2024-08-20 01:42:53.374 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:189)] - Response Status Code: 201
+2024-08-20 01:42:53.375 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:190)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724136172&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=rr9n2L8oHX9X72fxYVzvuOMDhfAv3JhTypP9RQjRC7o%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724136172&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=rr9n2L8oHX9X72fxYVzvuOMDhfAv3JhTypP9RQjRC7o%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 06:42:53 GMT
+Via=1.1 vegur
+2024-08-20 01:42:53.375 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:191)] - Response Body: {"patientId":456,"FirstName":"Team","LastName":"Seven","ContactNumber":"9988998800","Email":"helloji009@zoom.com","Allergy":"soy","FoodPreference":"jain","CuisineCategory":"Indian","FileMorbidity":{"66c43aed9a552e3960c0583d":{"T3":"6.3 ng/mL","T4":"15.7 µg/dL","TSH":"0.016 µIU/mL"}},"FileMorbidityCondition":{"66c43aed9a552e3960c0583d":"Thyroid: Hyperthyroidism \nBlood Pressure: Hypotension \n"},"DateOfBirth":"2017-02-02","DieticianId":345,"Vitals":{"66c43aed9a552e3960c0583d":{"Weight":0.0,"Height":0.0,"Temperature":0.0,"SP":0,"DP":0}},"LastVisitDate":"2024-08-20T06:42:53.390+00:00"}
+2024-08-20 01:46:21.502 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:357)] - Patient Details: api.Pojo.PatientPojo@120d13ae
+2024-08-20 01:46:21.504 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:358)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDEzNjM4MCwiZXhwIjoxNzI0MTY1MTgwfQ.H6iNxj_uDlGXdA8x6XW1o7Ur_VIqTNRLYHt1FfzXJDd3kMOUyXDNnfAXU57kcRUmUHnDwkWs9j9Lj0jVxwlZxQ
+2024-08-20 01:46:21.504 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:359)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 01:46:21.504 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:360)] - Endpoint: /patient
+2024-08-20 01:46:22.980 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:374)] - Response Status Code: 400
+2024-08-20 01:46:22.981 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:375)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724136382&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=K2MymRGMQINCv3%2FcLiygWciZFJxkusQl1bo5KT3Xpgo%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724136382&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=K2MymRGMQINCv3%2FcLiygWciZFJxkusQl1bo5KT3Xpgo%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 06:46:22 GMT
+Via=1.1 vegur
+2024-08-20 01:46:22.981 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:376)] - Response Body: {"timestamp":"2024-08-20T06:46:22.883+00:00","status":400,"error":"Bad Request","path":"/dietician/patient"}
+2024-08-20 01:46:29.368 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:171)] - Sending request to create patient with the following details:
+2024-08-20 01:46:29.368 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:172)] - Patient Details: api.Pojo.PatientPojo@53551fef
+2024-08-20 01:46:29.368 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:173)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDEzNjM4OSwiZXhwIjoxNzI0MTY1MTg5fQ.r4HWnVzgamXMJb0d-EURcevvRP7LWFJj9T6bpLFDL8EjkSWXclI6Z75why0nUnZd5JFlUhGsmVr908g9anGeHQ
+2024-08-20 01:46:29.368 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:174)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 01:46:29.368 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:175)] - Endpoint: /patient
+2024-08-20 01:46:30.283 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:189)] - Response Status Code: 400
+2024-08-20 01:46:30.283 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:190)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724136389&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=%2BcfQtANBfxTD8zCcpAzGd2DjBkGr4YDDTQJ5VhjPJgk%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724136389&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=%2BcfQtANBfxTD8zCcpAzGd2DjBkGr4YDDTQJ5VhjPJgk%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 06:46:30 GMT
+Via=1.1 vegur
+2024-08-20 01:46:30.284 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:191)] - Response Body: {"errorCode":"DUPLICATE_ENTITY","errorMessage":"Patient already exists with given DateOfBirth and ContactNumber"}
+2024-08-20 08:11:32.000 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:227)] - Patient Details: api.Pojo.PatientPojo@6c8e5ac4
+2024-08-20 08:11:32.003 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:228)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 08:11:32.003 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:229)] - Endpoint: /patient
+2024-08-20 08:11:33.026 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:243)] - Response Status Code: 401
+2024-08-20 08:11:33.027 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:244)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724159492&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=%2F279QT%2FnD2Daw1ec7YyQJg2mkeWhnFGPzL4cHB%2F8G2A%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724159492&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=%2F279QT%2FnD2Daw1ec7YyQJg2mkeWhnFGPzL4cHB%2F8G2A%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 13:11:32 GMT
+Via=1.1 vegur
+2024-08-20 08:11:33.027 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:245)] - Response Body: {"timestamp":"2024-08-20T13:11:32.747+00:00","status":401,"error":"Unauthorized","path":"/dietician/patient"}
+2024-08-20 08:11:34.396 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:269)] - Patient Details: api.Pojo.PatientPojo@7b2f8152
+2024-08-20 08:11:34.396 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:270)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjQxNTk0OTMsImV4cCI6MTcyNDE4ODI5M30.MGIzD2G5zoAJB4ToY5RNUGD3Dt3JRm8gZkTUkLRXZpj0PQivouXh4c-FWf_1p4onkxhJMJO7xnVvqI_-oaXWBw
+2024-08-20 08:11:34.397 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:271)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 08:11:34.397 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:272)] - Endpoint: /patient
+2024-08-20 08:11:35.291 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:286)] - Response Status Code: 403
+2024-08-20 08:11:35.292 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:287)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724159494&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=BJOrfIAMuliJeP%2FTPTedyB2HGalBRC0%2BHOSts1UcgSQ%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724159494&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=BJOrfIAMuliJeP%2FTPTedyB2HGalBRC0%2BHOSts1UcgSQ%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Length=53
+Date=Tue, 20 Aug 2024 13:11:34 GMT
+Via=1.1 vegur
+2024-08-20 08:11:35.292 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:288)] - Response Body: {"errorCode":"403","errorMessage":"Access is denied"}
+2024-08-20 08:11:36.591 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:314)] - Patient Details: api.Pojo.PatientPojo@49bc71b4
+2024-08-20 08:11:36.591 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:315)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW9yZ2VRQTJAdGVzdC5jb20iLCJpYXQiOjE3MjQxNTk0OTYsImV4cCI6MTcyNDE4ODI5Nn0.H-0tYWVrtCY99ztv5B1oH8Gi7FGde_q14S_M-OQozsS63Qh5q4uN9wf9DYfkACsAAJy8AfsVa371otXLVfG_1Q
+2024-08-20 08:11:36.591 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:316)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 08:11:36.592 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:317)] - Endpoint: /patient
+2024-08-20 08:11:37.547 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:331)] - Response Status Code: 403
+2024-08-20 08:11:37.548 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:332)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724159496&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=FiGbBdTsz5f84Zy7nb8juexH7YkkcUvsgJM7Tq3vFAQ%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724159496&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=FiGbBdTsz5f84Zy7nb8juexH7YkkcUvsgJM7Tq3vFAQ%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Length=53
+Date=Tue, 20 Aug 2024 13:11:37 GMT
+Via=1.1 vegur
+2024-08-20 08:11:37.548 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:333)] - Response Body: {"errorCode":"403","errorMessage":"Access is denied"}
+2024-08-20 08:25:59.708 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:227)] - Patient Details: api.Pojo.PatientPojo@78ab63b5
+2024-08-20 08:25:59.710 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:228)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 08:25:59.710 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:229)] - Endpoint: /patient
+2024-08-20 08:26:00.722 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:243)] - Response Status Code: 401
+2024-08-20 08:26:00.723 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:244)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724160359&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=a0mFthtx4orjudmx2nTsqJUug2is0lYYUCpDOkje%2F6E%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724160359&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=a0mFthtx4orjudmx2nTsqJUug2is0lYYUCpDOkje%2F6E%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 13:26:00 GMT
+Via=1.1 vegur
+2024-08-20 08:26:00.723 INFO [main] [api.Request.PatientReq.createNoAuthPatientReq(PatientReq.java:245)] - Response Body: {"timestamp":"2024-08-20T13:26:00.491+00:00","status":401,"error":"Unauthorized","path":"/dietician/patient"}
+2024-08-20 08:26:02.135 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:269)] - Patient Details: api.Pojo.PatientPojo@4b2af0eb
+2024-08-20 08:26:02.135 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:270)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjQxNjAzNjEsImV4cCI6MTcyNDE4OTE2MX0.26hiYxLLFLAKx3GP7Fnrt8bIku9J7DfT6s5QFkrmT1r-wtLQ4ZrDTJqtd2CqQngxHR2Ne5VdeRpp7PpRbgpUSg
+2024-08-20 08:26:02.135 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:271)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 08:26:02.135 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:272)] - Endpoint: /patient
+2024-08-20 08:26:03.064 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:286)] - Response Status Code: 403
+2024-08-20 08:26:03.064 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:287)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724160362&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=k8tl0FY0GVwvlKc1e%2FumKzu1tG97aNjzYw0AzZYAx3s%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724160362&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=k8tl0FY0GVwvlKc1e%2FumKzu1tG97aNjzYw0AzZYAx3s%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Length=53
+Date=Tue, 20 Aug 2024 13:26:01 GMT
+Via=1.1 vegur
+2024-08-20 08:26:03.065 INFO [main] [api.Request.PatientReq.createPatientReqWithAdminToken(PatientReq.java:288)] - Response Body: {"errorCode":"403","errorMessage":"Access is denied"}
+2024-08-20 08:26:04.369 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:314)] - Patient Details: api.Pojo.PatientPojo@58cd6088
+2024-08-20 08:26:04.370 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:315)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZW9yZ2VRQTJAdGVzdC5jb20iLCJpYXQiOjE3MjQxNjAzNjQsImV4cCI6MTcyNDE4OTE2NH0.OXDi2Tz-VuUkAxI4-CRwQQxKhyMhUllEMjOth4I0xQ8xbtm_2U-8g4ieOlzozqZzpsndL2B2Airz-1XsEgtEMA
+2024-08-20 08:26:04.370 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:316)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 08:26:04.370 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:317)] - Endpoint: /patient
+2024-08-20 08:26:05.267 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:331)] - Response Status Code: 403
+2024-08-20 08:26:05.268 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:332)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724160364&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=sShIgAMNCUsnbUUDnjupVdl6AV23TxqhwsR54rTDYfE%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724160364&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=sShIgAMNCUsnbUUDnjupVdl6AV23TxqhwsR54rTDYfE%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Length=53
+Date=Tue, 20 Aug 2024 13:26:05 GMT
+Via=1.1 vegur
+2024-08-20 08:26:05.268 INFO [main] [api.Request.PatientReq.createPatientReqWithPatientToken(PatientReq.java:333)] - Response Body: {"errorCode":"403","errorMessage":"Access is denied"}
+2024-08-20 08:26:06.509 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:357)] - Patient Details: api.Pojo.PatientPojo@28d728f1
+2024-08-20 08:26:06.509 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:358)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDE2MDM2NSwiZXhwIjoxNzI0MTg5MTY1fQ.L0u88y09VDATCSrmGh3DShiciD-YCT5pBVzIH0jxRpe3Z_VKfaXtLUwV8ObHRos2fnbfLL2p_nVxkubN_VfJ5g
+2024-08-20 08:26:06.510 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:359)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 08:26:06.510 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:360)] - Endpoint: /patient
+2024-08-20 08:26:07.451 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:374)] - Response Status Code: 400
+2024-08-20 08:26:07.451 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:375)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724160366&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=ixoW%2FTkULq4SXl92Q9ofcrI6MnJL%2F2FADv7nKevXD6w%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724160366&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=ixoW%2FTkULq4SXl92Q9ofcrI6MnJL%2F2FADv7nKevXD6w%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 13:26:06 GMT
+Via=1.1 vegur
+2024-08-20 08:26:07.451 INFO [main] [api.Request.PatientReq.createPatientWithOnlyAdditonalDetails(PatientReq.java:376)] - Response Body: {"timestamp":"2024-08-20T13:26:07.188+00:00","status":400,"error":"Bad Request","path":"/dietician/patient"}
+2024-08-20 08:26:08.748 INFO [main] [api.Request.PatientReq.putCreatePatientReq(PatientReq.java:400)] - Patient Details: api.Pojo.PatientPojo@5643052d
+2024-08-20 08:26:08.749 INFO [main] [api.Request.PatientReq.putCreatePatientReq(PatientReq.java:401)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDE2MDM2OCwiZXhwIjoxNzI0MTg5MTY4fQ.6px8J0jeL3SGWYfalCMEUuwxR0o93FS2I9DGEljzOoQtxwlAUz0Xb4X8qT26P47bRSWVlpz2WoFkBtaY1oY14Q
+2024-08-20 08:26:08.749 INFO [main] [api.Request.PatientReq.putCreatePatientReq(PatientReq.java:402)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 08:26:08.749 INFO [main] [api.Request.PatientReq.putCreatePatientReq(PatientReq.java:403)] - Endpoint: /patient
+2024-08-20 08:26:09.638 INFO [main] [api.Request.PatientReq.putCreatePatientReq(PatientReq.java:417)] - Response Status Code: 405
+2024-08-20 08:26:09.648 INFO [main] [api.Request.PatientReq.putCreatePatientReq(PatientReq.java:418)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724160368&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=ohS0m6fe3VBjNyzFCIwUWlO8uO1h%2BczLSW8SnT6CG%2FI%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724160368&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=ohS0m6fe3VBjNyzFCIwUWlO8uO1h%2BczLSW8SnT6CG%2FI%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+Allow=GET, POST
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 13:26:09 GMT
+Via=1.1 vegur
+2024-08-20 08:26:09.649 INFO [main] [api.Request.PatientReq.putCreatePatientReq(PatientReq.java:419)] - Response Body: {"timestamp":"2024-08-20T13:26:09.390+00:00","status":405,"error":"Method Not Allowed","path":"/dietician/patient"}
+2024-08-20 08:26:10.904 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidEndpoint(PatientReq.java:443)] - Patient Details: api.Pojo.PatientPojo@21cb5648
+2024-08-20 08:26:10.904 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidEndpoint(PatientReq.java:444)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDE2MDM3MCwiZXhwIjoxNzI0MTg5MTcwfQ.SGbn-ujIA5kASLXWet9PD0kAieTZIsBWzLA0EildHkucYn5KxRz47LF82evxUyxATgaebHW65H9_QRbtqua2AQ
+2024-08-20 08:26:10.905 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidEndpoint(PatientReq.java:445)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 08:26:10.905 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidEndpoint(PatientReq.java:446)] - Endpoint: /patients
+2024-08-20 08:26:11.857 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidEndpoint(PatientReq.java:460)] - Response Status Code: 404
+2024-08-20 08:26:11.857 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidEndpoint(PatientReq.java:461)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724160371&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=ukySLe9eo9mbWRNykKuuSG3FJ4UNGhhW5z8Y%2FMrLwQ0%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724160371&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=ukySLe9eo9mbWRNykKuuSG3FJ4UNGhhW5z8Y%2FMrLwQ0%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 13:26:10 GMT
+Via=1.1 vegur
+2024-08-20 08:26:11.857 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidEndpoint(PatientReq.java:462)] - Response Body: {"timestamp":"2024-08-20T13:26:11.634+00:00","status":404,"error":"Not Found","path":"/dietician/patients"}
+2024-08-20 08:26:13.092 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidContenType(PatientReq.java:485)] - Patient Details: api.Pojo.PatientPojo@240fa4ad
+2024-08-20 08:26:13.093 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidContenType(PatientReq.java:486)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDE2MDM3MiwiZXhwIjoxNzI0MTg5MTcyfQ.JhRASpMraxffoAdb6AOEAF49zNV3PS4vEeGTWCLoXeqg3drSLJagZtQ-c0Mv2XBiMvfroeLcQ6Sx7wjAezhY5Q
+2024-08-20 08:26:13.093 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidContenType(PatientReq.java:487)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 08:26:13.093 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidContenType(PatientReq.java:488)] - Endpoint: /patient
+2024-08-20 08:26:13.972 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidContenType(PatientReq.java:502)] - Response Status Code: 400
+2024-08-20 08:26:13.973 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidContenType(PatientReq.java:503)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724160373&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=CJ29VDTG1OCZOrUDfAEX5JW2qdrCpEtKmEe3XNVPA9w%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724160373&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=CJ29VDTG1OCZOrUDfAEX5JW2qdrCpEtKmEe3XNVPA9w%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=text/plain;charset=UTF-8
+Content-Length=35
+Date=Tue, 20 Aug 2024 13:26:13 GMT
+Via=1.1 vegur
+2024-08-20 08:26:13.973 INFO [main] [api.Request.PatientReq.createPatientReqwithInvalidContenType(PatientReq.java:504)] - Response Body: Date Should be in format yyyy-MM-dd
+2024-08-20 08:26:15.244 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:171)] - Sending request to create patient with the following details:
+2024-08-20 08:26:15.244 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:172)] - Patient Details: api.Pojo.PatientPojo@6138ee0e
+2024-08-20 08:26:15.244 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:173)] - Authorization Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2huVGVzdDAzQHFhLmNvbSIsImlhdCI6MTcyNDE2MDM3NCwiZXhwIjoxNzI0MTg5MTc0fQ.3qbF0ujltSR1Yj2yrONNmmQTZqZD6pJI8KFoihwvodGjcoJUwsxXe-W4RpxrNQoBQsq8hQ4dClXlZ4C2E3zpIA
+2024-08-20 08:26:15.245 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:174)] - Base URI: https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician
+2024-08-20 08:26:15.245 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:175)] - Endpoint: /patient
+2024-08-20 08:26:16.159 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:189)] - Response Status Code: 400
+2024-08-20 08:26:16.160 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:190)] - Response Headers: Server=Cowboy
+Report-To={"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1724160375&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=1R9n%2FbJ57rKTrQwMAVbjzDyreR7dIXwQ6nGzMPq3Nf8%3D"}]}
+Reporting-Endpoints=heroku-nel=https://nel.heroku.com/reports?ts=1724160375&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=1R9n%2FbJ57rKTrQwMAVbjzDyreR7dIXwQ6nGzMPq3Nf8%3D
+Nel={"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}
+Connection=keep-alive
+Vary=Origin
+Vary=Access-Control-Request-Method
+Vary=Access-Control-Request-Headers
+X-Content-Type-Options=nosniff
+X-Xss-Protection=1; mode=block
+Cache-Control=no-cache, no-store, max-age=0, must-revalidate
+Pragma=no-cache
+Expires=0
+Strict-Transport-Security=max-age=31536000 ; includeSubDomains
+X-Frame-Options=DENY
+Content-Type=application/json
+Transfer-Encoding=chunked
+Date=Tue, 20 Aug 2024 13:26:14 GMT
+Via=1.1 vegur
+2024-08-20 08:26:16.160 INFO [main] [api.Request.PatientReq.createPatientReq(PatientReq.java:191)] - Response Body: {"errorCode":"INVALID_REQ_DATA","errorMessage":"contact : Contact number should contain 10 digits  \n email : Invalid Email Id\n Email should start with a letter  \n "}
+2024-08-20 08:26:23.072 INFO [main] [api.Request.PatientReq.savePdfResponse(PatientReq.java:143)] - PDF saved successfully at patient_report.pdf
+2024-08-20 08:26:24.841 INFO [main] [api.Request.PatientReq.savePdfResponse(PatientReq.java:143)] - PDF saved successfully at patient_report.pdf

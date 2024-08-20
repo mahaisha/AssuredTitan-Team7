@@ -55,3 +55,15 @@ local.properties
 ## OS X
 ##############################
 .DS_Store
+/AllureReports/
+/target/
+/test-output/
+/AllureReports/*.json
+/ExtentReport/
+/ExtentReports/
+/logs/
+/PDFReport/
+/allure-results/
+DieticianAPI
+
+/DieticianAPI.log

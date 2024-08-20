@@ -1,5 +1,6 @@
 package api.Utility;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -8,12 +9,25 @@ import java.util.Map;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ExcelReader {
+public class ExcelReader extends CommonUtils{
+
+		public static File pdfFilePath;
+		
+		static XSSFSheet sheet;
+		static XSSFWorkbook workbook;
+		static String path=System.getProperty("user.dir");
+		static String excelSheet = paths.getString("excelfile");
+		
+ 	static DataFormatter dataFormatter = new DataFormatter();
+
 
 	public static int totalRow;
 
@@ -63,5 +77,6 @@ public class ExcelReader {
 
 		return totalRow;
 	}
+
 
 }

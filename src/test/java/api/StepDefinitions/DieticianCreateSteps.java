@@ -2,11 +2,14 @@ package api.StepDefinitions;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.annotations.BeforeClass;
 
 import api.Payload.DieticianPayload;
 import api.Payload.DieticianPayload.TestCase;
 import api.Pojo.DieticianPojo;
 import api.Request.DieticianRequest;
+import api.Request.UserLoginRequest;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,30 +23,33 @@ public class DieticianCreateSteps {
 	private static final String DIETICIAN_ENDPOINT = "/dietician";
 	private static final String INVALID_ENDPOINT = "/invalid";
 	
-	private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA1OTMsImV4cCI6MTcyNDAxOTM5M30.OPtdczAakW0MedYn73x8YYms-yI5VYOAoqdabzc2lMgm2jbN90_gnVyc24yshvngeXxgHNfETNRTKNRmZy-tvg";
+	//private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA1OTMsImV4cCI6MTcyNDAxOTM5M30.OPtdczAakW0MedYn73x8YYms-yI5VYOAoqdabzc2lMgm2jbN90_gnVyc24yshvngeXxgHNfETNRTKNRmZy-tvg";
 	private static final String DIETICIAN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzIzOTkwNjE1LCJleHAiOjE3MjQwMTk0MTV9.uMrF8SzL8OY36FfVCN6rDnN2TqmgDsfGR_068I_97J7pNleR4HlvVoAT6l2lt2qQNw-REybsL9ePdP6ltKfUAw";
 	private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA2MzAsImV4cCI6MTcyNDAxOTQzMH0.8lkOI2xnSMqYoCwnXl55KVfz_hpcVk2D6eRVb6Tg-fTHqII0pr6XHO0JM0jayMYlwveS1QooW_RK86ubISs6FA";
 
+	private UserLoginRequest userLoginRequest = new UserLoginRequest();
 
 	private DieticianPayload excelReader;
 	private DieticianRequest restUtil;
 	
 	private DieticianPojo dietician;
 	private ValidatableResponse response;
-
+	static String adminAuthToken;
 	public DieticianCreateSteps() {
 		excelReader = new DieticianPayload();
 		restUtil = new DieticianRequest();
 	}
-	
-	
+
 
 	@Given("Create Dietician has Admin Auth token")
 	public void app_has_admin_auth_token() {
-		// TODO: Integrate with Admin module
+		adminAuthToken = userLoginRequest.adminLoginRequest().jsonPath().getString("token");
 		return;
 	}
 
+	
+	
+	
 	@Given("Create Dietician has Dietician Auth token")
 	public void app_has_dietician_auth_token() {
 		// TODO: Integrate with Admin module
@@ -97,22 +103,22 @@ public class DieticianCreateSteps {
 	
 	@When("Create Dietician with Admin Auth token")
 	public void create_dietician_with_admin_auth_token() {
-		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician);
+		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, adminAuthToken, this.dietician);
 	}
 	
 	@When("Create Dietician with Admin Auth token and invalid HTTP method")
 	public void create_dietician_with_admin_auth_token_and_invalid_http_method() {
-		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician);
+		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, adminAuthToken, this.dietician);
 	}
 	
 	@When("Create Dietician with Admin Auth token and invalid endpoint")
 	public void create_dietician_with_admin_auth_token_and_invalid_endpoint() {
-		this.response = restUtil.createDietician(INVALID_ENDPOINT, Method.POST, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician);
+		this.response = restUtil.createDietician(INVALID_ENDPOINT, Method.POST, ContentType.JSON, adminAuthToken, this.dietician);
 	}
 	
 	@When("Create Dietician with Admin Auth token and invalid content type")
 	public void create_dietician_with_admin_auth_token_and_invalid_content_type() {
-		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.TEXT, ADMIN_AUTH_TOKEN, this.dietician);
+		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.TEXT, adminAuthToken, this.dietician);
 	}
 	
 	
