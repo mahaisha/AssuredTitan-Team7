@@ -64,4 +64,6 @@ local.properties
 /logs/
 /PDFReport/
 /allure-results/
+DieticianAPI
 
+/DieticianAPI.log
