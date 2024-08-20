@@ -1,19 +1,28 @@
 package api.StepDefinitions;
 
+
+import java.io.IOException;
+import java.text.ParseException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.hamcrest.Matcher;
+import org.testng.Assert;
+
+import api.Request.PatientReq;
+import api.Request.UserLoginRequest;
+import api.Utility.CommonUtils;
+import api.Utility.LoggerLoad;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
-import io.restassured.module.jsv.JsonSchemaValidator;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import java.io.IOException;
-import org.apache.logging.log4j.LogManager;
-import api.Request.PatientReq;
-import api.Utility.CommonUtils;
-import org.apache.logging.log4j.Logger;
+
 
 public class PatientSteps extends CommonUtils {
 
@@ -32,8 +41,21 @@ public class PatientSteps extends CommonUtils {
 	private static String fileId = "66beb450a956ef1c5667388f";
 	private static String invalidFileId = "1";
 
+	
+	 private String tokenType;
+	    private String endpoint;
+	    private String contentType;
+	    private int statusCode;
+	    private String responseBody;
+	    private int expectedStatusCode;
+	    private String expectedMessage;
+	    public static String token;
+	    
 	PatientReq patientReq = new PatientReq();
 	private static final Logger logger = LogManager.getLogger(PatientSteps.class);
+
+UserLoginRequest login = new UserLoginRequest();
+
 
 	@Before
 	public void setup() {
@@ -43,56 +65,21 @@ public class PatientSteps extends CommonUtils {
 
 	@Given("Admin logs in with valid credentials and receives a Admin token")
 	public void admin_logs_in_with_valid_credentials() {
-
-		response = RestAssured.given().contentType("application/json")
-				.body("{ \"userLoginEmail\": \"Team7.admin@gmail.com\", \"password\": \"test\" }").log().all() // Log
-				.post("/login").then().log().status() // Log response status code
-				.log().body() // Log response body
-				.extract().response();
-		adminToken = response.jsonPath().getString("token");
-		setAdminToken(response.jsonPath().getString("token"));
-		System.out.println("adminToken :" + adminToken);
+      login.adminLoginRequest();
+ 
 	}
 
 	@Given("Dietician logs in and receives a Dietician token")
 	public void dietician_logs_in_and_receives_a_token() {
-		response = RestAssured.given().contentType("application/json")
-				.body("{ \"userLoginEmail\": \"abc.xyz@example.com\", \"password\": \"" + dieticianPassword + "\" }")
-				.log().all() // Log request details
-				.post("/login").then().log().status() // Log response status code
-				.log().body() // Log response body
-				.extract().response();
-		dieticianToken = response.jsonPath().getString("token");
-		setDieticianToken(response.jsonPath().getString("token"));
-		System.out.println("dieticianToken :" + dieticianToken);
+		login.dieticianLoginRequest();
+		
 	}
 
-	/*
-	 * @Given("Dietician creates a Patient") public void
-	 * dietician_creates_a_patient() { Response createPatientResponse =
-	 * RestAssured.given() .header("Authorization", "Bearer " + dieticianToken)
-	 * .contentType("application/json")
-	 * .body("{ \"FirstName\": \"Jane\", \"LastName\": \"Doe\", \"ContactNumber\": \"0987654321\", \"Email\": \"janedoe@example.com\", \"Allergy\": \"None\", \"FoodPreference\": \"Vegetarian\", \"CuisineCategory\": \"Indian\", \"DateOfBirth\": \"1990-01-01\" }"
-	 * ) .post(
-	 * "https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician/patient"
-	 * ); patientId = createPatientResponse.jsonPath().getInt("patientId");
-	 * 
-	 * }
-	 */
-
+	
 	@Given("Patient logs in receives a Patient token")
 	public void dietician_receives_a_patient_token() {
-		response = RestAssured.given().contentType("application/json")
-				.body("{ \"userLoginEmail\": \"janedoe@example.com\", \"password\": \"test\" }") 
-				.log().all() // Log request details
-				.post("/login").then().log().status() // Log response status code
-				.log().body() // Log response body
-				.extract().response();
-		patientToken = response.jsonPath().getString("token");
-		setPatientToken(response.jsonPath().getString("token"));
-		System.out.println("patientToken :" + patientToken);
-		logger.info("Patient token received: " + patientToken);
-	}
+		login.patientLoginRequest();
+			}
 
 	@Given("{string} create {string} request")
 	public void userCreatesGETRequest(String user, String reqMethod) {
@@ -161,4 +148,88 @@ public class PatientSteps extends CommonUtils {
 		response.then().log().all().statusCode(statusCode);
 	}
 
+//--------------------IshaSteps------------------//
+	@Given("base URI is set to the patient API endpoint")
+	public void base_uri_is_set_to_the_patient_api_endpoint() {
+		patientReq.setBaseUri();
+	
+	}
+	
+@When("Dietician sets NoAuth in Post request to valid endpoints")
+public void dietician_sets_no_auth_in_post_request_to_valid_endpoints() throws IOException, ParseException {
+	response = patientReq.createNoAuthPatientReq();
+	}
+
+@When("Dietician sends Post request with adminToken to valid endpoints")
+public void dietician_sends_post_request_with_admin_token_to_valid_endpoints() throws IOException, ParseException {
+	response = patientReq.createPatientReqWithAdminToken();
+}
+
+@When("Dietician sends Post request with patientToken to valid endpoints")
+public void dietician_sends_post_request_with_patient_token_to_valid_endpoints() throws IOException, ParseException {
+	response = patientReq.createPatientReqWithPatientToken();
+}
+
+@When("Dietician sends POST request with only valid additional details")
+public void dietician_sends_post_request_with_only_valid_additional_details() throws IOException, ParseException {
+	response = patientReq.createPatientWithOnlyAdditonalDetails();
+}
+
+@Then("Dietician recieves {int} Bad Request")
+public void recieves_bad_request(Integer int1) {
+    response.getStatusCode();
+}
+
+@When("Dietician sends PUT request for create patient")
+public void dietician_sends_put_request_for_create_patient() throws IOException, ParseException {
+	response = patientReq.putCreatePatientReq();
+}
+
+@Then("Dietician receives {int} Method Not Allowed")
+public void dietician_receives_method_not_allowed(Integer int1) {
+   response.getStatusCode();
+   response.getStatusLine();
+}
+
+
+@When("Dietician sends POST request with valid data to invalid endpoint")
+public void dietician_sends_post_request_with_valid_data_to_invalid_endpoint() throws IOException, ParseException {
+	response = patientReq.createPatientReqwithInvalidEndpoint();
+}
+
+@Then("Dietician receives {int} Not Found")
+public void dietician_receives_not_found(Integer int1) {
+	 response.getStatusCode();
+	   response.getStatusLine();
+}
+
+@When("Dietician sends POST request with valid data to invalid content type")
+public void dietician_sends_post_request_with_valid_data_to_invalid_content_type() throws IOException, ParseException {
+	response = patientReq.createPatientReqwithInvalidContenType();
+}
+
+@Then("Dietician receives {int} Unsupported Media Type")
+public void dietician_receives_unsupported_media_type(Integer int1) {
+	 response.getStatusCode();
+	   response.getStatusLine();
+}
+
+	@When("Dietician send the Post request to valid endpoints")
+	public void dietician_send_the_post_request_to_valid_endpoints() throws InvalidFormatException, IOException, ParseException {
+		response = patientReq.createPatientReq();
+		// patient.printLogs(responseDetails);
+	}
+
+	@Then("Dietician recievs {int} status code with Patient Details in response body")
+	public void dietician_recievs_status_code_with_patient_details_in_response_body(Integer expectedStatusCode) {
+		response.getStatusCode();
+		Assert.assertEquals(expectedStatusCode.intValue(), response.getStatusCode());
+	   
+	}
+	@Then("validate JSON Schema for the patient created")
+	public void validate_json_schema_for_the_patient_created() {
+		response=patientReq.validateCreatechema();
+	}
+	
+	
 }
