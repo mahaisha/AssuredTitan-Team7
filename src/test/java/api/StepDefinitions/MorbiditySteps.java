@@ -3,6 +3,7 @@ package api.StepDefinitions;
 import org.testng.Assert;
 
 import api.Request.MorbidityRequest;
+import api.Request.PatientReq;
 import api.Request.UserLoginRequest;
 import api.Utility.CommonUtils;
 import io.cucumber.java.en.Given;
@@ -10,6 +11,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -23,35 +25,54 @@ public class MorbiditySteps extends CommonUtils {
 
 	MorbidityRequest morbidityRequest = new MorbidityRequest(baseURI);
 	UserLoginRequest userLoginRequest = new UserLoginRequest();
+	PatientReq patientRequest = new PatientReq();
 
 	@Given("User is logged in as Dietician with Token")
 	public void user_is_logged_in_as_dietician() {
-		
+
 		userLoginRequest.dieticianLoginRequest();
-		userLoginRequest.getDieticianToken();
+		token = userLoginRequest.getDieticianToken();
 	}
 
-	@Given("Dietician sends GET request to get morbidities")
+	@When("Dietician sends GET request to get morbidities")
 	public void dietician_creates_get_request_to_get_morbidities() {
-		
-		morbidityRequest.getAllMorbidities();
-	}
-	@Then("Dietician receives all morbidity details")
-	public void dietician_receives_all_morbidity_details() {
 
-		int responseStatusCode = morbidityRequest.response.getStatusCode();
-		Assert.assertEquals(responseStatusCode, 200);
+		//response = morbidityRequest.getAllMorbidities(token);
+		morbidityRequest.getAllMorbidities(token);
 	}
+	
+	@When("Dietician sends GET request to get morbidities by Test Name")
+	public void dietician_creates_get_request_to_get_morbiditiesTestName() {
 
-//	@Then("Dietician receives all morbidity details for {string}")
-//	public void dietician_receives_all_morbidity_details(String endpointType) {
-//		
-//		
-//			morbidityRequest.validateJsonResponseSchema(endpointType);
-//			int responseStatusCode = morbidityRequest.response.getStatusCode();
-//			Assert.assertEquals(responseStatusCode, 200);
-//	
+		morbidityRequest.getMorbidityByTestName(token);
+	}
+//	@Then("Dietician receives all morbidity details")
+//	public void dietician_receives_all_morbidity_details() {
+//
+//		int responseStatusCode = morbidityRequest.response.getStatusCode();
+//		Assert.assertEquals(responseStatusCode, 200);
 //	}
+
+		
+	@Then("Dietician receives {int} for {string}")
+	public void dietician_receives_all_morbidity_details_for(int statusCode, String endpointType) {
+		
+		if(endpointType=="All Morbidities")
+		{
+		response.then()
+		.assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("Schema/getAllMorbiditiesSchema.json"))
+		.log().all().statusCode(statusCode);}
+		
+		else if(endpointType=="Test Name")
+		{
+			response.then()
+			.assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("Schema/getMorbidityByTestNameSchema.json"))
+			.log().all().statusCode(statusCode);
+			}
+		}
+		
+		//patientRequest.validateResponseSchema(endpointType);
+
 
 	@Then("Dietician should receive status 404")
 	public void dietician_receives_status_unauthorized() {
@@ -61,21 +82,21 @@ public class MorbiditySteps extends CommonUtils {
 
 	@Given("Dietician user sends GET request with endpoint having Test Name")
 	public void dietician_user_sends_GET_request_with_TestName() {
-		
-		morbidityRequest.getMorbidityByTestName();
+
+		morbidityRequest.getMorbidityByTestName(token);
 	}
 
-	@Then("Dietician receives morbidity details with Test Name")
-	public void dietician_receives_morbidity_byTestName() {
-		
-		int responseStatusCode = morbidityRequest.response.getStatusCode();
-		Assert.assertEquals(responseStatusCode, 200);
-	}
+//	@Then("Dietician receives morbidity details with Test Name")
+//	public void dietician_receives_morbidity_byTestName() {
+//
+//		int responseStatusCode = morbidityRequest.response.getStatusCode();
+//		Assert.assertEquals(responseStatusCode, 200);
+//	}
 
 	@Given("Dietician creates POST request for morbidity")
 	public void dietician_creates_post_request_for_morbidity() {
-		
-		morbidityRequest.postMorbidityInvalidMethod();
+
+		morbidityRequest.postMorbidityInvalidMethod(token);
 	}
 
 	@Then("Dietician gets {int} method not allowed")
@@ -87,34 +108,34 @@ public class MorbiditySteps extends CommonUtils {
 
 	@When("Dietician sends POST request with morbidity by Test Name endpoint")
 	public void dietician_sends_post_request_with_morbidity_by_test_name_endpoint() {
-		
-		morbidityRequest.postMorbidityByNameInvalidMethod();
+
+		morbidityRequest.postMorbidityByNameInvalidMethod(token);
 	}
 
 	@Given("Dietician creates GET request for morbidity with invalid endpoint")
 	public void dietician_creates_get_request_for_morbidity() {
 
-		morbidityRequest.getMorbidityInvalidEndpoint();
+		morbidityRequest.getMorbidityInvalidEndpoint(token);
 
 	}
 
 	@Given("GET request for morbidity by Test Name with invalid endpoint")
 	public void dietician_get_request_for_morbidity_testName_invalidEndpoint() {
 
-		morbidityRequest.getMorbidityByTestNameInvalidEndpoint();
+		morbidityRequest.getMorbidityByTestNameInvalidEndpoint(token);
 
 	}
 
 	@Given("Dietician GET request for morbidity having invalid test name")
 	public void dietician_get_request_for_morbidity_invalid_testName() {
 
-		morbidityRequest.getMorbidityInvalidTestName();
+		morbidityRequest.getMorbidityInvalidTestName(token);
 	}
 
 	@Then("Dietician should get {int} not found")
 	public void dietician_should_get_not_found(int int1) {
-		//Assert.assertEquals(response.getStatusCode(), int1);
-		
+		// Assert.assertEquals(response.getStatusCode(), int1);
+
 		int responseStatusCode = morbidityRequest.response.getStatusCode();
 		Assert.assertEquals(responseStatusCode, 404);
 
@@ -125,57 +146,58 @@ public class MorbiditySteps extends CommonUtils {
 		morbidityRequest.getMorbidityNoAuthToken();
 
 	}
-	
+
 	@Given("Dietician sends GET request having Test Name with NO Auth Token")
 	public void user_is_logged_in_dietician_with_no_auth_token_testName() {
 
 		morbidityRequest.getMorbidityTestNameNoAuthToken();
-		
+
 	}
 
 	@Then("Dietician receives {int} unauthorized")
 	public void dietician_receives_unauthorized(int int1) {
-		
+
 		int responseStatusCode = morbidityRequest.response.getStatusCode();
 		Assert.assertEquals(responseStatusCode, int1);
-		
+
 	}
 
 	@Given("User is logged in as Patient with Patient Token")
 	public void user_is_logged_in_as_patient_with_token() {
-		
+
 		userLoginRequest.patientLoginRequest();
+		token = userLoginRequest.getPatientToken();
 	}
 
-	@Given("Patient sends GET request to get morbidities")
+	@When("Patient sends GET request to get morbidities")
 	public void patient_sends_get_request_to_get_morbidities() {
-		
-		morbidityRequest.getAllMorbidities();
+
+		morbidityRequest.getAllMorbidities(token);
 	}
-	
-	@Given("Patient sends GET request to get morbidities having Test Name")
+
+	@When("Patient sends GET request to get morbidities having Test Name")
 	public void patient_sends_get_request_to_get_morbidityName() {
-		
-		morbidityRequest.getMorbidityByTestName();
+
+		morbidityRequest.getMorbidityByTestName(token);
 	}
 
 	@Then("Patient receives {int} forbidden")
 	public void patient_receives_forbidden(int int1) {
-		
+
 		int responseStatusCode = morbidityRequest.response.getStatusCode();
 		Assert.assertEquals(responseStatusCode, int1);
 	}
 
-
 	@Given("User is logged in as Admin with valid Token")
 	public void user_is_logged_in_as_admin_with_valid_token() {
-		
-		morbidityRequest.adminLoginRequest();
+
+		userLoginRequest.adminLoginRequest();
+		token = userLoginRequest.getAdminToken();
 	}
 
 	@Given("Admin sends GET request to get morbidities")
 	public void admin_sends_get_request_to_get_morbidities() {
-		morbidityRequest.getAllMorbidities();
+		morbidityRequest.getAllMorbidities(token);
 	}
 
 	@Then("Admin receives all morbidity details")
@@ -186,7 +208,7 @@ public class MorbiditySteps extends CommonUtils {
 
 	@Given("Admin creates POST request for morbidity")
 	public void admin_creates_post_request_for_morbidity() {
-		morbidityRequest.postMorbidityInvalidMethod();
+		morbidityRequest.postMorbidityInvalidMethod(token);
 	}
 
 	@Then("Admin gets {int} method not allowed")
@@ -197,7 +219,7 @@ public class MorbiditySteps extends CommonUtils {
 
 	@Given("Admin creates GET request for morbidity with invalid endpoint")
 	public void admin_creates_get_request_for_morbidity_with_invalid_endpoint() {
-		morbidityRequest.getMorbidityInvalidEndpoint();
+		morbidityRequest.getMorbidityInvalidEndpoint(token);
 	}
 
 	@Then("Admin should get {int} not found")
@@ -208,7 +230,7 @@ public class MorbiditySteps extends CommonUtils {
 
 	@Given("Admin user sends GET request with endpoint having Test Name")
 	public void admin_user_sends_get_request_with_endpoint_having_test_name() {
-		morbidityRequest.getMorbidityByTestName();
+		morbidityRequest.getMorbidityByTestName(token);
 	}
 
 	@Then("Admin receives morbidity details with Test Name")
@@ -219,18 +241,18 @@ public class MorbiditySteps extends CommonUtils {
 
 	@When("Admin sends POST request with morbidity by Test Name endpoint")
 	public void admin_sends_post_request_with_morbidity_by_test_name_endpoint() {
-		morbidityRequest.postMorbidityByNameInvalidMethod();
+		morbidityRequest.postMorbidityByNameInvalidMethod(token);
 	}
 
 	@Given("Admin GET request for morbidity by Test Name with invalid endpoint")
 	public void admin_get_request_for_morbidity_by_test_name_with_invalid_endpoint() {
-		morbidityRequest.getMorbidityByTestNameInvalidEndpoint();
+		morbidityRequest.getMorbidityByTestNameInvalidEndpoint(token);
 	}
 
 	@Given("Admin GET request for morbidity having invalid test name")
 	public void admin_get_request_for_morbidity_having_invalid_test_name() {
-		
-		morbidityRequest.getMorbidityInvalidTestName();
+
+		morbidityRequest.getMorbidityInvalidTestName(token);
 	}
 
 }
