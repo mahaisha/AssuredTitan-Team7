@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/Welcome5Element"
+    },
+    "definitions": {
+        "Welcome5Element": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "morbidityId": {
+                    "type": "integer"
+                },
+                "morbidityTestId": {
+                    "type": "string"
+                },
+                "morbidityNameRegex": {
+                    "type": "string"
+                },
+                "morbidityTestName": {
+                    "type": "string"
+                },
+                "morbidityTestUnit": {
+                    "type": "string"
+                },
+                "morbidityMarkerMinVal": {
+                    "type": "number"
+                },
+                "morbidityMarkerMaxVal": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "morbidityId",
+                "morbidityMarkerMaxVal",
+                "morbidityMarkerMinVal",
+                "morbidityNameRegex",
+                "morbidityTestId",
+                "morbidityTestName",
+                "morbidityTestUnit"
+            ],
+            "title": "Welcome5Element"
+        }
+    }
+}
