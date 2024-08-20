@@ -1,12 +1,20 @@
 package api.Request;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
-import api.StepDefinitions.PatientSteps;
+import api.Payload.PatientPayload;
+import api.Pojo.PatientPojo;
 import api.Utility.CommonUtils;
 import io.restassured.RestAssured;
 import io.restassured.module.jsv.JsonSchemaValidator;
@@ -14,10 +22,28 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class PatientReq extends CommonUtils{
-
+	
+	
+	int responseCode;
+	private Iterator<PatientPojo> patientIterator;
+	String patientDetails;
+	int	patientId; 
+	String patientInfo;
+	String vitals;
+	String	patientFileId;
+	String	patientEmail;
+	static String pdfPath;
+	HashMap<String ,Object> responseDetails = new HashMap<>();
+	List<Integer> statusCodeList = new ArrayList<>(); 
+	List<String> requestValues = new ArrayList<>();
+	private static List<String> fileIds;
+	String baseUri;
+	static String createSchema;
+	private static String token;
+	 PatientPojo patientPojo = new PatientPojo();
+	UserLoginRequest login = new UserLoginRequest();
+	
 	private String endPoint;
-	//private String fileId = "66beb450a956ef1c5667388f";
-	//private int patientId = 84;
 	private RequestSpecification request;
 	private Response response;
 	private static final Logger logger = LogManager.getLogger(PatientReq.class);
@@ -118,4 +144,383 @@ public class PatientReq extends CommonUtils{
 	        }
 	    }
 
+
+	
+	public void setBaseUri() {
+		baseUri = endpoints.getString("baseUrl");
+	}
+	
+	public static File getPdf() {
+		pdfPath = paths.getString("hyperThyroidReport");
+		return new File(pdfPath);
+			}
+	    
+	public Response createPatientReq() throws InvalidFormatException, IOException, ParseException {
+		
+		  patientIterator = PatientPayload.getDataFromExcel();
+		  while (patientIterator.hasNext()) {
+				patientPojo = patientIterator.next();
+				 
+			// Before sending the request
+			 System.out.println("Patient Details JSON: " + patientDetails);
+
+			 // Logging the exact date being sent
+			 System.out.println("Formatted Date of Birth: " + patientPojo.getDateOfBirth());
+			 
+			 // Logging the exact data being sent
+		        logger.info("Sending request to create patient with the following details:");
+		        logger.info("Patient Details: " + patientPojo);
+		        logger.info("Authorization Token: Bearer " + CommonUtils.getDieticianToken());
+		        logger.info("Base URI: " + endpoints.getString("baseUrl"));
+		        logger.info("Endpoint: " + endpoints.getString("patientEndpoint"));
+
+			 
+		 			response = RestAssured.given()
+		 			.baseUri(endpoints.getString("baseUrl"))
+					.headers("Authorization", "Bearer " + CommonUtils.getDieticianToken())
+					.contentType("multipart/form-data")
+					.multiPart("file", getPdf(),"application/pdf")
+					.multiPart("patientInfo", patientPojo,"application/json")
+					.log().all()
+					.post(endpoints.getString("patientEndpoint"));
+		 			
+		 		    // Logging the entire response, including the body
+		 	        String responseBody = response.getBody().asString(); // Capture the response body as a string
+		 	        logger.info("Response Status Code: " + response.getStatusCode());
+		 	        logger.info("Response Headers: " + response.getHeaders().toString());
+		 	        logger.info("Response Body: " + responseBody); // Log the full response body
+		 	        
+		 		if(response.getStatusCode()==201) {
+			      
+			patientId = response.path("patientId");
+			CommonUtils.setPatientID(patientId);
+			patientFileId = response.path("fileId");
+			CommonUtils.setFileID(patientFileId);
+			patientEmail = response.path("Email");
+	        responseCode = response.getStatusCode();
+		 			}
+		 			statusCodeList.add(response.getStatusCode()); // Collects the status codes from each API request.
+					requestValues.add(patientDetails); //Collects the JSON representations of the patient details sent in each request.
+					
+					System.out.println("response "+response.prettyPrint());
+				}
+				responseDetails.put("StatusCode",statusCodeList); //Stores the list of status codes in the responseDetails map.
+				responseDetails.put("RequestGiven", requestValues); // Stores the list of JSON strings representing the patient details in the responseDetails map.
+return response;
+	}
+	
+	public Response validateCreatechema() {
+		createSchema= paths.getString("createPatientSchema");
+		response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath(createSchema));
+		return response;
+	}
+	
+	public Response createNoAuthPatientReq() throws IOException, ParseException  {
+		
+		  patientIterator = PatientPayload.getDataFromExcel();
+		  while (patientIterator.hasNext()) {
+				patientPojo = patientIterator.next();
+				 
+			// Before sending the request
+			 System.out.println("Patient Details JSON: " + patientDetails);
+			 
+			    logger.info("Patient Details: " + patientPojo);
+		        logger.info("Base URI: " + endpoints.getString("baseUrl"));
+		        logger.info("Endpoint: " + endpoints.getString("patientEndpoint"));
+
+			 
+		 			response = RestAssured.given()
+		 			.baseUri(endpoints.getString("baseUrl"))
+					.headers("Authorization", "NoAuth "  )
+					.contentType(paths.getString("conType"))
+					.multiPart("file", getPdf(), paths.getString("pdfConType"))
+					.multiPart("patientInfo", patientPojo, paths.getString("content.type"))
+					.log().all()
+					.post(endpoints.getString("patientEndpoint"));
+		 			
+		 		    // Logging the entire response, including the body
+		 	        String responseBody = response.getBody().asString(); // Capture the response body as a string
+		 	        logger.info("Response Status Code: " + response.getStatusCode());
+		 	        logger.info("Response Headers: " + response.getHeaders().toString());
+		 	        logger.info("Response Body: " + responseBody); // Log the full response body
+		 	        
+		 		if(response.getStatusCode()==201) {
+			      
+			patientId = response.path("patientId");
+			CommonUtils.setPatientID(patientId);
+			patientFileId = response.path("fileId");
+			CommonUtils.setFileID(patientFileId);
+			patientEmail = response.path("Email");
+	        responseCode = response.getStatusCode();
+		 			}
+		 				}
+		return response;
 }
+	
+	public Response createPatientReqWithAdminToken() throws IOException, ParseException  {
+		
+		  patientIterator = PatientPayload.getDataFromExcel();
+		  while (patientIterator.hasNext()) {
+				patientPojo = patientIterator.next();
+				 
+			// Before sending the request
+			 System.out.println("Patient Details JSON: " + patientDetails);
+			 
+			    logger.info("Patient Details: " + patientPojo);
+			    logger.info("Authorization Token: Bearer " + CommonUtils.getAdminToken());
+		        logger.info("Base URI: " + endpoints.getString("baseUrl"));
+		        logger.info("Endpoint: " + endpoints.getString("patientEndpoint"));
+
+			 
+		 			response = RestAssured.given()
+		 			.baseUri(endpoints.getString("baseUrl"))
+		 			.headers("Authorization", "Bearer " + CommonUtils.getAdminToken())
+					.contentType(paths.getString("conType"))
+					.multiPart("file", getPdf(), paths.getString("pdfConType"))
+					.multiPart("patientInfo", patientPojo, paths.getString("content.type"))
+					.log().all()
+					.post(endpoints.getString("patientEndpoint"));
+		 			
+		 		    // Logging the entire response, including the body
+		 	        String responseBody = response.getBody().asString(); // Capture the response body as a string
+		 	        logger.info("Response Status Code: " + response.getStatusCode());
+		 	        logger.info("Response Headers: " + response.getHeaders().toString());
+		 	        logger.info("Response Body: " + responseBody); // Log the full response body
+		 	        
+		 		if(response.getStatusCode()==201) {
+			      
+			patientId = response.path("patientId");
+			CommonUtils.setPatientID(patientId);
+			patientFileId = response.path("fileId");
+			CommonUtils.setFileID(patientFileId);
+			patientEmail = response.path("Email");
+			CommonUtils.setEmailPatientID(patientEmail);
+	        responseCode = response.getStatusCode();
+		 			}
+		 				}
+		return response;
+}
+	
+	
+	
+	public Response createPatientReqWithPatientToken() throws IOException, ParseException {
+		
+		  patientIterator = PatientPayload.getDataFromExcel();
+		  while (patientIterator.hasNext()) {
+				patientPojo = patientIterator.next();
+				 
+			// Before sending the request
+			 System.out.println("Patient Details JSON: " + patientDetails);
+			 
+			    logger.info("Patient Details: " + patientPojo);
+			    logger.info("Authorization Token: Bearer " + CommonUtils.getPatientToken());
+		        logger.info("Base URI: " + endpoints.getString("baseUrl"));
+		        logger.info("Endpoint: " + endpoints.getString("patientEndpoint"));
+
+			 
+		 			response = RestAssured.given()
+		 			.baseUri(endpoints.getString("baseUrl"))
+		 			.headers("Authorization", "Bearer " + CommonUtils.getPatientToken())
+					.contentType(paths.getString("conType"))
+					.multiPart("file", getPdf(), paths.getString("pdfConType"))
+					.multiPart("patientInfo", patientPojo, paths.getString("content.type"))
+					.log().all()
+					.post(endpoints.getString("patientEndpoint"));
+		 			
+		 		    // Logging the entire response, including the body
+		 	        String responseBody = response.getBody().asString(); // Capture the response body as a string
+		 	        logger.info("Response Status Code: " + response.getStatusCode());
+		 	        logger.info("Response Headers: " + response.getHeaders().toString());
+		 	        logger.info("Response Body: " + responseBody); // Log the full response body
+		 	        
+		 		if(response.getStatusCode()==201) {
+			      
+			patientId = response.path("patientId");
+			CommonUtils.setPatientID(patientId);
+			patientFileId = response.path("fileId");
+			CommonUtils.setFileID(patientFileId);
+			patientEmail = response.path("Email");
+	        responseCode = response.getStatusCode();
+		 			}
+		 				}
+		return response;
+}
+		
+	public Response createPatientWithOnlyAdditonalDetails() throws IOException, ParseException {
+		
+		  patientIterator = PatientPayload.getAdditionalDetails();
+		  while (patientIterator.hasNext()) {
+				patientPojo = patientIterator.next();
+				 
+			// Before sending the request
+			 System.out.println("Patient Details JSON: " + patientDetails);
+			 
+			    logger.info("Patient Details: " + patientPojo);
+			    logger.info("Authorization Token: Bearer " + CommonUtils.getDieticianToken());
+		        logger.info("Base URI: " + endpoints.getString("baseUrl"));
+		        logger.info("Endpoint: " + endpoints.getString("patientEndpoint"));
+
+			 
+		 			response = RestAssured.given()
+		 			.baseUri(endpoints.getString("baseUrl"))
+		 			.headers("Authorization", "Bearer " + CommonUtils.getDieticianToken())
+					.contentType(paths.getString("conType"))
+					.multiPart("file", getPdf(), paths.getString("pdfConType"))
+					.multiPart("vitals", patientPojo, paths.getString("content.type"))
+					.log().all()
+					.post(endpoints.getString("patientEndpoint"));
+		 			
+		 		    // Logging the entire response, including the body
+		 	        String responseBody = response.getBody().asString(); // Capture the response body as a string
+		 	        logger.info("Response Status Code: " + response.getStatusCode());
+		 	        logger.info("Response Headers: " + response.getHeaders().toString());
+		 	        logger.info("Response Body: " + responseBody); // Log the full response body
+		 	        
+		 		if(response.getStatusCode()==201) {
+			      
+			patientId = response.path("patientId");
+			CommonUtils.setPatientID(patientId);
+			patientFileId = response.path("fileId");
+			CommonUtils.setFileID(patientFileId);
+			patientEmail = response.path("Email");
+	        responseCode = response.getStatusCode();
+		 			}
+		 				}
+		return response;
+}
+	
+	public Response putCreatePatientReq() throws IOException, ParseException {
+		
+		  patientIterator = PatientPayload.getAdditionalDetails();
+		  while (patientIterator.hasNext()) {
+				patientPojo = patientIterator.next();
+				 
+			// Before sending the request
+			 System.out.println("Patient Details JSON: " + patientDetails);
+			 
+			    logger.info("Patient Details: " + patientPojo);
+			    logger.info("Authorization Token: Bearer " + CommonUtils.getDieticianToken());
+		        logger.info("Base URI: " + endpoints.getString("baseUrl"));
+		        logger.info("Endpoint: " + endpoints.getString("patientEndpoint"));
+
+			 
+		 			response = RestAssured.given()
+		 			.baseUri(endpoints.getString("baseUrl"))
+		 			.headers("Authorization", "Bearer " + CommonUtils.getDieticianToken())
+					.contentType(paths.getString("conType"))
+					.multiPart("file", getPdf(), paths.getString("pdfConType"))
+					.multiPart("patientInfo", patientPojo, paths.getString("content.type"))
+					.log().all()
+					.put(endpoints.getString("patientEndpoint"));
+		 			
+		 		    // Logging the entire response, including the body
+		 	        String responseBody = response.getBody().asString(); // Capture the response body as a string
+		 	        logger.info("Response Status Code: " + response.getStatusCode());
+		 	        logger.info("Response Headers: " + response.getHeaders().toString());
+		 	        logger.info("Response Body: " + responseBody); // Log the full response body
+		 	        
+		 		if(response.getStatusCode()==201) {
+			      
+			patientId = response.path("patientId");
+			CommonUtils.setPatientID(patientId);
+			patientFileId = response.path("fileId");
+			CommonUtils.setFileID(patientFileId);
+			patientEmail = response.path("Email");
+	        responseCode = response.getStatusCode();
+		 			}
+		 				}
+		return response;
+}
+	
+	public Response createPatientReqwithInvalidEndpoint() throws IOException, ParseException {
+		
+		  patientIterator = PatientPayload.getAdditionalDetails();
+		  while (patientIterator.hasNext()) {
+				patientPojo = patientIterator.next();
+				 
+			// Before sending the request
+			 System.out.println("Patient Details JSON: " + patientDetails);
+			 
+			    logger.info("Patient Details: " + patientPojo);
+			    logger.info("Authorization Token: Bearer " + CommonUtils.getDieticianToken());
+		        logger.info("Base URI: " + endpoints.getString("baseUrl"));
+		        logger.info("Endpoint: " + endpoints.getString("patientInvalidEndpoint"));
+
+			 
+		 			response = RestAssured.given()
+		 			.baseUri(endpoints.getString("baseUrl"))
+		 			.headers("Authorization", "Bearer " + CommonUtils.getDieticianToken())
+					.contentType(paths.getString("conType"))
+					.multiPart("file", getPdf(), paths.getString("pdfConType"))
+					.multiPart("patientInfo", patientPojo, paths.getString("content.type"))
+					.log().all()
+					.post(endpoints.getString("patientInvalidEndpoint"));
+		 			
+		 		    // Logging the entire response, including the body
+		 	        String responseBody = response.getBody().asString(); // Capture the response body as a string
+		 	        logger.info("Response Status Code: " + response.getStatusCode());
+		 	        logger.info("Response Headers: " + response.getHeaders().toString());
+		 	        logger.info("Response Body: " + responseBody); // Log the full response body
+		 	        
+		 		if(response.getStatusCode()==201) {
+			      
+			patientId = response.path("patientId");
+			CommonUtils.setPatientID(patientId);
+			patientFileId = response.path("fileId");
+			CommonUtils.setFileID(patientFileId);
+			patientEmail = response.path("Email");
+	        responseCode = response.getStatusCode();
+		 			}
+		 				}
+		return response;
+}
+	public Response createPatientReqwithInvalidContenType() throws IOException, ParseException {
+		
+		  patientIterator = PatientPayload.getAdditionalDetails();
+		  while (patientIterator.hasNext()) {
+				patientPojo = patientIterator.next();
+				 
+			// Before sending the request
+			 System.out.println("Patient Details JSON: " + patientDetails);
+			 
+			    logger.info("Patient Details: " + patientPojo);
+			    logger.info("Authorization Token: Bearer " + CommonUtils.getDieticianToken());
+		        logger.info("Base URI: " + endpoints.getString("baseUrl"));
+		        logger.info("Endpoint: " + endpoints.getString("patientEndpoint"));
+
+			 
+		 			response = RestAssured.given()
+		 			.baseUri(endpoints.getString("baseUrl"))
+		 			.headers("Authorization", "Bearer " + CommonUtils.getDieticianToken())
+					.contentType(paths.getString("invalidConType"))
+					.multiPart("file", getPdf(), paths.getString("pdfConType"))
+					.multiPart("patientInfo", patientPojo, paths.getString("content.type"))
+					.log().all()
+					.post(endpoints.getString("patientEndpoint"));
+		 			
+		 		    // Logging the entire response, including the body
+		 	        String responseBody = response.getBody().asString(); // Capture the response body as a string
+		 	        logger.info("Response Status Code: " + response.getStatusCode());
+		 	        logger.info("Response Headers: " + response.getHeaders().toString());
+		 	        logger.info("Response Body: " + responseBody); // Log the full response body
+		 	        
+		 		if(response.getStatusCode()==201) {
+			      
+			patientId = response.path("patientId");
+			CommonUtils.setPatientID(patientId);
+			patientFileId = response.path("fileId");
+			CommonUtils.setFileID(patientFileId);
+			patientEmail = response.path("Email");
+	        responseCode = response.getStatusCode();
+		 			}
+		 				}
+		return response;
+}
+	
+	}
+
+
+
+	
+	  
+
