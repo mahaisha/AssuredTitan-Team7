@@ -23,6 +23,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelReader extends CommonUtils {
 
+
 			
 		public static File pdfFilePath;
 		
@@ -33,16 +34,15 @@ public class ExcelReader extends CommonUtils {
 		
  	static DataFormatter dataFormatter = new DataFormatter();
 
+			
+		
+
 	 public static List<LinkedHashMap<String,String>> getExcelData( String sheetName) throws IOException {
 		 String filePath = System.getProperty("user.dir") + "/src/test/resources/ExcelData/testData.xlsx";
 	        Workbook workbook = WorkbookFactory.create(new FileInputStream(filePath));
 	        Sheet sheet = workbook.getSheet(sheetName); 	
 		    	List<LinkedHashMap<String,String>> dataFromExcel = new ArrayList<>();
-		    	
-		        //workbook = new XSSFWorkbook(path+excelSheet);
-		        //sheet =  workbook.getSheet(sheetName);
-		        
-		        
+
 		        int totalRows = sheet.getPhysicalNumberOfRows();
 		        LinkedHashMap<String,String> mapData;
 		        List<String> allKeys = new ArrayList<>();
@@ -72,5 +72,4 @@ public class ExcelReader extends CommonUtils {
 		    }
 		    
 
-		    
 }
