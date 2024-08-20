@@ -17,21 +17,20 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import api.Pojo.PatientPojo;
 import api.Utility.CommonUtils;
-import api.Utility.ExcelReader;
+import api.Utility.PatientExcelReader;
 
 public class PatientPayload extends CommonUtils {
-	static ExcelReader reader;
+	static PatientExcelReader reader;
 	
 	public static PatientPojo patientPojo = new PatientPojo();
 
     // Date format
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-	public static Iterator<PatientPojo> getDataFromExcel() throws IOException, ParseException
-	{
+	public static Iterator<PatientPojo> getDataFromExcel() throws IOException, ParseException {
+		
 	List<LinkedHashMap<String,String>> createPatient = reader.getExcelData("Patient"); {
-		      
-         // List to hold all PatientPojo objects
+	     // List to hold all PatientPojo objects
          List<PatientPojo> patients = new ArrayList<PatientPojo>();           
 
              for (LinkedHashMap<String, String> patientData : createPatient) {
@@ -45,18 +44,36 @@ public class PatientPayload extends CommonUtils {
 		patientPojo.setFoodPreference(patientData.get("Food"));
 		patientPojo.setCuisineCategory(patientData.get("cuisine"));
 		patientPojo.setDateOfBirth(patientData.get("DOB"));
-		//patientPojo.setDateOfBirth("2020-01-01");
 		patients.add(patientPojo);
-		
-//		  // Format the date before setting it
-//        String originalDob = patientData.get("DOB");
-//        Date dob = dateFormat.parse(originalDob);
-//        String formattedDob = dateFormat.format(dob);
-//        patientPojo.setDateOfBirth(formattedDob);
-
     }
-    
-    return patients.iterator(); // Return the list of PatientPojo objects
+     return patients.iterator(); // Return the list of PatientPojo objects
 }
+}
+	public static Iterator<PatientPojo> getAdditionalDetails() throws IOException, ParseException {
+	 List<LinkedHashMap<String, String>> createPatient = reader.getExcelData("Patient");
+	    
+	    // List to hold all PatientPojo objects
+	    List<PatientPojo> patients = new ArrayList<>();
+
+	    for (LinkedHashMap<String, String> patientData : createPatient) {
+	        PatientPojo patientPojo = new PatientPojo();
+	        
+	        try {
+	            // Convert data from string to appropriate type
+	            patientPojo.setWeight(Float.parseFloat(patientData.get("weight")));
+	            patientPojo.setHeight(Float.parseFloat(patientData.get("height")));
+	            patientPojo.setTemperature(Float.parseFloat(patientData.get("temperature")));
+	            patientPojo.setSP(Integer.parseInt(patientData.get("sp")));
+	            patientPojo.setDP(Integer.parseInt(patientData.get("dp")));
+	        } catch (NumberFormatException e) {
+	            // Handle the case where conversion fails
+	            System.err.println("Error parsing numeric values: " + e.getMessage());
+	        }
+	        
+	        patients.add(patientPojo);
+	    }
+	    
+	    return patients.iterator(); // Return the list of PatientPojo objects
+	
 }
 }
