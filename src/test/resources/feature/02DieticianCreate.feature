@@ -1,8 +1,8 @@
-#@tag
-#Feature: Dietician
+@tag
+Feature: Dietician
 #	Background:
 #	Given User has Admin token
-#
+
   #@tag1
   #Scenario: Create Dietician without Auth token
     #Given Create Dietician has Admin Auth token
@@ -23,13 +23,13 @@
     #When Excel file has full Dietician details
     #And Create Dietician with Patient Auth token
     #Then Create Dietician fails with http status FORBIDDEN
-#
-  #@tag4
-  #Scenario: Create Dietician with full Dietician details
-    #Given Create Dietician has Admin Auth token
-    #When Excel file has full Dietician details
-    #And Create Dietician with Admin Auth token
-    #Then Create Dietician succeeds with http status CREATED
+
+  @tag4
+  Scenario: Create Dietician with full Dietician details
+    Given Create Dietician has Admin Auth token
+    When Excel file has full Dietician details
+    And Create Dietician with Admin Auth token
+    Then Create Dietician succeeds with http status CREATED
 #
   #@tag5
   #Scenario: Create Dietician with mandatory Dietician details
