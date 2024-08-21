@@ -89,25 +89,26 @@ UserLoginRequest userLoginRequest = new UserLoginRequest();
 		   Assert.assertEquals(responseStatusCode, int1);
 	}
 
-	//Dietician login
-	@When("User send POST HTTP request with dietician credentials")
-	public void user_send_post_http_request_with_dietician_credentials() {
-	   
-	}
-	//Invalid dietician login
-	@When("User send POST HTTP request with invalid dietician")
-	public void user_send_post_http_request_with_invalid_dietician() {
-	   
-	}
-	//patient login
-	@When("User send POST HTTP request with patient credentials")
-	public void user_send_post_http_request_with_patient_credentials() {
-	   
-	}
-	//invalid patient login
-	@When("User send POST HTTP request with invalid patient")
-	public void user_send_post_http_request_with_invalid_patient() {
-	   
-	}
+//	//Dietician login
+//	@When("User send POST HTTP request with dietician credentials")
+//	public void user_send_post_http_request_with_dietician_credentials() {
+//		userLoginRequest.dieticianLoginRequest();
+//		System.out.println();
+//	}
+//	//Invalid dietician login
+//	@When("User send POST HTTP request with invalid dietician")
+//	public void user_send_post_http_request_with_invalid_dietician() {
+//	   
+//	}
+//	//patient login
+//	@When("User send POST HTTP request with patient credentials")
+//	public void user_send_post_http_request_with_patient_credentials() {
+//	   
+//	}
+//	//invalid patient login
+//	@When("User send POST HTTP request with invalid patient")
+//	public void user_send_post_http_request_with_invalid_patient() {
+//	   
+//	}
 
 }

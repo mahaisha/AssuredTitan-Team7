@@ -13,36 +13,79 @@ import org.apache.logging.log4j.Logger;
 import org.apache.poi.util.StringUtil;
 
 import api.Pojo.DieticianPojo;
+import api.Utility.CommonUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 
-public class DieticianRequest {
+public class DieticianRequest extends CommonUtils {
 	private static final Logger LOGGER = LogManager.getLogger(DieticianRequest.class);
 
 	private static final String BASE_URI = "https://dietician-july-api-hackathon-80f2590665cc.herokuapp.com/dietician";
 	private static final SimpleDateFormat DATE_FORMAT_2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+00:00'");
-
+	private static Response response;
 	public DieticianRequest() {
 		RestAssured.baseURI = BASE_URI;
 	}
 	
-	public ValidatableResponse createDietician(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician) {
-		RequestSpecification request = given().log().all()
-		.with().body(dietician);
-		
-		if(StringUtil.isNotBlank(authToken)) {
-			request.headers("Authorization", "Bearer " + authToken);
-		}
-		
-		return request.contentType(contentType)
-		.accept(contentType)
-		.when().request(httpMethod, endpoint)
-		.then().log().all();
-	}
+//	public ValidatableResponse createDietician(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician) {
+//		RequestSpecification request = given().log().all()
+//		.with().body(dietician);
+//		
+//		if(StringUtil.isNotBlank(authToken)) {
+//			request.headers("Authorization", "Bearer " + authToken);
+//		}
+//		
+//		return request.contentType(contentType)
+//		.accept(contentType)
+//		.when().request(httpMethod, endpoint)
+//		.then().log().all();
+//	}
 	
+//	public Response createDietician(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician) {
+//		  
+//		  
+//		 
+//		response = RestAssured.given()
+//
+//
+//		    .baseUri(endpoints.getString("baseUrl"))
+//		    .contentType(ContentType.JSON)
+//		    .header("Authorization", "Bearer " + authToken)
+//		    .body(dietician)
+//		    .when().request(httpMethod, endpoint)
+//		    .then().log().all()
+//		    .extract().response();
+//		    
+//
+//
+//		  
+//		  return response;
+//		  
+//		 }
+	public Response createDietician(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician) {
+	    try {
+	        // Making the request
+	        response = RestAssured.given()
+	            .baseUri(endpoints.getString("baseUrl"))
+	            .contentType(contentType)
+	            .header("Authorization", "Bearer " + authToken)
+	            .body(dietician)
+	            .when()
+	            .request(httpMethod, endpoint)
+	            .then()
+	            .log().all()
+	            .extract().response();
+
+	        return response;
+	    } catch (Exception e) {
+	        LOGGER.error("Failed to create dietician", e);
+	        throw e; // Re-throwing the exception to ensure the failure is evident
+	    }
+	}
 	public ValidatableResponse getAllDieticians(String endpoint, Method httpMethod, ContentType contentType, String authToken) {
 		RequestSpecification request = given().log().all();
 		

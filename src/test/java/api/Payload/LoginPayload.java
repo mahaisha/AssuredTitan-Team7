@@ -16,14 +16,14 @@ public class LoginPayload extends CommonUtils {
 	
 public static LoginRequestPojo dieticianLogin(){
 		
-		loginRequestPojo.setUserLoginEmail(endpoints.getString("dieticianEmail"));
-		loginRequestPojo.setPassword(endpoints.getString("dieticianPwd"));
+		loginRequestPojo.setUserLoginEmail(CommonUtils.getDieticianEmail());
+		loginRequestPojo.setPassword(CommonUtils.getDieticianPassword());
 		return loginRequestPojo;
 	}
 
 public static LoginRequestPojo patientLogin(){
 	
-	loginRequestPojo.setUserLoginEmail(endpoints.getString("patientEmail"));
+	loginRequestPojo.setUserLoginEmail(CommonUtils.getpatientEmail());
 	loginRequestPojo.setPassword(endpoints.getString("patientPsw"));
 	return loginRequestPojo;
 	
