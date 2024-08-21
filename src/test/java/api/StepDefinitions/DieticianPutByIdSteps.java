@@ -7,11 +7,13 @@ import api.Payload.DieticianPayload;
 import api.Payload.DieticianPayload.TestCase;
 import api.Pojo.DieticianPojo;
 import api.Request.DieticianRequest;
+import api.Request.UserLoginRequest;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 
 public class DieticianPutByIdSteps {
@@ -29,22 +31,23 @@ public class DieticianPutByIdSteps {
 
 
 	private DieticianPayload excelReader;
-	private DieticianRequest restUtil;
-	
+	private DieticianRequest dieticianRequest;
+	private UserLoginRequest userLoginRequest = new UserLoginRequest();
 	private DieticianPojo dietician;
-	private ValidatableResponse response;
+	private Response response;
+	static String adminAuthToken;
 
 	public DieticianPutByIdSteps() {
 		excelReader = new DieticianPayload();
-		restUtil = new DieticianRequest();
+		dieticianRequest = new DieticianRequest();
 	}
 	
 	
 
 	@Given("Put Dietician By Id has Admin Auth token")
 	public void app_has_admin_auth_token() {
-		// TODO: Integrate with Admin module
-		return;
+		adminAuthToken = userLoginRequest.adminLoginRequest().jsonPath().getString("token");
+		
 	}
 
 	@Given("Put Dietician By Id has Dietician Auth token")
@@ -85,42 +88,42 @@ public class DieticianPutByIdSteps {
 
 	@When("Put Dietician By Id without Auth token")
 	public void put_dietician_by_id_without_auth_token() {
-		this.response = restUtil.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, null, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, null, this.dietician, DIETICIAN_ID);
 	}
 	
 	@When("Put Dietician By Id with Dietician Auth token")
 	public void put_dietician_by_id_with_dietician_auth_token() {
-		this.response = restUtil.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, DIETICIAN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, DIETICIAN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
 	}
 	
 	@When("Put Dietician By Id with Patient Auth token")
 	public void put_dietician_by_id_with_patient_auth_token() {
-		this.response = restUtil.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, PATIENT_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, PATIENT_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
 	}
 	
 	@When("Put Dietician By Id with Admin Auth token")
 	public void put_dietician_by_id_with_admin_auth_token() {
-		this.response = restUtil.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
 	}
 	
 	@When("Put Dietician By Id with Admin Auth token and invalid id")
 	public void put_dietician_by_id_with_admin_auth_token_and_invlaid_id() {
-		this.response = restUtil.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_INVALID_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_INVALID_ID);
 	}
 	
 	@When("Put Dietician By Id with Admin Auth token and invalid HTTP method")
 	public void put_dietician_by_id_with_admin_auth_token_and_invalid_http_method() {
-		this.response = restUtil.putDieticianById(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
 	}
 	
 	@When("Put Dietician By Id with Admin Auth token and invalid endpoint")
 	public void put_dietician_by_id_with_admin_auth_token_and_invalid_endpoint() {
-		this.response = restUtil.putDieticianById(INVALID_ENDPOINT, Method.PUT, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(INVALID_ENDPOINT, Method.PUT, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
 	}
 	
 	@When("Put Dietician By Id with Admin Auth token and invalid content type")
 	public void put_dietician_by_id_with_admin_auth_token_and_invalid_content_type() {
-		this.response = restUtil.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.TEXT, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.TEXT, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
 	}
 	
 	
@@ -129,41 +132,41 @@ public class DieticianPutByIdSteps {
 	
 	@Then("Put Dietician By Id fails with http status BAD_REQUEST")
 	public void put_dietician_by_id_fails_with_http_400() {
-		this.response.statusCode(400);
+		this.response.then().statusCode(400);
 	}
 	
 	@Then("Put Dietician By Id fails with http status UNAUTHORIZED")
 	public void put_dietician_by_id_fails_with_http_401() {
-		this.response.statusCode(401);
+		this.response.then().statusCode(401);
 	}
 	
 	@Then("Put Dietician By Id fails with http status FORBIDDEN")
 	public void put_dietician_by_id_fails_with_http_403() {
-		this.response.statusCode(403);
+		this.response.then().statusCode(403);
 	}
 	
 	@Then("Put Dietician By Id fails with http status NOT_FOUND")
 	public void put_dietician_by_id_fails_with_http_404() {
-		this.response.statusCode(404);
+		this.response.then().statusCode(404);
 	}
 	
 	@Then("Put Dietician By Id fails with http status METHOD_NOT_ALLOWED")
 	public void put_dietician_by_id_fails_with_http_405() {
-		this.response.statusCode(405);
+		this.response.then().statusCode(405);
 	}
 	
 	@Then("Put Dietician By Id fails with http status UNSUPPORTED_MEDIA_TYPE")
 	public void put_dietician_by_id_fails_with_http_415() {
-		this.response.statusCode(415);
+		this.response.then().statusCode(415);
 	}
 
 	@Then("Put Dietician By Id succeeds with http status OK")
 	public void put_dietician_by_id_succeeds_with_http_200() {
-		DieticianPojo response = this.response.statusCode(200)
+		DieticianPojo response = this.response.then().statusCode(200)
 		.extract().as(DieticianPojo.class);
 		
 		LOGGER.info("Put Dietician By Id succeeded.");
 
-		restUtil.validateCreation(dietician, response);
+		dieticianRequest.validateCreation(dietician, response);
 	}
 }

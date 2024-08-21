@@ -24,7 +24,7 @@ UserLoginRequest userLoginRequest = new UserLoginRequest();
 		token = userLoginRequest.response.jsonPath().getString("token");
 	}
 	@Then("User recieves {int} created with response body")
-	public void user_recieves_created_with_response_body(Integer int1) {
+	public void user_recieves_created_with_response_body(int int1) {
 		int responseStatusCode = userLoginRequest.response.getStatusCode();
 		   Assert.assertEquals(responseStatusCode, int1);
 	}
@@ -38,7 +38,7 @@ UserLoginRequest userLoginRequest = new UserLoginRequest();
 	}
 
 	@Then("User gets {int} created with Logout successful message")
-	public void user_gets_created_with_logout_successful_message(Integer int1) {
+	public void user_gets_created_with_logout_successful_message(int int1) {
 	   int responseStatusCode = userLoginRequest.response.getStatusCode();
 	   Assert.assertEquals(responseStatusCode, int1);
 	}
@@ -52,7 +52,7 @@ UserLoginRequest userLoginRequest = new UserLoginRequest();
 		userLoginRequest.adminInvalidLoginRequest();
 	}
 	@Then("User recieves {int} unauthorized")
-	public void user_recieves_unauthorized(Integer int1) {
+	public void user_recieves_unauthorized(int int1) {
 		int responseStatusCode = userLoginRequest.response.getStatusCode();
 		   Assert.assertEquals(responseStatusCode, int1);
 	}
@@ -68,7 +68,7 @@ UserLoginRequest userLoginRequest = new UserLoginRequest();
 	}
 
 	@Then("User recieves {int} method not allowed")
-	public void user_recieves_method_not_allowed(Integer int1) {
+	public void user_recieves_method_not_allowed(int int1) {
 		int responseStatusCode = userLoginRequest.response.getStatusCode();
 		   Assert.assertEquals(responseStatusCode, int1);
 	}
@@ -84,7 +84,7 @@ UserLoginRequest userLoginRequest = new UserLoginRequest();
 	}
 
 	@Then("User recieves {int} unsupported media type")
-	public void user_recieves_unsupported_media_type(Integer int1) {
+	public void user_recieves_unsupported_media_type(int int1) {
 		int responseStatusCode = userLoginRequest.response.getStatusCode();
 		   Assert.assertEquals(responseStatusCode, int1);
 	}
