@@ -86,6 +86,21 @@ public class DieticianRequest extends CommonUtils {
 	        throw e; // Re-throwing the exception to ensure the failure is evident
 	    }
 	}
+	
+	public ValidatableResponse putDieticianById(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician, String dieticianId) {
+		  RequestSpecification request = given().log().all()
+		  .with().body(dietician);
+		  
+		  if(StringUtil.isNotBlank(authToken)) {
+		   request.headers("Authorization", "Bearer " + authToken);
+		  }
+		  
+		  return request.contentType(contentType)
+		  .accept(contentType)
+		  .when().request(httpMethod, endpoint + dieticianId)
+		  .then().log().all();
+		 }
+	
 	public ValidatableResponse getAllDieticians(String endpoint, Method httpMethod, ContentType contentType, String authToken) {
 		RequestSpecification request = given().log().all();
 		

@@ -30,11 +30,11 @@ public class DieticianCreateSteps {
 	private static final String DIETICIAN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzIzOTkwNjE1LCJleHAiOjE3MjQwMTk0MTV9.uMrF8SzL8OY36FfVCN6rDnN2TqmgDsfGR_068I_97J7pNleR4HlvVoAT6l2lt2qQNw-REybsL9ePdP6ltKfUAw";
 	private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA2MzAsImV4cCI6MTcyNDAxOTQzMH0.8lkOI2xnSMqYoCwnXl55KVfz_hpcVk2D6eRVb6Tg-fTHqII0pr6XHO0JM0jayMYlwveS1QooW_RK86ubISs6FA";
 
-	private UserLoginRequest userLoginRequest = new UserLoginRequest();
 
 	private DieticianPayload excelReader;
 	private DieticianRequest dieticianRequest;
 	
+	private UserLoginRequest userLoginRequest = new UserLoginRequest();
 	private DieticianPojo dietician;
 	private Response response;
 	static String adminAuthToken;
@@ -43,40 +43,7 @@ public class DieticianCreateSteps {
 		dieticianRequest = new DieticianRequest();
 	}
 
-//
-//	@Given("Create Dietician has Admin Auth token")
-//	public void app_has_admin_auth_token() {
-//		adminAuthToken = userLoginRequest.adminLoginRequest().jsonPath().getString("token");
-//		return;
-//	}
-//
-//	@Given("Excel file has full Dietician details")
-//	public void excel_file_has_full_dietician_details() {
-//		this.dietician = excelReader.readRow(TestCase.FULL);
-//		
-//	}
-//	
-//	@When("Create Dietician with Admin Auth token")
-//	public void create_dietician_with_admin_auth_token() {
-//		
-//		this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, adminAuthToken, this.dietician);
-//		CommonUtils.setDieticianEmail(response.jsonPath().getString("Email"));
-//		CommonUtils.setDieticianPassword(response.jsonPath().getString("loginPassword"));
-//		CommonUtils.setDieticianId(response.jsonPath().getString("id"));
-//		System.out.println("Response body "+this.response.prettyPrint());
-//	}
-//	
-//	@Then("Create Dietician succeeds with http status CREATED")
-//	public void dietician_creation_succeeds_with_http_201() {
-//		int responseStatusCode = this.response.getStatusCode();
-//		Assert.assertEquals(responseStatusCode, 201); // Should be 201 for "CREATED" status, not 200
-//
-//				
-//		
-//		LOGGER.info("Create Dietician succeeded.");
-//		
-//	//	dieticianRequest.validateCreation(dietician, response);
-//	}
+	
 	@Given("Create Dietician has Admin Auth token")
 	public void app_has_admin_auth_token() {
 	    adminAuthToken = userLoginRequest.adminLoginRequest().jsonPath().getString("token");
