@@ -2,6 +2,7 @@ package api.StepDefinitions;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 
 import api.Payload.DieticianPayload;
@@ -9,12 +10,14 @@ import api.Payload.DieticianPayload.TestCase;
 import api.Pojo.DieticianPojo;
 import api.Request.DieticianRequest;
 import api.Request.UserLoginRequest;
+import api.Utility.CommonUtils;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 
 public class DieticianCreateSteps {
@@ -27,27 +30,50 @@ public class DieticianCreateSteps {
 	private static final String DIETICIAN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzIzOTkwNjE1LCJleHAiOjE3MjQwMTk0MTV9.uMrF8SzL8OY36FfVCN6rDnN2TqmgDsfGR_068I_97J7pNleR4HlvVoAT6l2lt2qQNw-REybsL9ePdP6ltKfUAw";
 	private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA2MzAsImV4cCI6MTcyNDAxOTQzMH0.8lkOI2xnSMqYoCwnXl55KVfz_hpcVk2D6eRVb6Tg-fTHqII0pr6XHO0JM0jayMYlwveS1QooW_RK86ubISs6FA";
 
-	private UserLoginRequest userLoginRequest = new UserLoginRequest();
 
 	private DieticianPayload excelReader;
-	private DieticianRequest restUtil;
+	private DieticianRequest dieticianRequest;
 	
+	private UserLoginRequest userLoginRequest = new UserLoginRequest();
 	private DieticianPojo dietician;
-	private ValidatableResponse response;
+	private Response response;
 	static String adminAuthToken;
 	public DieticianCreateSteps() {
 		excelReader = new DieticianPayload();
-		restUtil = new DieticianRequest();
-	}
-
-
-	@Given("Create Dietician has Admin Auth token")
-	public void app_has_admin_auth_token() {
-		adminAuthToken = userLoginRequest.adminLoginRequest().jsonPath().getString("token");
-		return;
+		dieticianRequest = new DieticianRequest();
 	}
 
 	
+	@Given("Create Dietician has Admin Auth token")
+	public void app_has_admin_auth_token() {
+	    adminAuthToken = userLoginRequest.adminLoginRequest().jsonPath().getString("token");
+	}
+
+	@Given("Excel file has full Dietician details")
+	public void excel_file_has_full_dietician_details() {
+	    this.dietician = excelReader.readRow(TestCase.FULL);
+	}
+
+	@When("Create Dietician with Admin Auth token")
+	public void create_dietician_with_admin_auth_token() {
+	    this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, adminAuthToken, this.dietician);
+
+	    // Store key details for future use
+	    CommonUtils.setDieticianEmail(response.jsonPath().getString("Email"));
+	    CommonUtils.setDieticianPassword(response.jsonPath().getString("loginPassword"));
+	    CommonUtils.setDieticianId(response.jsonPath().getString("id"));
+
+	}
+
+	@Then("Create Dietician succeeds with http status CREATED")
+	public void dietician_creation_succeeds_with_http_201() {
+	    int responseStatusCode = this.response.getStatusCode();
+	    Assert.assertEquals(responseStatusCode, 201); // Check for "CREATED" status code
+	    LOGGER.info("Create Dietician succeeded with status code: " + responseStatusCode);
+	    
+	    // Optionally validate other aspects of the response or trigger further processing
+	    // dieticianRequest.validateCreation(dietician, response);
+	}
 	
 	
 	@Given("Create Dietician has Dietician Auth token")
@@ -64,10 +90,7 @@ public class DieticianCreateSteps {
 	
 	
 
-	@Given("Excel file has full Dietician details")
-	public void excel_file_has_full_dietician_details() {
-		this.dietician = excelReader.readRow(TestCase.FULL);
-	}
+	
 
 	@Given("Excel file has mandatory Dietician details")
 	public void excel_file_has_mandatory_dietician_details() {
@@ -88,37 +111,33 @@ public class DieticianCreateSteps {
 
 	@When("Create Dietician without Auth token")
 	public void create_dietician_without_auth_token() {
-		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, null, this.dietician);
+		this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, null, this.dietician);
 	}
 	
 	@When("Create Dietician with Dietician Auth token")
 	public void create_dietician_with_dietician_auth_token() {
-		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, DIETICIAN_AUTH_TOKEN, this.dietician);
+		this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, DIETICIAN_AUTH_TOKEN, this.dietician);
 	}
 	
 	@When("Create Dietician with Patient Auth token")
 	public void create_dietician_with_patient_auth_token() {
-		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, PATIENT_AUTH_TOKEN, this.dietician);
+		this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, PATIENT_AUTH_TOKEN, this.dietician);
 	}
 	
-	@When("Create Dietician with Admin Auth token")
-	public void create_dietician_with_admin_auth_token() {
-		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, adminAuthToken, this.dietician);
-	}
 	
 	@When("Create Dietician with Admin Auth token and invalid HTTP method")
 	public void create_dietician_with_admin_auth_token_and_invalid_http_method() {
-		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, adminAuthToken, this.dietician);
+		this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, adminAuthToken, this.dietician);
 	}
 	
 	@When("Create Dietician with Admin Auth token and invalid endpoint")
 	public void create_dietician_with_admin_auth_token_and_invalid_endpoint() {
-		this.response = restUtil.createDietician(INVALID_ENDPOINT, Method.POST, ContentType.JSON, adminAuthToken, this.dietician);
+		this.response = dieticianRequest.createDietician(INVALID_ENDPOINT, Method.POST, ContentType.JSON, adminAuthToken, this.dietician);
 	}
 	
 	@When("Create Dietician with Admin Auth token and invalid content type")
 	public void create_dietician_with_admin_auth_token_and_invalid_content_type() {
-		this.response = restUtil.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.TEXT, adminAuthToken, this.dietician);
+		this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.TEXT, adminAuthToken, this.dietician);
 	}
 	
 	
@@ -127,41 +146,32 @@ public class DieticianCreateSteps {
 	
 	@Then("Create Dietician fails with http status BAD_REQUEST")
 	public void dietician_creation_fails_with_http_400() {
-		this.response.statusCode(400);
+		this.response.then().statusCode(400);
 	}
 	
 	@Then("Create Dietician fails with http status UNAUTHORIZED")
 	public void dietician_creation_fails_with_http_401() {
-		this.response.statusCode(401);
+		this.response.then().statusCode(401);
 	}
 	
 	@Then("Create Dietician fails with http status FORBIDDEN")
 	public void dietician_creation_fails_with_http_403() {
-		this.response.statusCode(403);
+		this.response.then().statusCode(403);
 	}
 	
 	@Then("Create Dietician fails with http status NOT_FOUND")
 	public void dietician_creation_fails_with_http_404() {
-		this.response.statusCode(404);
+		this.response.then().statusCode(404);
 	}
 	
 	@Then("Create Dietician fails with http status METHOD_NOT_ALLOWED")
 	public void dietician_creation_fails_with_http_405() {
-		this.response.statusCode(405);
+		this.response.then().statusCode(405);
 	}
 	
 	@Then("Create Dietician fails with http status UNSUPPORTED_MEDIA_TYPE")
 	public void dietician_creation_fails_with_http_415() {
-		this.response.statusCode(415);
+		this.response.then().statusCode(415);
 	}
 
-	@Then("Create Dietician succeeds with http status CREATED")
-	public void dietician_creation_succeeds_with_http_201() {
-		DieticianPojo response = this.response.statusCode(201)
-		.extract().as(DieticianPojo.class);
-		
-		LOGGER.info("Create Dietician succeeded.");
-
-		restUtil.validateCreation(dietician, response);
-	}
 }

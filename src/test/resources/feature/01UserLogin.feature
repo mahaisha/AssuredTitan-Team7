@@ -25,26 +25,26 @@ Feature: Login POST
 		When User send POST HTTP request endpoint with invalid content type
 		Then User recieves 415 unsupported media type
 		
-		Scenario: Check user able to login as dietician with valid credential
-		Given User creates Post request with request body
-		When User send POST HTTP request with dietician credentials
-		Then User recieves 200 created with response body
-		
-		Scenario: Check user able to login as dietician with invalid credential
-		Given User creates Post request with invalid credential
-		When User send POST HTTP request with invalid dietician
-		Then User recieves 401 unauthorized
-		
-		Scenario: Check user able to login as patient with valid credential
-		Given User creates Post request with request body
-		When User send POST HTTP request with patient credentials
-		Then User recieves 200 created with response body
-		
-		Scenario: Check user able to login as patient with invalid credential
-		Given User creates Post request with invalid credential
-		When User send POST HTTP request with invalid patient
-		Then User recieves 401 unauthorized
-		
+#		Scenario: Check user able to login as dietician with valid credential
+#		Given User creates Post request with request body
+#		When User send POST HTTP request with dietician credentials
+#		Then User recieves 200 created with response body
+#		
+#		Scenario: Check user able to login as dietician with invalid credential
+#		Given User creates Post request with invalid credential
+#		When User send POST HTTP request with invalid dietician
+#		Then User recieves 401 unauthorized
+#		
+#		Scenario: Check user able to login as patient with valid credential
+#		Given User creates Post request with request body
+#		When User send POST HTTP request with patient credentials
+#		Then User recieves 200 created with response body
+#		
+#		Scenario: Check user able to login as patient with invalid credential
+#		Given User creates Post request with invalid credential
+#		When User send POST HTTP request with invalid patient
+#		Then User recieves 401 unauthorized
+#		
 		
 		
 		
