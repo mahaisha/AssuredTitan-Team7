@@ -14,6 +14,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 
 public class DieticianDeleteByIdSteps {
@@ -36,16 +37,16 @@ public class DieticianDeleteByIdSteps {
 
 	
 	private DieticianPojo dietician;
-	private ValidatableResponse response;
+	private static Response response;
 	
 	
 	
-	@BeforeAll
+//	@BeforeAll
 	public static void setup() {
 		DieticianPojo dieticianToCreate = EXCEL_READER.readRow(TestCase.DELETE_BY_ID);
-		ValidatableResponse createResponse = REST_UTIL.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, ADMIN_AUTH_TOKEN, dieticianToCreate);
+		response = REST_UTIL.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, ADMIN_AUTH_TOKEN, dieticianToCreate);
 		
-		dieticianCreated = createResponse.statusCode(201)
+		dieticianCreated = response.then().statusCode(201)
 				.extract().as(DieticianPojo.class);
 		dieticianId = Integer.parseInt(dieticianCreated.getId());
 	}
@@ -112,31 +113,31 @@ public class DieticianDeleteByIdSteps {
 	
 	@Then("Delete Dietician By Id fails with http status BAD_REQUEST")
 	public void dietician_delete_by_id_fails_with_http_400() {
-		this.response.statusCode(400);
+		this.response.then().statusCode(400);
 	}
 	
 	@Then("Delete Dietician By Id fails with http status UNAUTHORIZED")
 	public void dietician_delete_by_id_fails_with_http_401() {
-		this.response.statusCode(401);
+		this.response.then().statusCode(401);
 	}
 	
 	@Then("Delete Dietician By Id fails with http status FORBIDDEN")
 	public void dietician_delete_by_id_fails_with_http_403() {
-		this.response.statusCode(403);
+		this.response.then().statusCode(403);
 	}
 	
 	@Then("Delete Dietician By Id fails with http status NOT_FOUND")
 	public void dietician_delete_by_id_fails_with_http_404() {
-		this.response.statusCode(404);
+		this.response.then().statusCode(404);
 	}
 	
 	@Then("Delete Dietician By Id fails with http status METHOD_NOT_ALLOWED")
 	public void dietician_delete_by_id_fails_with_http_405() {
-		this.response.statusCode(405);
+		this.response.then().statusCode(405);
 	}
 
 	@Then("Delete Dietician By Id succeeds with http status OK")
 	public void dietician_delete_by_id_succeeds_with_http_200() {
-		this.response.statusCode(200);
+		this.response.then().statusCode(200);
 	}
 }
