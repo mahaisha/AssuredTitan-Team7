@@ -36,7 +36,10 @@ public class DieticianPayload {
 		FULL,
 		MANDATORY,
 		ADDITIONAL,
-		INVALID
+		INVALID,
+		GET_BY_ID,
+		GET_ALL,
+		DELETE_BY_ID
 	}
 	
 	public DieticianPojo readRow(TestCase testCase) {
