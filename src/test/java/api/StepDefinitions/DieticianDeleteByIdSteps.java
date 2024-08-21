@@ -3,8 +3,12 @@ package api.StepDefinitions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import api.Payload.DieticianPayload;
+import api.Payload.DieticianPayload.TestCase;
 import api.Pojo.DieticianPojo;
 import api.Request.DieticianRequest;
+import io.cucumber.java.AfterAll;
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -15,26 +19,36 @@ import io.restassured.response.ValidatableResponse;
 public class DieticianDeleteByIdSteps {
 	private static final Logger LOGGER = LogManager.getLogger(DieticianDeleteByIdSteps.class);
 	
-	private static final int DIETICIAN_ID = 410;
 	private static final int DIETICIAN_INVALID_ID = Integer.MAX_VALUE;
 	
 	private static final String DIETICIAN_ENDPOINT = "/dietician/";
 	private static final String INVALID_ENDPOINT = "/invalid";
 	
-	private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA1OTMsImV4cCI6MTcyNDAxOTM5M30.OPtdczAakW0MedYn73x8YYms-yI5VYOAoqdabzc2lMgm2jbN90_gnVyc24yshvngeXxgHNfETNRTKNRmZy-tvg";
-	private static final String DIETICIAN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzIzOTkwNjE1LCJleHAiOjE3MjQwMTk0MTV9.uMrF8SzL8OY36FfVCN6rDnN2TqmgDsfGR_068I_97J7pNleR4HlvVoAT6l2lt2qQNw-REybsL9ePdP6ltKfUAw";
-	private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA2MzAsImV4cCI6MTcyNDAxOTQzMH0.8lkOI2xnSMqYoCwnXl55KVfz_hpcVk2D6eRVb6Tg-fTHqII0pr6XHO0JM0jayMYlwveS1QooW_RK86ubISs6FA";
+	private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjQwODI1ODEsImV4cCI6MTcyNDExMTM4MX0.qaDYaMLfvwhk6G5BGznmXrs43AC6uUwC5OPiHEeXz1By56W9GL8rHQgy2mgzVm6m7-iVXacCuEik5ujt4EaODQ";
+	private static final String DIETICIAN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzI0MDg0NjcxLCJleHAiOjE3MjQxMTM0NzF9.CFPaZDayofJnajZC6eiZx5h7i15FtBmBIEaFlkLWyac_4oG8LJjDl13_l58od4E__dD6Xv4yIeTOWj1fSa-qKA";
+	private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjQwODQ2ODMsImV4cCI6MTcyNDExMzQ4M30.LnrX-CoIAAYFPFP_WxrPV5Yg4BnbKN700x_UpwhVmvi9_5R07wc2Utq9BqHwHZCCNvAJ_H9Ox-qYIpixkqSvuA";
 
+	
+	private static final DieticianPayload EXCEL_READER = new DieticianPayload();
+	private static final DieticianRequest REST_UTIL = new DieticianRequest();
+	private static int dieticianId;
+	private static DieticianPojo dieticianCreated;
 
-	private DieticianRequest restUtil;
 	
 	private DieticianPojo dietician;
 	private ValidatableResponse response;
-
-	public DieticianDeleteByIdSteps() {
-		restUtil = new DieticianRequest();
-	}
 	
+	
+	
+	@BeforeAll
+	public static void setup() {
+		DieticianPojo dieticianToCreate = EXCEL_READER.readRow(TestCase.DELETE_BY_ID);
+		ValidatableResponse createResponse = REST_UTIL.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, ADMIN_AUTH_TOKEN, dieticianToCreate);
+		
+		dieticianCreated = createResponse.statusCode(201)
+				.extract().as(DieticianPojo.class);
+		dieticianId = Integer.parseInt(dieticianCreated.getId());
+	}
 	
 
 	@Given("Delete Dietician By Id has Admin Auth token")
@@ -59,37 +73,37 @@ public class DieticianDeleteByIdSteps {
 
 	@When("Delete Dietician By Id without Auth token")
 	public void delete_dietician_by_id_without_auth_token() {
-		this.response = restUtil.deleteDieticianById(DIETICIAN_ENDPOINT, Method.DELETE, ContentType.JSON, null, DIETICIAN_ID);
+		this.response = REST_UTIL.deleteDieticianById(DIETICIAN_ENDPOINT, Method.DELETE, ContentType.JSON, null, dieticianId);
 	}
 	
 	@When("Delete Dietician By Id with Dietician Auth token and valid id")
 	public void delete_dietician_by_id_with_dietician_auth_token() {
-		this.response = restUtil.deleteDieticianById(DIETICIAN_ENDPOINT, Method.DELETE, ContentType.JSON, DIETICIAN_AUTH_TOKEN, DIETICIAN_ID);
+		this.response = REST_UTIL.deleteDieticianById(DIETICIAN_ENDPOINT, Method.DELETE, ContentType.JSON, DIETICIAN_AUTH_TOKEN, dieticianId);
 	}
 	
 	@When("Delete Dietician By Id with Patient Auth token and valid id")
 	public void delete_dietician_by_id_with_patient_auth_token() {
-		this.response = restUtil.deleteDieticianById(DIETICIAN_ENDPOINT, Method.DELETE, ContentType.JSON, PATIENT_AUTH_TOKEN, DIETICIAN_ID);
+		this.response = REST_UTIL.deleteDieticianById(DIETICIAN_ENDPOINT, Method.DELETE, ContentType.JSON, PATIENT_AUTH_TOKEN, dieticianId);
 	}
 	
 	@When("Delete Dietician By Id with Admin Auth token and valid id")
 	public void delete_dietician_by_id_with_admin_auth_token_and_valid_id() {
-		this.response = restUtil.deleteDieticianById(DIETICIAN_ENDPOINT, Method.DELETE, ContentType.JSON, ADMIN_AUTH_TOKEN, DIETICIAN_ID);
+		this.response = REST_UTIL.deleteDieticianById(DIETICIAN_ENDPOINT, Method.DELETE, ContentType.JSON, ADMIN_AUTH_TOKEN, dieticianId);
 	}
 	
 	@When("Delete Dietician By Id with Admin Auth token and invalid id")
 	public void delete_dietician_by_id_with_admin_auth_token_and_invalid_id() {
-		this.response = restUtil.deleteDieticianById(DIETICIAN_ENDPOINT, Method.DELETE, ContentType.JSON, ADMIN_AUTH_TOKEN, DIETICIAN_INVALID_ID);
+		this.response = REST_UTIL.deleteDieticianById(DIETICIAN_ENDPOINT, Method.DELETE, ContentType.JSON, ADMIN_AUTH_TOKEN, DIETICIAN_INVALID_ID);
 	}
 	
 	@When("Delete Dietician By Id with Admin Auth token and invalid HTTP method")
 	public void delete_dietician_by_id_with_admin_auth_token_and_invalid_http_method() {
-		this.response = restUtil.deleteDieticianById(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, ADMIN_AUTH_TOKEN, DIETICIAN_ID);
+		this.response = REST_UTIL.deleteDieticianById(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, ADMIN_AUTH_TOKEN, dieticianId);
 	}
 	
 	@When("Delete Dietician By Id with Admin Auth token and invalid endpoint")
 	public void delete_dietician_by_id_with_admin_auth_token_and_invalid_endpoint() {
-		this.response = restUtil.deleteDieticianById(INVALID_ENDPOINT, Method.DELETE, ContentType.JSON, ADMIN_AUTH_TOKEN, DIETICIAN_ID);
+		this.response = REST_UTIL.deleteDieticianById(INVALID_ENDPOINT, Method.DELETE, ContentType.JSON, ADMIN_AUTH_TOKEN, dieticianId);
 	}
 	
 	
