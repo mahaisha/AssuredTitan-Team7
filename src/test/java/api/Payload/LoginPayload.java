@@ -18,6 +18,7 @@ public static LoginRequestPojo dieticianLogin(){
 		
 		loginRequestPojo.setUserLoginEmail(CommonUtils.getDieticianEmail());
 		loginRequestPojo.setPassword(CommonUtils.getDieticianPassword());
+		
 		return loginRequestPojo;
 	}
 
@@ -27,5 +28,22 @@ public static LoginRequestPojo patientLogin(){
 	loginRequestPojo.setPassword(endpoints.getString("patientPsw"));
 	return loginRequestPojo;
 	
+}
+
+
+public static LoginRequestPojo dieticianLoginEndpoint(){
+	
+	loginRequestPojo.setUserLoginEmail(endpoints.getString("dieticianEmail"));
+	loginRequestPojo.setPassword(endpoints.getString("dieticianPsw"));
+	
+	return loginRequestPojo;
+}
+
+public static LoginRequestPojo patientLoginEndpoint(){
+
+loginRequestPojo.setUserLoginEmail(endpoints.getString("patientEmail"));
+loginRequestPojo.setPassword(endpoints.getString("patientPsw"));
+return loginRequestPojo;
+
 }
 }

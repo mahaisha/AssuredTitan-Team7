@@ -1,6 +1,5 @@
 @tag
-Feature: Dietician
-
+Feature: Get Dietician
 
   @tag1
   Scenario: Get All Dieticians without Auth token
