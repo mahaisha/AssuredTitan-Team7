@@ -12,7 +12,13 @@ import io.cucumber.testng.CucumberOptions;
 				"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
 				},
 		monochrome=false,  //console output color
-		features = {"src/test/resources/feature/01UserLogin.feature","src/test/resources/feature/02DieticianCreate.feature" }, //location of feature files
+		features = {
+				"src/test/resources/feature/01UserLogin.feature",
+				"src/test/resources/feature/02DieticianCreate.feature",
+				"src/test/resources/feature/03DieticianGetAll.feature",
+				"src/test/resources/feature/04DieticianPutById.feature",
+				"src/test/resources/feature/05DieticianGetById.feature",
+				"src/test/resources/feature/08DieticianDeleteById.feature"}, //location of feature files
 		glue= {"api.StepDefinitions"}
 		
 		)

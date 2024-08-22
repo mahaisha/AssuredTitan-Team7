@@ -1,6 +1,7 @@
 package api.Request;
 
 import api.Payload.LoginPayload;
+import api.Pojo.DieticianPojo;
 import api.Pojo.LoginRequestPojo;
 import api.Utility.CommonUtils;
 import io.restassured.RestAssured;
@@ -31,7 +32,8 @@ public class UserLoginRequest extends CommonUtils {
 		 System.out.println(response.contentType());
 		 System.out.println("Response: " + response.asString());
 		
-		 adminToken = response.jsonPath().getString("token");		
+		 adminToken = response.jsonPath().getString("token");	
+		System.out.println("Admin Token :" + adminToken);	
 		setAdminToken(adminToken);
 		statusCode=response.getStatusCode();
 		return response;

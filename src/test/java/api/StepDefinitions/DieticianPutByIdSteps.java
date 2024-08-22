@@ -25,9 +25,9 @@ public class DieticianPutByIdSteps {
 	private static final String DIETICIAN_ENDPOINT = "/dietician/";
 	private static final String INVALID_ENDPOINT = "/invalid";
 	
-	private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjQwODI1ODEsImV4cCI6MTcyNDExMTM4MX0.qaDYaMLfvwhk6G5BGznmXrs43AC6uUwC5OPiHEeXz1By56W9GL8rHQgy2mgzVm6m7-iVXacCuEik5ujt4EaODQ";
-	private static final String DIETICIAN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzI0MDg0NjcxLCJleHAiOjE3MjQxMTM0NzF9.CFPaZDayofJnajZC6eiZx5h7i15FtBmBIEaFlkLWyac_4oG8LJjDl13_l58od4E__dD6Xv4yIeTOWj1fSa-qKA";
-	private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjQwODQ2ODMsImV4cCI6MTcyNDExMzQ4M30.LnrX-CoIAAYFPFP_WxrPV5Yg4BnbKN700x_UpwhVmvi9_5R07wc2Utq9BqHwHZCCNvAJ_H9Ox-qYIpixkqSvuA";
+	//private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjQwODI1ODEsImV4cCI6MTcyNDExMTM4MX0.qaDYaMLfvwhk6G5BGznmXrs43AC6uUwC5OPiHEeXz1By56W9GL8rHQgy2mgzVm6m7-iVXacCuEik5ujt4EaODQ";
+	//private static final String DIETICIAN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzI0MDg0NjcxLCJleHAiOjE3MjQxMTM0NzF9.CFPaZDayofJnajZC6eiZx5h7i15FtBmBIEaFlkLWyac_4oG8LJjDl13_l58od4E__dD6Xv4yIeTOWj1fSa-qKA";
+	//private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjQwODQ2ODMsImV4cCI6MTcyNDExMzQ4M30.LnrX-CoIAAYFPFP_WxrPV5Yg4BnbKN700x_UpwhVmvi9_5R07wc2Utq9BqHwHZCCNvAJ_H9Ox-qYIpixkqSvuA";
 
 
 	private DieticianPayload excelReader;
@@ -36,7 +36,7 @@ public class DieticianPutByIdSteps {
 	private DieticianPojo dietician;
 	private Response response;
 	static String adminAuthToken;
-
+	static String dieticianAuthToken;
 	public DieticianPutByIdSteps() {
 		excelReader = new DieticianPayload();
 		dieticianRequest = new DieticianRequest();
@@ -52,9 +52,15 @@ public class DieticianPutByIdSteps {
 
 	@Given("Put Dietician By Id has Dietician Auth token")
 	public void app_has_dietician_auth_token() {
-		// TODO: Integrate with Admin module
-		return;
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dieticianAuthToken = userLoginRequest.dieticianLoginRequest().jsonPath().getString("token");
 	}
+	
 
 	@Given("Put Dietician By Id has Patient Auth token")
 	public void app_has_patient_auth_token() {
@@ -93,37 +99,37 @@ public class DieticianPutByIdSteps {
 	
 	@When("Put Dietician By Id with Dietician Auth token")
 	public void put_dietician_by_id_with_dietician_auth_token() {
-		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, DIETICIAN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, dieticianAuthToken, this.dietician, DIETICIAN_ID);
 	}
 	
 	@When("Put Dietician By Id with Patient Auth token")
 	public void put_dietician_by_id_with_patient_auth_token() {
-		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, PATIENT_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, dieticianAuthToken, this.dietician, DIETICIAN_ID);
 	}
 	
 	@When("Put Dietician By Id with Admin Auth token")
 	public void put_dietician_by_id_with_admin_auth_token() {
-		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, adminAuthToken, this.dietician, DIETICIAN_ID);
 	}
 	
 	@When("Put Dietician By Id with Admin Auth token and invalid id")
 	public void put_dietician_by_id_with_admin_auth_token_and_invlaid_id() {
-		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_INVALID_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.JSON, adminAuthToken, this.dietician, DIETICIAN_INVALID_ID);
 	}
 	
 	@When("Put Dietician By Id with Admin Auth token and invalid HTTP method")
 	public void put_dietician_by_id_with_admin_auth_token_and_invalid_http_method() {
-		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, adminAuthToken, this.dietician, DIETICIAN_ID);
 	}
 	
 	@When("Put Dietician By Id with Admin Auth token and invalid endpoint")
 	public void put_dietician_by_id_with_admin_auth_token_and_invalid_endpoint() {
-		this.response = dieticianRequest.putDieticianById(INVALID_ENDPOINT, Method.PUT, ContentType.JSON, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(INVALID_ENDPOINT, Method.PUT, ContentType.JSON, adminAuthToken, this.dietician, DIETICIAN_ID);
 	}
 	
 	@When("Put Dietician By Id with Admin Auth token and invalid content type")
 	public void put_dietician_by_id_with_admin_auth_token_and_invalid_content_type() {
-		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.TEXT, ADMIN_AUTH_TOKEN, this.dietician, DIETICIAN_ID);
+		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.TEXT,adminAuthToken, this.dietician, DIETICIAN_ID);
 	}
 	
 	
