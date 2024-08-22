@@ -18,13 +18,13 @@ public class CommonUtils {
 	private static String patientEmail;
 	private static String dieticianEmail;
 	private static String dieticianPassword;
-	private static String dieticianId;
+	private static int dieticianId;
 
-	public static String getDieticianId() {
+	public static int getDieticianId() {
 		return dieticianId;
 	}
 
-	public static void setDieticianId(String dieticianId) {
+	public static void setDieticianId(int dieticianId) {
 		CommonUtils.dieticianId = dieticianId;
 	}
 

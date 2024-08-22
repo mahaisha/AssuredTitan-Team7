@@ -49,31 +49,6 @@ public class PatientPayload extends CommonUtils {
      return patients.iterator(); // Return the list of PatientPojo objects
 }
 }
-	public static Iterator<PatientPojo> getAdditionalDetails() throws IOException, ParseException {
-	 List<LinkedHashMap<String, String>> createPatient = reader.getExcelData("Patient");
-	    
-	    // List to hold all PatientPojo objects
-	    List<PatientPojo> patients = new ArrayList<>();
-
-	    for (LinkedHashMap<String, String> patientData : createPatient) {
-	        PatientPojo patientPojo = new PatientPojo();
-	        
-	        try {
-	            // Convert data from string to appropriate type
-	            patientPojo.setWeight(Float.parseFloat(patientData.get("weight")));
-	            patientPojo.setHeight(Float.parseFloat(patientData.get("height")));
-	            patientPojo.setTemperature(Float.parseFloat(patientData.get("temperature")));
-	            patientPojo.setSP(Integer.parseInt(patientData.get("sp")));
-	            patientPojo.setDP(Integer.parseInt(patientData.get("dp")));
-	        } catch (NumberFormatException e) {
-	            // Handle the case where conversion fails
-	            System.err.println("Error parsing numeric values: " + e.getMessage());
-	        }
-	        
-	        patients.add(patientPojo);
-	    }
-	    
-	    return patients.iterator(); // Return the list of PatientPojo objects
 	
-}
+
 }

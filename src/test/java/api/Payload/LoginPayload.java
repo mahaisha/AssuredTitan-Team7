@@ -16,8 +16,8 @@ public class LoginPayload extends CommonUtils {
 	
 public static LoginRequestPojo dieticianLogin(){
 		
-		loginRequestPojo.setUserLoginEmail(CommonUtils.getDieticianEmail());
-		loginRequestPojo.setPassword(CommonUtils.getDieticianPassword());
+		loginRequestPojo.setUserLoginEmail(endpoints.getString("dieticianEmail"));
+		loginRequestPojo.setPassword(endpoints.getString("dieticianPsw"));
 		
 		return loginRequestPojo;
 	}

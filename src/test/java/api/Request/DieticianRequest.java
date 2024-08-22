@@ -18,6 +18,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -28,7 +29,7 @@ public class DieticianRequest extends CommonUtils {
 	private static final SimpleDateFormat DATE_FORMAT_2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'+00:00'");
 	private static Response response;
 	
-	
+
 
 	public Response createDietician(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician) {
 	    try {
@@ -50,34 +51,10 @@ public class DieticianRequest extends CommonUtils {
 	        throw e; // Re-throwing the exception to ensure the failure is evident
 	    }
 	}
-	
-	public Response createDieticianforInvalidContentType(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician) {
-	    try {
-	        Object bodyContent = dietician;
-	        if (contentType.equals(ContentType.TEXT)) {
-	            bodyContent = dietician.toString(); 
-	        }
 
-	        // Making the request
-	        response = RestAssured.given()
-	            .baseUri(endpoints.getString("baseUrl"))
-	            .contentType(contentType)
-	            .header("Authorization", "Bearer " + authToken)
-	            .body(bodyContent)  
-	            .when()
-	            .request(httpMethod, endpoint)
-	            .then()
-	            .log().all()
-	            .extract().response();
 
-	        return response;
-	    } catch (Exception e) {
-	        LOGGER.error("Failed to create dietician", e);
-	        throw e; // Re-throwing the exception to ensure the failure is evident
-	    }
-	}
 	
-	public Response putDieticianById(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician, String dieticianId) {
+	public Response putDieticianById(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician, int dieticianId) {
 		response = RestAssured.given()
         .baseUri(endpoints.getString("baseUrl"))
         .contentType(contentType)
@@ -153,7 +130,8 @@ public class DieticianRequest extends CommonUtils {
 			assertTrue(StringUtil.isNotBlank(response.getPassword()));
 		} catch (ParseException e) {
 			LOGGER.error("Failed to parse DateOfBirth of created Dietician.", e);
-			throw new RuntimeException("Failed to parse DateOfBirth of created Dietician.", e);
+			throw new RuntimeException("Failed to parse DateOfBirth of created Dietician.",e);
 		}
 	}
+
 }

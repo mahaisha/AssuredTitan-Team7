@@ -1,4 +1,3 @@
-
 Feature: Dietician
 
   @tag1
@@ -75,4 +74,3 @@ Feature: Dietician
     When Excel file has full Dietician details
     And Create Dietician with Admin Auth token and invalid content type
     Then Create Dietician fails with http status UNSUPPORTED_MEDIA_TYPE
-   

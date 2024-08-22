@@ -42,6 +42,7 @@ public class UserLoginRequest extends CommonUtils {
 				.post(endpoints.getString("login"));
 
 		dieticianToken = response.jsonPath().getString("token");
+
 		setDieticianToken(dieticianToken);
 		System.out.println("Dietician Token :" + dieticianToken);
 		if (dieticianToken == null)

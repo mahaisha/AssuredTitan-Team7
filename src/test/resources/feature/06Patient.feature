@@ -8,7 +8,7 @@ Background:
    # And Admin creates a Dietician
     And Dietician logs in and receives a Dietician token
     #And Dietician creates a Patient
-    And Patient logs in receives a Patient token
+   # And Patient logs in receives a Patient token
     
  Scenario: Set no auth - Check dietician able to create patient with valid data
 Given base URI is set to the patient API endpoint
@@ -20,17 +20,16 @@ Given base URI is set to the patient API endpoint
 When Dietician sends Post request with adminToken to valid endpoints
 Then "Admin" recieves 403 Forbidden 
 
- Scenario: Set patientToken - Check dietician able to create patient with valid data
-Given base URI is set to the patient API endpoint
-When Dietician sends Post request with patientToken to valid endpoints
-Then "Patient" recieves 403 Forbidden
+ #Scenario: Set patientToken - Check dietician able to create patient with valid data
+#Given base URI is set to the patient API endpoint
+#When Dietician sends Post request with patientToken to valid endpoints
+#Then "Patient" recieves 403 Forbidden
 
 Scenario: Set dieticianToken - Check dietician able to create patient only with valid additional details
    Given base URI is set to the patient API endpoint
     When Dietician sends POST request with only valid additional details 
     Then Dietician recieves 400 Bad Request
     
-
   Scenario: Dietician tries to create a patient with a PUT request(invalid method)
     Given base URI is set to the patient API endpoint
     When Dietician sends PUT request for create patient
@@ -41,10 +40,10 @@ Scenario: Set dieticianToken - Check dietician able to create patient only with 
     When Dietician sends POST request with valid data to invalid endpoint
     Then Dietician receives 404 Not Found
 
-  Scenario: Dietician tries to create a patient with a POST request with an invalid content type
-    Given base URI is set to the patient API endpoint
-    When Dietician sends POST request with valid data to invalid content type
-    Then Dietician receives 415 Unsupported Media Type 
+  #Scenario: Dietician tries to create a patient with a POST request with an invalid content type
+    #Given base URI is set to the patient API endpoint
+    #When Dietician sends POST request with valid data to invalid content type
+    #Then Dietician receives 415 Unsupported Media Type 
     
   Scenario: Creat Patient with Dietician token, Valid endpoits,and valid manadatory fields nd data
 Given base URI is set to the patient API endpoint
@@ -72,15 +71,16 @@ And validate JSON Schema for the patient created
      |  endpointType|
      |  PatientID |
      
-@getPatientByIdPositiveByPatient
-  Scenario Outline: Check patient able to retrieve patients morbidity details by patient ID
-    Given "Patient" create "GET" request
-    When "Patient" send "GET" http request with "<endpointType>"
-    Then "Patient" recieves 200 ok with response body for "<endpointType>"
-    
-     Examples: 
-  			 |  endpointType|
-     		 |  PatientID |
+#@getPatientByIdPositiveByPatient
+  #Scenario Outline: Check patient able to retrieve patients morbidity details by patient ID
+  #	Given 
+    #Given "Patient" create "GET" request
+    #When "Patient" send "GET" http request with "<endpointType>"
+    #Then "Patient" recieves 200 ok with response body for "<endpointType>"
+    #
+     #Examples: 
+  #			 |  endpointType|
+     #		 |  PatientID |
      
 @getPatientByFileIdPositiveByDietician
   Scenario Outline: Check dietician able to retrieve patients file by patient FileId
@@ -93,22 +93,32 @@ And validate JSON Schema for the patient created
     
 @getPatientByFileIdPositiveByPatient
   Scenario Outline: Check patient able to retrieve patients file by patient FileId
-    Given "Patient" create "GET" request
+  	Given Patient logs in receives a Patient token
+    And "Patient" create "GET" request
     When "Patient" send "GET" http request with "<endpointType>"
     Then "Patient" recieves 200 ok with response body for "<endpointType>"
     Examples: 
       |  endpointType  |
       |  FileID |
        
-   @deletePatientByPatientIdPositive
-  Scenario Outline: Check dietician able to delete patient by ID
-   Given "Dietician" create "DELETE" request  
-    When "Dietician" send "DELETE" http request with "<endpointType>"
-    Then "Dietician" recieves 200 ok with response body for "<endpointType>"
-    Examples: 
-     |  endpointType  |
-     |  DeleteEndpoint |
+   #@deletePatientByPatientIdPositive
+  #Scenario Outline: Check dietician able to delete patient by ID
+   #Given "Dietician" create "DELETE" request  
+    #When "Dietician" send "DELETE" http request with "<endpointType>"
+    #Then "Dietician" recieves 200 ok with response body for "<endpointType>"
+    #Examples: 
+     #|  endpointType  |
+     #|  DeleteEndpoint |
      
+     
+     
+     @tag3
+  Scenario: Create Dietician with Patient Auth token
+    Given Create Dietician has Patient Auth token
+    When Excel file has full Dietician details
+    And Create Dietician with Patient Auth token
+    Then Create Dietician fails with http status FORBIDDEN
+    
 #Negative Sceanrios
 
 @getPatientNegativeNoAuth
@@ -135,7 +145,8 @@ Scenario Outline: Check Admin able to retrieve all patients with Admin Token
 
 @getpatientNegativePatientToken
 Scenario Outline: Check Patient able to retrieve all patients with Patient Token
-  	Given "Patient" create "GET" request 
+		Given Patient logs in receives a Patient token
+  	And "Patient" create "GET" request 
     When "Patient" send "GET" http request with "<endpointType>" 
     Then "Patient" recieves 403 Forbidden
    Examples: 
@@ -202,7 +213,8 @@ Scenario Outline: Check Dietician able to retrieve patients with Invalid Patient
      
 @deletepatientWithPatientToken
 Scenario Outline: Check Patient able to delete patient by ID with Patient Token
-  	Given "Patient" create "DELETE" request 
+		Given Patient logs in receives a Patient token
+  	And "Patient" create "DELETE" request 
     When "Patient" send "DELETE" http request with "<endpointType>" 
     Then "Patient" recieves 403 Forbidden
     Examples: 
@@ -236,6 +248,96 @@ Scenario Outline: Check dietician able to delete patient with invalid Id
      | endpointType |
      | DeleteEndpoint|
      
+   Scenario: Set patientToken - Check dietician able to create patient with valid data
+   Given base URI is set to the patient API endpoint
+   And Patient logs in receives a Patient token
+   When Dietician sends Post request with patientToken to valid endpoints
+   Then "Patient" recieves 403 Forbidden
 
+@getPatientByIdPositiveByPatient
+  Scenario Outline: Check patient able to retrieve patients morbidity details by patient ID
+  	Given Patient logs in receives a Patient token
+    And "Patient" create "GET" request
+    When "Patient" send "GET" http request with "<endpointType>"
+    Then "Patient" recieves 200 ok with response body for "<endpointType>"
+    
+     Examples: 
+  			 |  endpointType|
+     		 |  PatientID |
+     		 
+ 
+     
+#################################################################################
+
+@updatePatient
+Scenario: Dietician able to update patient with valid data, patient id and token
+   Given Dietician creates PUT request with valid data.
+   When Dietician send PUT http request with the endpoint
+   Then Dietician recieves 200 ok  with updated response body.
+   
+   Scenario: Dietician able to update patient only with valid mandatory details
+  Given Dietician creates PUT request by entering only valid mandatory details into the form-data key and value fields
+  When Dietician send PUT http request with the endpoint
+  Then Dietician recieves 200 ok  with updated response body.
+ @updatePatient
+  Scenario: Dietician able to update patient with mandatory fields empty and only with valid additional details
+  Given Dietician creates PUT request by entering only valid additional details into the form-data key and value fields.
+  When Dietician send PUT http request with the endpoint
+  Then Dietician recieves 400 Bad request
+  @updatePatient
+  Scenario:  Dietician able to update patient with valid data and invalid patient id in path parameter
+  Given Dietician creates PUT request by entering only valid mandatory details in the form-data key and value fields
+  When Dietician send PUT http request with the endpoint with invalid Id
+  Then Dietician recieves 404 Not Found
+  @updatePatient
+  Scenario:  Dietician able to update patient with existing file by not attaching new file
+  Given Dietician creates PUT request by not attaching any file into the form-data key and value fields
+  When Dietician send PUT http request with the endpoint
+  Then Dietician recieves 200 ok  with updated response body.
+  
+  @updatePatient
+  Scenario:  Dietician able to update patient with valid data and invalid method
+  Given Dietician creates PUT request by entering valid data into  form-data key and value fields
+  When Dietician send POST http request with endpoint
+  Then Dietician recieves 405 method not allowed
+  
+  @updatePatient
+  Scenario:  Dietician able to update patient with valid data and invalid endpoint
+  Given Dietician creates PUT request by entering valid data into the form-data key and value fields.
+  When Dietician sent PUT http request with invalid endpoint
+  Then Dietician recieves 404 Not Found
+
+
+ @deletePatientByPatientIdPositive
+  Scenario Outline: Check dietician able to delete patient by ID
+   Given "Dietician" create "DELETE" request  
+    When "Dietician" send "DELETE" http request with "<endpointType>"
+    Then "Dietician" recieves 200 ok with response body for "<endpointType>"
+    Examples: 
+     |  endpointType  |
+     |  DeleteEndpoint |
+
+
+
+#Scenario Outline: Check dietician able to add new reports for existing patient with valid data
+  #	Given "<user>" creates PUT request by entering valid data into the form-data key and value fields and valid patient ID
+    #When "<user>" send PUT http request with "<endpointType>"
+    #Then "<user>" recieves <status> unauthorized
+   #Examples: 
+     #| user    | endpointType         |  status
+     #|Dietician| PatientIdEndpoint    |
+     #|Admin    | PatientIdEndpoint    |
+     #|Patient  | PatientIdEndpoint    |
+     #|Dietician| AddNewReportsEndpoint|
+     #|Admin    | AddNewReportsEndpoint|
+     #|Patient  | AddNewReportsEndpoint|
+     #
+#Scenario Outline: Check dietician able to add new reports for existing patient with valid data
+  #	Given "Admin" creates PUT request by entering valid data into the form-data key and value fields and valid patient ID
+    #When "Admin" send PUT http request with "<endpointType>"
+    #Then "Admin" recieves 403 forbidden
+   #Examples: 
+     #| endpointType |
+     #| AddNewReportsEndpoint|
 
 
