@@ -44,6 +44,46 @@ Feature: Login POST
 #		Given User creates Post request with invalid credential
 #		When User send POST HTTP request with invalid patient
 #		Then User recieves 401 unauthorized
+#	=========================================================================	
+#		Scenario: Check admin able to logout  with invalid method
+#		Given User creates POST request
+#		When User send POST HTTP request with endpoint
+#		Then User recieves 405 method not allowed
+#		
+#		Scenario: Check dietician able to logout
+#		Given User creates GET request
+#		When User send GET HTTP request with endpoint
+#		Then User recieves 200 created with Logout successful message
+#		
+#		Scenario: Check dietician able to logout  with invalid method
+#		Given User creates POST request
+#		When User send POST HTTP request with endpoint
+#		Then User recieves 405 method not allowed
+#		
+#		Scenario: Check patient able to logout
+#		Given User creates GET request
+#		When User send GET HTTP request with endpoint
+#		Then User recieves 200 created with Logout successful message
+#		
+#		Scenario: Check patient able to logout  with invalid method
+#		Given User creates POST request
+#		When User send POST HTTP request with endpoint
+#		Then User recieves 405 method not allowed
+#		
+#		Scenario: Check admin able to logout Without token
+#		Given User creates GET request
+#		When User send GET HTTP request with endpoint
+#		Then User recieves 401 unauthorized
+#		
+#		Scenario: Check dietician able to logout Without token
+#		Given User creates GET request
+#		When User send GET HTTP request with endpoint
+#		Then User recieves 401 unauthorized
+#		
+#		Scenario: Check patient able to logout Without token
+#		Given User creates GET request
+#		When User send GET HTTP request with endpoint
+#		Then User recieves 401 unauthorized
 #		
 		
 		
