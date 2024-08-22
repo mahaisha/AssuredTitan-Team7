@@ -51,6 +51,32 @@ public class DieticianRequest extends CommonUtils {
 	    }
 	}
 	
+	public Response createDieticianforInvalidContentType(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician) {
+	    try {
+	        Object bodyContent = dietician;
+	        if (contentType.equals(ContentType.TEXT)) {
+	            bodyContent = dietician.toString(); 
+	        }
+
+	        // Making the request
+	        response = RestAssured.given()
+	            .baseUri(endpoints.getString("baseUrl"))
+	            .contentType(contentType)
+	            .header("Authorization", "Bearer " + authToken)
+	            .body(bodyContent)  
+	            .when()
+	            .request(httpMethod, endpoint)
+	            .then()
+	            .log().all()
+	            .extract().response();
+
+	        return response;
+	    } catch (Exception e) {
+	        LOGGER.error("Failed to create dietician", e);
+	        throw e; // Re-throwing the exception to ensure the failure is evident
+	    }
+	}
+	
 	public Response putDieticianById(String endpoint, Method httpMethod, ContentType contentType, String authToken, DieticianPojo dietician, String dieticianId) {
 		response = RestAssured.given()
         .baseUri(endpoints.getString("baseUrl"))
