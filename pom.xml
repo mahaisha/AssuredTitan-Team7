@@ -121,6 +121,9 @@
 		</dependency>
 	</dependencies>
 
+	<build>
+		<plugins>
+
 	<plugin>
 				<!--
 				https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
@@ -136,6 +139,7 @@
 			</configuration>
 
 			</plugin>
-
+		</plugins>
+	</build>
 	
 </project>
