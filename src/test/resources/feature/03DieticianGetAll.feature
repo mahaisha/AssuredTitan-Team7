@@ -1,7 +1,6 @@
 @tag
 Feature: Get Dietician
 
-
   @tag1
   Scenario: Get All Dieticians without Auth token
     Given Get All Dieticians has Admin Auth token
