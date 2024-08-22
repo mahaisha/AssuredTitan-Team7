@@ -1,0 +1,75 @@
+{
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "properties": {
+       "patientId": {
+           "type": "integer",
+           "minimum": 0
+       },
+       "FirstName": {
+           "type": "string"
+       },
+       "LastName": {
+           "type": "string"
+       },
+       "ContactNumber": {
+           "type": "integer"
+       },
+       "Email": {
+           "type": "string",
+           "format": "email"
+       },
+       "Allergy": {
+           "type": "string"
+       },
+       "FoodPreference": {
+           "type": "string"
+       },
+       "CuisineCategory": {
+           "type": "string"
+       },
+       "FileMorbidity": {
+           "type": "object",
+           "properties": {
+               "fileId": {
+                   "type": "object",
+                   "properties": {
+                       "T3 or T4 or TSH": {
+                           "type": "number"
+                       }
+                   },
+                   "required": ["T3 or T4 or TSH"]
+               }
+           },
+           "required": ["fileId"]
+       },
+       "FileMorbidityCondition": {
+           "type": "object",
+           "properties": {
+               "filedId": {
+                   "type": "string"
+               }
+           },
+           "required": ["filedId"]
+       },
+       "DateOfBirth": {
+           "type": "string",
+           "format": "date"
+       }
+   },
+   "required": [
+       "patientId",
+       "FirstName",
+       "LastName",
+       "ContactNumber",
+       "Email",
+       "Allergy",
+       "FoodPreference",
+       "CuisineCategory",
+       "FileMorbidity",
+       "FileMorbidityCondition",
+       "DateOfBirth"
+   ]
+
+ }
+
