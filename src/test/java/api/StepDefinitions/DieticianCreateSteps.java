@@ -119,7 +119,6 @@ public class DieticianCreateSteps {
 		
 		//CommonUtils.setDieticianToken(dieticianAuthToken);
 		this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, dieticianAuthToken, this.dietician);
-		System.out.println("create_dietician_with_dieticianAuthToken() ==>response ==>>>>" +response.prettyPrint());
 		
 	}
 	
@@ -144,7 +143,7 @@ public class DieticianCreateSteps {
 	
 	@When("Create Dietician with Admin Auth token and invalid content type")
 	public void create_dietician_with_admin_auth_token_and_invalid_content_type() {
-		this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.TEXT, adminAuthToken, this.dietician);
+		this.response = dieticianRequest.createDieticianforInvalidContentType(DIETICIAN_ENDPOINT, Method.POST, ContentType.TEXT, adminAuthToken, this.dietician);
 	}
 	
 	@Then("Create Dietician fails with http status BAD_REQUEST")

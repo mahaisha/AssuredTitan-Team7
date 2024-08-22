@@ -122,10 +122,6 @@ public class DieticianGetAllSteps {
 		this.response = dieticianRequest.getAllDieticians(DIETICIAN_ENDPOINT, Method.GET, ContentType.TEXT, adminAuthToken);
 	}
 	
-	
-	
-	
-	
 	@Then("Get All Dieticians fails with http status BAD_REQUEST")
 	public void dietician_get_all_fails_with_http_400() {
 		this.response.then().statusCode(400);
