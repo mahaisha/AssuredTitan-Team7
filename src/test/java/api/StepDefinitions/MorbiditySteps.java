@@ -30,14 +30,13 @@ public class MorbiditySteps extends CommonUtils {
 	@Given("User is logged in as Dietician with Token")
 	public void user_is_logged_in_as_dietician() {
 
-		userLoginRequest.dieticianLoginRequest();
+		userLoginRequest.dieticianLoginEndpointRequest();
 		token = userLoginRequest.getDieticianToken();
 	}
 
 	@When("Dietician sends GET request to get morbidities")
 	public void dietician_creates_get_request_to_get_morbidities() {
 
-		//response = morbidityRequest.getAllMorbidities(token);
 		morbidityRequest.getAllMorbidities(token);
 	}
 	
@@ -46,13 +45,6 @@ public class MorbiditySteps extends CommonUtils {
 
 		morbidityRequest.getMorbidityByTestName(token);
 	}
-//	@Then("Dietician receives all morbidity details")
-//	public void dietician_receives_all_morbidity_details() {
-//
-//		int responseStatusCode = morbidityRequest.response.getStatusCode();
-//		Assert.assertEquals(responseStatusCode, 200);
-//	}
-
 		
 	@Then("Dietician receives {int} for {string}")
 	public void dietician_receives_all_morbidity_details_for(int statusCode, String endpointType) {
@@ -71,9 +63,6 @@ public class MorbiditySteps extends CommonUtils {
 			}
 		}
 		
-		//patientRequest.validateResponseSchema(endpointType);
-
-
 	@Then("Dietician should receive status 404")
 	public void dietician_receives_status_unauthorized() {
 
@@ -165,7 +154,7 @@ public class MorbiditySteps extends CommonUtils {
 	@Given("User is logged in as Patient with Patient Token")
 	public void user_is_logged_in_as_patient_with_token() {
 
-		userLoginRequest.patientLoginRequest();
+		userLoginRequest.patientLoginEndpointRequest();
 		token = userLoginRequest.getPatientToken();
 	}
 

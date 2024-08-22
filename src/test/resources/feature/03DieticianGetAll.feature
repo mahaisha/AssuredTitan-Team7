@@ -1,5 +1,5 @@
 @tag
-Feature: Dietician
+Feature: Get Dietician
 
 
   @tag1

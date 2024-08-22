@@ -28,7 +28,7 @@ public class DieticianCreateSteps {
 	
 	//private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA1OTMsImV4cCI6MTcyNDAxOTM5M30.OPtdczAakW0MedYn73x8YYms-yI5VYOAoqdabzc2lMgm2jbN90_gnVyc24yshvngeXxgHNfETNRTKNRmZy-tvg";
 	//private static final String dieticianAuthToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzIzOTkwNjE1LCJleHAiOjE3MjQwMTk0MTV9.uMrF8SzL8OY36FfVCN6rDnN2TqmgDsfGR_068I_97J7pNleR4HlvVoAT6l2lt2qQNw-REybsL9ePdP6ltKfUAw";
-	private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA2MzAsImV4cCI6MTcyNDAxOTQzMH0.8lkOI2xnSMqYoCwnXl55KVfz_hpcVk2D6eRVb6Tg-fTHqII0pr6XHO0JM0jayMYlwveS1QooW_RK86ubISs6FA";
+	//private static final String patientAuthToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA2MzAsImV4cCI6MTcyNDAxOTQzMH0.8lkOI2xnSMqYoCwnXl55KVfz_hpcVk2D6eRVb6Tg-fTHqII0pr6XHO0JM0jayMYlwveS1QooW_RK86ubISs6FA";
 
 
 	private DieticianPayload excelReader;
@@ -39,6 +39,7 @@ public class DieticianCreateSteps {
 	private Response response;
 	static String adminAuthToken;
 	static String dieticianAuthToken;
+	static String patientAuthToken;
 	public DieticianCreateSteps() {
 		excelReader = new DieticianPayload();
 		dieticianRequest = new DieticianRequest();
@@ -71,6 +72,7 @@ public class DieticianCreateSteps {
 	    Assert.assertEquals(responseStatusCode, 201); // Check for "CREATED" status code
 	    LOGGER.info("Create Dietician succeeded with status code: " + responseStatusCode);
 	    
+	  	    
 	    // Optionally validate other aspects of the response or trigger further processing
 	    // dieticianRequest.validateCreation(dietician, response);
 	}
@@ -83,11 +85,12 @@ public class DieticianCreateSteps {
 	}
 
 	@Given("Create Dietician has Patient Auth token")
-	public void app_has_patient_auth_token() {
-		// TODO: Integrate with Admin module
-		return;
+	public void app_has_patientAuthToken() {
+		
+		patientAuthToken = userLoginRequest.patientLoginRequest().jsonPath().getString("token");
+		
+		
 	}
-	
 
 	@Given("Excel file has mandatory Dietician details")
 	public void excel_file_has_mandatory_dietician_details() {
@@ -103,8 +106,6 @@ public class DieticianCreateSteps {
 	public void excel_file_has_invalid_dietician_details() {
 		this.dietician = excelReader.readRow(TestCase.INVALID);
 	}
-	
-	
 
 	@When("Create Dietician without Auth token")
 	public void create_dietician_without_auth_token() {
@@ -116,14 +117,18 @@ public class DieticianCreateSteps {
 	@When("Create Dietician with Dietician Auth token")
 	public void create_dietician_with_dieticianAuthToken() {
 		
+		//CommonUtils.setDieticianToken(dieticianAuthToken);
 		this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, dieticianAuthToken, this.dietician);
-		System.out.println("Dietician Token >>>>" +CommonUtils.getDieticianToken());
-		//CommonUtils.setDieticianToken(response.jsonPath().getString("token"));
+		System.out.println("create_dietician_with_dieticianAuthToken() ==>response ==>>>>" +response.prettyPrint());
+		
 	}
 	
 	@When("Create Dietician with Patient Auth token")
-	public void create_dietician_with_patient_auth_token() {
-		this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, PATIENT_AUTH_TOKEN, this.dietician);
+	public void create_dietician_with_patientAuthToken() {
+		this.response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, patientAuthToken, this.dietician);
+		System.out.println("create_dietician_with_patientAuthToken() ==>response ==>>>>" +response.prettyPrint());
+		
+		 CommonUtils.setpatientEmail(response.jsonPath().getString("Email"));
 	}
 	
 	
