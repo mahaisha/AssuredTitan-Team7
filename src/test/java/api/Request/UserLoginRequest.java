@@ -53,19 +53,15 @@ public class UserLoginRequest extends CommonUtils {
 
 	}
 
-	
 	public Response dieticianLoginEndpointRequest() {
 
 		loginRequestPojo = LoginPayload.dieticianLoginEndpoint();
 		response = RestAssured.given()
 
-				.baseUri(baseURI)
-				.contentType(ContentType.JSON)
-				.body(loginRequestPojo)
-				.log().all()
+				.baseUri(baseURI).contentType(ContentType.JSON).body(loginRequestPojo).log().all()
 				.post(endpoints.getString("login"));
 
-		dieticianToken = response.jsonPath().getString("token");		
+		dieticianToken = response.jsonPath().getString("token");
 		setDieticianToken(dieticianToken);
 		System.out.println("Dietician Token :" + dieticianToken);
 		if (dieticianToken == null)
@@ -76,7 +72,6 @@ public class UserLoginRequest extends CommonUtils {
 		return response;
 
 	}
-	
 
 	public Response patientLoginRequest() {
 
@@ -96,19 +91,16 @@ public class UserLoginRequest extends CommonUtils {
 
 		return response;
 	}
-	
+
 	public Response patientLoginEndpointRequest() {
 
 		loginRequestPojo = LoginPayload.patientLoginEndpoint();
 		response = RestAssured.given()
 
-				.baseUri(baseURI)
-				.contentType(ContentType.JSON)
-				.body(loginRequestPojo)
-				.log().all()
+				.baseUri(baseURI).contentType(ContentType.JSON).body(loginRequestPojo).log().all()
 				.post(endpoints.getString("login"));
 
-		patientToken = response.jsonPath().getString("token");		
+		patientToken = response.jsonPath().getString("token");
 		setPatientToken(patientToken);
 		System.out.println("Token :" + patientToken);
 		if (patientToken == null)
@@ -118,8 +110,8 @@ public class UserLoginRequest extends CommonUtils {
 
 		return response;
 	}
-	
-	//admin logout
+
+	// admin logout
 
 	public Response adminLogoutRequest(String adminToken) {
 		int statusCode;
@@ -138,6 +130,17 @@ public class UserLoginRequest extends CommonUtils {
 
 		response = RestAssured.given().baseUri(endpoints.getString("baseUrl")).contentType(ContentType.JSON)
 				.headers("Authorization", "Bearer " + adminToken).post(endpoints.getString("logout"));
+
+		statusCode = response.getStatusCode();
+		return response;
+
+	}
+
+	public Response adminLogoutWithoutTokenRequest() {
+		int statusCode;
+
+		response = RestAssured.given().baseUri(endpoints.getString("baseUrl")).contentType(ContentType.JSON)
+				.post(endpoints.getString("logout"));
 
 		statusCode = response.getStatusCode();
 		return response;
@@ -196,6 +199,24 @@ public class UserLoginRequest extends CommonUtils {
 		response = RestAssured.given().baseUri(endpoints.getString("baseUrl")).contentType(ContentType.JSON)
 				.body("{\"password\":\"wrong.com\",\"userLoginEmail\":\"123\"}").post(endpoints.getString("login"));
 		int statusCode = response.getStatusCode();
+		return response;
+	}
+
+	// Dietician login invalid credentials
+	public Response dieticianInvalidLoginRequest() {
+		response = RestAssured.given().baseUri(baseURI).contentType(ContentType.JSON)
+				.body("{\"password\":\"M166\",\"userLoginEmail\":\"abs@gmail.com\"}").log().all()
+				.post(endpoints.getString("login"));
+		statusCode = response.getStatusCode();
+		return response;
+	}
+
+	// Dietician login invalid credentials
+	public Response patientInvalidLoginRequest() {
+		response = RestAssured.given().baseUri(baseURI).contentType(ContentType.JSON)
+				.body("{\"password\":\"M166\",\"userLoginEmail\":\"abs@gmail.com\"}").log().all()
+				.post(endpoints.getString("login"));
+		statusCode = response.getStatusCode();
 		return response;
 	}
 
