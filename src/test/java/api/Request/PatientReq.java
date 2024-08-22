@@ -294,7 +294,7 @@ return response;
 			patientFileId = response.path("fileId");
 			CommonUtils.setFileID(patientFileId);
 			patientEmail = response.path("Email");
-			CommonUtils.setEmailPatientID(patientEmail);
+			CommonUtils.setpatientEmail(patientEmail);
 	        responseCode = response.getStatusCode();
 		 			}
 		 				}

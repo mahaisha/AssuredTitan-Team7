@@ -60,6 +60,29 @@ public class UserLoginRequest extends CommonUtils {
 
 	}
 	
+	public Response dieticianLoginEndpointRequest() {
+
+		loginRequestPojo = LoginPayload.dieticianLoginEndpoint();
+		response = RestAssured.given()
+
+				.baseUri(baseURI)
+				.contentType(ContentType.JSON)
+				.body(loginRequestPojo)
+				.log().all()
+				.post(endpoints.getString("login"));
+
+		dieticianToken = response.jsonPath().getString("token");		
+		setDieticianToken(dieticianToken);
+		System.out.println("Dietician Token :" + dieticianToken);
+		if (dieticianToken == null)
+			throw new RuntimeException("Dietician Token not generated!!");
+		statusCode = response.getStatusCode();
+		System.out.println("Status Code :" + statusCode);
+
+		return response;
+
+	}
+	
 	public Response patientLoginRequest() {
 
 		loginRequestPojo = LoginPayload.patientLogin();
@@ -81,6 +104,29 @@ public class UserLoginRequest extends CommonUtils {
 
 		return response;
 	}
+	
+	public Response patientLoginEndpointRequest() {
+
+		loginRequestPojo = LoginPayload.patientLoginEndpoint();
+		response = RestAssured.given()
+
+				.baseUri(baseURI)
+				.contentType(ContentType.JSON)
+				.body(loginRequestPojo)
+				.log().all()
+				.post(endpoints.getString("login"));
+
+		patientToken = response.jsonPath().getString("token");		
+		setPatientToken(patientToken);
+		System.out.println("Token :" + patientToken);
+		if (patientToken == null)
+			throw new RuntimeException("Patient Token not generated!!");
+		statusCode = response.getStatusCode();
+		System.out.println("Status Code :" + statusCode);
+
+		return response;
+	}
+	
 	//admin logout
 	public Response adminLogoutRequest(String adminToken) {
 		int statusCode;

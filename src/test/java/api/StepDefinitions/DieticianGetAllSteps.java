@@ -1,127 +1,169 @@
 package api.StepDefinitions;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
 
 import api.Payload.DieticianPayload;
 import api.Payload.DieticianPayload.TestCase;
 import api.Pojo.DieticianPojo;
 import api.Request.DieticianRequest;
+import api.Request.UserLoginRequest;
+import io.cucumber.java.AfterAll;
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 
 public class DieticianGetAllSteps {
 	private static final Logger LOGGER = LogManager.getLogger(DieticianGetAllSteps.class);
 	
-	private static final String DIETICIAN_ENDPOINT = "/dietician";
+	private static final String DIETICIAN_ENDPOINT = "/dietician/";
 	private static final String INVALID_ENDPOINT = "/invalid";
 	
-	private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA1OTMsImV4cCI6MTcyNDAxOTM5M30.OPtdczAakW0MedYn73x8YYms-yI5VYOAoqdabzc2lMgm2jbN90_gnVyc24yshvngeXxgHNfETNRTKNRmZy-tvg";
-	private static final String DIETICIAN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzIzOTkwNjE1LCJleHAiOjE3MjQwMTk0MTV9.uMrF8SzL8OY36FfVCN6rDnN2TqmgDsfGR_068I_97J7pNleR4HlvVoAT6l2lt2qQNw-REybsL9ePdP6ltKfUAw";
-	private static final String PATIENT_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjM5OTA2MzAsImV4cCI6MTcyNDAxOTQzMH0.8lkOI2xnSMqYoCwnXl55KVfz_hpcVk2D6eRVb6Tg-fTHqII0pr6XHO0JM0jayMYlwveS1QooW_RK86ubISs6FA";
+//	private static final String ADMIN_AUTH_TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJUZWFtNy5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MjQwODI1ODEsImV4cCI6MTcyNDExMTM4MX0.qaDYaMLfvwhk6G5BGznmXrs43AC6uUwC5OPiHEeXz1By56W9GL8rHQgy2mgzVm6m7-iVXacCuEik5ujt4EaODQ";
+//	private static final String dieticianAuthToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxdHJiZGFAZ21haWwuY29tIiwiaWF0IjoxNzI0MDg0NjcxLCJleHAiOjE3MjQxMTM0NzF9.CFPaZDayofJnajZC6eiZx5h7i15FtBmBIEaFlkLWyac_4oG8LJjDl13_l58od4E__dD6Xv4yIeTOWj1fSa-qKA";
+//	private static final String patientAuthToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhMTIzNDU2N0BnbWFpbC5jb20iLCJpYXQiOjE3MjQwODQ2ODMsImV4cCI6MTcyNDExMzQ4M30.LnrX-CoIAAYFPFP_WxrPV5Yg4BnbKN700x_UpwhVmvi9_5R07wc2Utq9BqHwHZCCNvAJ_H9Ox-qYIpixkqSvuA";
 
 
-	private DieticianRequest restUtil;
+	private static final DieticianPayload EXCEL_READER = new DieticianPayload();
+	private static DieticianRequest dieticianRequest = new DieticianRequest() ;
+	private static int dieticianId;
+	private static DieticianPojo dieticianCreated;
+	static String adminAuthToken;
+	static String dieticianAuthToken;
+	static String patientAuthToken;
+	private static Response response;
+	private UserLoginRequest userLoginRequest = new UserLoginRequest();
+
+
 	
-	private DieticianPojo dietician;
-	private ValidatableResponse response;
-
-	public DieticianGetAllSteps() {
-		restUtil = new DieticianRequest();
+	//@BeforeAll
+	public static void setup() {
+		DieticianPojo dieticianToCreate = EXCEL_READER.readRow(TestCase.GET_ALL);
+		 response = dieticianRequest.createDietician(DIETICIAN_ENDPOINT, Method.POST, ContentType.JSON, adminAuthToken, dieticianToCreate);
+		
+		dieticianCreated = response.then().statusCode(201)
+				.extract().as(DieticianPojo.class);
+		dieticianId = Integer.parseInt(dieticianCreated.getId());
+	}
+	
+//	@AfterAll
+	public static void tearDown() {
+		response = dieticianRequest.deleteDieticianById(DIETICIAN_ENDPOINT, Method.DELETE, ContentType.JSON, adminAuthToken, dieticianId);
+		response.then().statusCode(200);
 	}
 	
 	
 
 	@Given("Get All Dieticians has Admin Auth token")
 	public void app_has_admin_auth_token() {
-		// TODO: Integrate with Admin module
-		return;
+		
+
+		adminAuthToken = userLoginRequest.adminLoginRequest().jsonPath().getString("token");
+
 	}
 
 	@Given("Get All Dieticians has Dietician Auth token")
-	public void app_has_dietician_auth_token() {
-		// TODO: Integrate with Admin module
-		return;
+	public void app_has_dieticianAuthToken() {
+		
+		dieticianAuthToken = userLoginRequest.dieticianLoginRequest().jsonPath().getString("token");
+	
 	}
 
 	@Given("Get All Dieticians has Patient Auth token")
-	public void app_has_patient_auth_token() {
-		// TODO: Integrate with Admin module
-		return;
+	public void app_has_patientAuthToken() {
+		
+		patientAuthToken = userLoginRequest.patientLoginRequest().jsonPath().getString("token");
+		
 	}
-	
-	
 
 	@When("Get All Dieticians without Auth token")
 	public void create_dietician_without_auth_token() {
-		this.response = restUtil.getAllDieticians(DIETICIAN_ENDPOINT, Method.GET, ContentType.JSON, null);
+		this.response = dieticianRequest.getAllDieticians(DIETICIAN_ENDPOINT, Method.GET, ContentType.JSON, null);
 	}
 	
 	@When("Get All Dieticians with Dietician Auth token")
-	public void create_dietician_with_dietician_auth_token() {
-		this.response = restUtil.getAllDieticians(DIETICIAN_ENDPOINT, Method.GET, ContentType.JSON, DIETICIAN_AUTH_TOKEN);
+	public void create_dietician_with_dieticianAuthToken() {
+		this.response = dieticianRequest.getAllDieticians(DIETICIAN_ENDPOINT, Method.GET, ContentType.JSON, dieticianAuthToken);
 	}
 	
 	@When("Get All Dieticians with Patient Auth token")
-	public void create_dietician_with_patient_auth_token() {
-		this.response = restUtil.getAllDieticians(DIETICIAN_ENDPOINT, Method.GET, ContentType.JSON, PATIENT_AUTH_TOKEN);
+	public void create_dietician_with_patientAuthToken() {
+		this.response = dieticianRequest.getAllDieticians(DIETICIAN_ENDPOINT, Method.GET, ContentType.JSON, patientAuthToken);
 	}
 	
 	@When("Get All Dieticians with Admin Auth token")
 	public void create_dietician_with_admin_auth_token() {
-		this.response = restUtil.getAllDieticians(DIETICIAN_ENDPOINT, Method.GET, ContentType.JSON, ADMIN_AUTH_TOKEN);
+		this.response = dieticianRequest.getAllDieticians(DIETICIAN_ENDPOINT, Method.GET, ContentType.JSON, adminAuthToken);
 	}
 	
 	@When("Get All Dieticians with Admin Auth token and invalid HTTP method")
 	public void create_dietician_with_admin_auth_token_and_invalid_http_method() {
-		this.response = restUtil.getAllDieticians(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, ADMIN_AUTH_TOKEN);
+		this.response = dieticianRequest.getAllDieticians(DIETICIAN_ENDPOINT, Method.PATCH, ContentType.JSON, adminAuthToken);
 	}
 	
 	@When("Get All Dieticians with Admin Auth token and invalid endpoint")
 	public void create_dietician_with_admin_auth_token_and_invalid_endpoint() {
-		this.response = restUtil.getAllDieticians(INVALID_ENDPOINT, Method.GET, ContentType.JSON, ADMIN_AUTH_TOKEN);
+		this.response = dieticianRequest.getAllDieticians(INVALID_ENDPOINT, Method.GET, ContentType.JSON, adminAuthToken);
 	}
 	
 	@When("Get All Dieticians with Admin Auth token and invalid content type")
 	public void create_dietician_with_admin_auth_token_and_invalid_content_type() {
-		this.response = restUtil.getAllDieticians(DIETICIAN_ENDPOINT, Method.GET, ContentType.TEXT, ADMIN_AUTH_TOKEN);
+		this.response = dieticianRequest.getAllDieticians(DIETICIAN_ENDPOINT, Method.GET, ContentType.TEXT, adminAuthToken);
 	}
-	
-	
-	
-	
 	
 	@Then("Get All Dieticians fails with http status BAD_REQUEST")
 	public void dietician_get_all_fails_with_http_400() {
-		this.response.statusCode(400);
+		this.response.then().statusCode(400);
 	}
 	
 	@Then("Get All Dieticians fails with http status UNAUTHORIZED")
 	public void dietician_get_all_fails_with_http_401() {
-		this.response.statusCode(401);
+		this.response.then().statusCode(401);
 	}
 	
 	@Then("Get All Dieticians fails with http status NOT_FOUND")
 	public void dietician_get_all_fails_with_http_404() {
-		this.response.statusCode(404);
+		this.response.then().statusCode(404);
 	}
 	
 	@Then("Get All Dieticians fails with http status METHOD_NOT_ALLOWED")
 	public void dietician_get_all_fails_with_http_405() {
-		this.response.statusCode(405);
+		this.response.then().statusCode(405);
 	}
 	
 	@Then("Get All Dieticians fails with http status NOT_ACCEPTABLE")
 	public void dietician_get_all_fails_with_http_406() {
-		this.response.statusCode(406);
+		this.response.then().statusCode(406);
 	}
 
 	@Then("Get All Dieticians succeeds with http status OK")
 	public void dietician_get_all_succeeds_with_http_200() {
-		this.response.statusCode(200);
+		
+		
+		int responseStatusCode = this.response.getStatusCode();
+	    Assert.assertEquals(responseStatusCode, 200);
+//		List<DieticianPojo> dieticians = this.response.then().statusCode(200).extract().jsonPath().getList(".", DieticianPojo.class);
+//		
+//		boolean found = false;
+//		
+//		for(DieticianPojo dietician : dieticians) {
+//			if(dietician.getId().equals(dieticianCreated.getId())) {
+//				assertEquals(dietician, this.dieticianCreated);
+//				found = true;
+//			}
+//		}
+//		
+//		assertTrue(found);
 	}
 }
