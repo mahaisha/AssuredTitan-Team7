@@ -121,4 +121,21 @@
 		</dependency>
 	</dependencies>
 
+	<plugin>
+				<!--
+				https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<parallel>classes</parallel>
+					<threadCount>2</threadCount>
+				<includes>
+			        <include>RunnerFile.java</include>
+			    </includes>
+			</configuration>
+
+			</plugin>
+
+	
 </project>
