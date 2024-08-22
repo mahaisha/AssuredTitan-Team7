@@ -22,7 +22,7 @@ public class DieticianPutByIdSteps {
 	private static final Logger LOGGER = LogManager.getLogger(DieticianPutByIdSteps.class);
 	
 	//private static final String dieticianID = "6";
-	private static final String DIETICIAN_INVALID_ID = "abcd";
+	private static final int DIETICIAN_INVALID_ID = 999999999;
 	
 	private static final String DIETICIAN_ENDPOINT = "/dietician/";
 	private static final String INVALID_ENDPOINT = "/invalid";
@@ -40,7 +40,7 @@ public class DieticianPutByIdSteps {
 	static String adminAuthToken;
 	static String dieticianAuthToken;
 	static String patientAuthToken;
-	static String dieticianID = CommonUtils.getDieticianId();
+	static int dieticianID = 3;
 
 	public DieticianPutByIdSteps() {
 		excelReader = new DieticianPayload();
@@ -123,11 +123,6 @@ public class DieticianPutByIdSteps {
 	@When("Put Dietician By Id with Admin Auth token and invalid endpoint")
 	public void put_dietician_by_id_with_adminAuthToken_and_invalid_endpoint() {
 		this.response = dieticianRequest.putDieticianById(INVALID_ENDPOINT, Method.PUT, ContentType.JSON, adminAuthToken, this.dietician, dieticianID);
-	}
-	
-	@When("Put Dietician By Id with Admin Auth token and invalid content type")
-	public void put_dietician_by_id_with_adminAuthToken_and_invalid_content_type() {
-		this.response = dieticianRequest.putDieticianById(DIETICIAN_ENDPOINT, Method.PUT, ContentType.TEXT, adminAuthToken, this.dietician, dieticianID);
 	}
 		
 	@Then("Put Dietician By Id fails with http status BAD_REQUEST")

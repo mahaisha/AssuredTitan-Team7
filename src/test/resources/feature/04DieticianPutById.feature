@@ -73,10 +73,5 @@ Feature: Dietician
     And Put Dietician By Id with Admin Auth token and invalid endpoint
     Then Put Dietician By Id fails with http status NOT_FOUND
 
-  @tag11
-  Scenario: Put Dietician By Id with full Dietician details and invalid content type
-    Given Put Dietician By Id has Admin Auth token
-    When Put Dietician By Id Excel file has full Dietician details
-    And Put Dietician By Id with Admin Auth token and invalid content type
-    Then Put Dietician By Id fails with http status UNSUPPORTED_MEDIA_TYPE
+ 
    

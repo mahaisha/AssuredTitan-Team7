@@ -34,6 +34,7 @@ public class DieticianPayload {
 	
 	public enum TestCase {
 		FULL,
+		LOGIN,
 		MANDATORY,
 		ADDITIONAL,
 		INVALID,

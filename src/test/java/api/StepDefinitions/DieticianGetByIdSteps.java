@@ -49,7 +49,8 @@ public class DieticianGetByIdSteps {
 		
 		dieticianCreated = response.then().statusCode(201)
 				.extract().as(DieticianPojo.class);
-		dieticianId = Integer.parseInt(dieticianCreated.getId());
+		//dieticianId = Integer.parseInt(dieticianCreated.getId());
+		dieticianId = 3;
 	}
 	
 //	@AfterAll

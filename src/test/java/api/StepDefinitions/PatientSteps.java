@@ -7,10 +7,13 @@ import java.text.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.hamcrest.Matcher;
+//import org.hamcrest.Matcher;
+import static org.hamcrest.Matchers.equalTo;
+
 import org.testng.Assert;
 
 import api.Request.PatientReq;
+import api.Request.UpdatePatient;
 import api.Request.UserLoginRequest;
 import api.Utility.CommonUtils;
 import api.Utility.LoggerLoad;
@@ -30,15 +33,15 @@ public class PatientSteps extends CommonUtils {
 	public String dieticianToken;// =
 	// "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYmMueHl6QGV4YW1wbGUuY29tIiwiaWF0IjoxNzIzNzgxOTk1LCJleHAiOjE3MjM4MTA3OTV9.KDyWVaepHObLI3ZgZZhSDUgqSahUds4jEN8GHHcRlxyyth3sh_kw8_RtdAGDJDGpA9gU40dPcS8NzUExoYGa7A";
 	private static String patientToken;
-	private static String patientPassword = "test";
-	private static String dieticianPassword = "Inspire45";
+	//private static String patientPassword = "test";
+	//private static String dieticianPassword = "Inspire45";
 	private Response response;
-	private static int patientId = 84;
-	private static int invalidPatientId = 100000;
+	//private static int patientId = 84;
+	private static String invalidPatientId = "10000a";
 
 	private RequestSpecification request;
 	private static String endPoint;
-	private static String fileId = "66beb450a956ef1c5667388f";
+	//private static String fileId = "66beb450a956ef1c5667388f";
 	private static String invalidFileId = "1";
 
 	
@@ -52,6 +55,7 @@ public class PatientSteps extends CommonUtils {
 	    public static String token;
 	    
 	PatientReq patientReq = new PatientReq();
+	UpdatePatient updatePatient=new UpdatePatient();
 	private static final Logger logger = LogManager.getLogger(PatientSteps.class);
 
 UserLoginRequest login = new UserLoginRequest();
@@ -90,7 +94,7 @@ UserLoginRequest login = new UserLoginRequest();
 	@When("{string} send {string} http request with {string}")
 	public void userSendsGETHTTPRequest(String user, String reqMethod, String endpointType) {
 
-		patientReq.determineEndpoint(endpointType, patientId, fileId);
+		patientReq.determineEndpoint(endpointType);
 		response = patientReq.sendRequest(reqMethod);
 	}
 
@@ -101,6 +105,15 @@ UserLoginRequest login = new UserLoginRequest();
 		{
 			response.then().statusCode(statusCode);
 			patientReq.savePdfResponse();
+			//patientReq.PDFResponseValidator(endpointType);
+
+		}
+		else if(endpointType.equalsIgnoreCase("DeleteEndpoint")) {
+			int id= CommonUtils.getPatientID();
+			String expectedMessage = "Patient with Id " + id + " deleted Successfully!";
+			response.then()
+		    .statusCode(statusCode)  
+		    .body(equalTo(expectedMessage));
 		}
 		else
 		{
@@ -139,7 +152,7 @@ UserLoginRequest login = new UserLoginRequest();
 
 	@When("{string} send {string} http request with invalid ID {string}")
 	public void sendHttpRequestWithInvalidID(String user, String reqMethod, String endpointType) {
-		patientReq.determineEndpoint(endpointType, invalidPatientId, invalidFileId);
+		patientReq.determineInvalidEndpoint(endpointType);
 		response = patientReq.sendRequest(reqMethod);
 	}
 
@@ -221,15 +234,109 @@ public void dietician_receives_unsupported_media_type(Integer int1) {
 	}
 
 	@Then("Dietician recievs {int} status code with Patient Details in response body")
-	public void dietician_recievs_status_code_with_patient_details_in_response_body(Integer expectedStatusCode) {
+	public void dietician_recievs_status_code_with_patient_details_in_response_body(int expectedStatusCode) {
 		response.getStatusCode();
-		Assert.assertEquals(expectedStatusCode.intValue(), response.getStatusCode());
+		Assert.assertEquals(expectedStatusCode, response.getStatusCode());
 	   
 	}
 	@Then("validate JSON Schema for the patient created")
 	public void validate_json_schema_for_the_patient_created() {
 		response=patientReq.validateCreatechema();
 	}
+	
+	
+	//*************Madhu**************************************************
+	
+		@Given("Dietician creates PUT request with valid data.")
+		public void dietician_creates_put_request_with_valid_data() throws InvalidFormatException, IOException, ParseException {
+			response=updatePatient.updatePatientReq();
+		   
+		}
+		@When("Dietician send PUT http request with the endpoint")
+		public void dietician_send_put_http_request_with_the_endpoint() throws InvalidFormatException, IOException, ParseException {
+		//response=updatePatient.updatePatientReq();
+		  System.out.println("Dietician send PUT http request with the endpoint");
+		}
+		@Then("Dietician recieves {int} ok  with updated response body.")
+		public void dietician_recieves_ok_with_updated_response_body(int expectedStatusCode) {
+		    response.getStatusCode();
+			response.getStatusLine();
+			System.out.println( response.getStatusCode());
+			Assert.assertEquals(expectedStatusCode, response.getStatusCode());
+		}
+		@Given("Dietician creates PUT request by entering only valid mandatory details into the form-data key and value fields")
+		public void dietician_creates_put_request_by_entering_only_valid_mandatory_details_into_the_form_data_key_and_value_fields() throws InvalidFormatException, IOException, ParseException {
+			response=updatePatient.updatePatientReqWithMandatoryData();
+		   
+		}
+		
+		@Given("Dietician creates PUT request by entering only valid mandatory details in the form-data key and value fields")
+		public void dietician_creates_put_request_by_entering_only_valid_mandatory_details_in_the_form_data_key_and_value_fields() throws InvalidFormatException, IOException, ParseException {
+			//System.out.println("Dietician creates PUT request by entering only valid mandatory details in the form-data key and value fields");
+			response=updatePatient.updatePatientReqwithInvalidPatientId();
+		}
+		@Given("Dietician creates PUT request by entering only valid additional details into the form-data key and value fields.")
+		public void dietician_creates_put_request_by_entering_only_valid_additional_details_into_the_form_data_key_and_value_fields() throws IOException, ParseException {
+		   
+			response=updatePatient.updatePatientWithOnlyAdditonalDetails();
+		}
+		@Then("Dietician recieves {int} Bad request")
+		public void dietician_recieves_bad_request(int statusCode) {
+		response.getStatusCode();
+			   Assert.assertEquals(statusCode, response.getStatusCode());
+		}
+//		@Given("Dietician creates PUT request by entering only invalid additional details into the form-data key and value fields")
+//		public void dietician_creates_put_request_by_entering_only_invalid_additional_details_into_the_form_data_key_and_value_fields() {
+		    //}
+		
+		@When("Dietician send PUT http request with the endpoint with invalid Id")
+		public void dietician_send_put_http_request_with_the_endpoint_with_invalid_id() throws IOException, ParseException {
+			logger.info("-----------------------send invalidID put request-----------");
+		}
+		@Then("Dietician recieves {int} Not Found")
+		public void dietician_recieves_not_found(int statusCode) {
+			response.getStatusCode();
+			   response.getStatusLine();
+			   Assert.assertEquals(statusCode, response.getStatusCode());
+		   
+		}
+		@Given("Dietician creates PUT request by not attaching any file into the form-data key and value fields")
+		public void dietician_creates_put_request_by_not_attaching_any_file_into_the_form_data_key_and_value_fields() throws InvalidFormatException, IOException, ParseException {
+			response=updatePatient.updatePatientReq();
+		   
+		}
+		@Given("Dietician creates PUT request by entering valid data into  form-data key and value fields")
+		public void dietician_creates_put_request_by_entering_valid_data_into_form_data_key_and_value_fields() throws InvalidFormatException, IOException, ParseException {
+		logger.info("-----------upodate with invalid data-----------");
+		   
+		}
+		@When("Dietician send POST http request with endpoint")
+		public void dietician_send_post_http_request_with_endpoint() throws IOException, ParseException {
+			response=updatePatient.updatePatientReqwithPostReq();
+		   
+		}
+		@Then("Dietician recieves {int} method not allowed")
+		public void dietician_recieves_method_not_allowed(int statusCode) {
+			response.getStatusCode();
+			  response.getStatusLine();
+			Assert.assertEquals(statusCode, response.getStatusCode());
+		}
+		@Given("Dietician creates PUT request by entering valid data into the form-data key and value fields.")
+		public void dietician_creates_put_request_by_entering_valid_data_into_the_form_data_key_and_value_fields() throws InvalidFormatException, IOException, ParseException {
+			response=updatePatient.updatePatientwithInvalidEndpt();
+		   
+		}
+		@When("Dietician sent PUT http request with invalid endpoint")
+		public void dietician_sent_put_http_request_with_invalid_endpoint() throws IOException, ParseException {
+			//updatePatient.updatePatientReqwithInvalidEndpoint();
+		   
+		}
+		@Then("Dietician recieves {int} unsupported media type")
+		public void dietician_recieves_unsupported_media_type(int statusCode) {
+			response.getStatusCode();
+			   response.getStatusLine();
+			   Assert.assertEquals(statusCode, response.getStatusCode());
+		}
 	
 	
 }
